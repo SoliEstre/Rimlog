@@ -221,7 +221,7 @@
         Store.captures.unshift(cap); Store.save();
         $h.find(".rim-q, .rim-m").val("");
         requestInsight(cap);                       // 비동기 — 화면 블로킹 없음
-        estreUi.toast("저장됐어요 — AI가 연결을 찾는 중…");
+        estreToast("저장됐어요 — AI가 연결을 찾는 중…");   // EstreUI 전역 토스트 API
         appPageManager.bringPage("log");           // 기록 탭 전환
       });
     }
