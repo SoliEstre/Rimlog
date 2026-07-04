@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Estre UI Service Loader</title>
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1 viewport-fit=cover">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="App title" />
+    <meta name="description" content="App description" />
+	<meta name="theme-color" content="#FFFFFF">
+    <script>
+// Environment constants
+let isStandalone = !!window.matchMedia("(display-mode: standalone)").matches;
+
+const isMobile = navigator.userAgent.includes("Mobile");
+const isIPhone = navigator.userAgent.includes("iPhone");
+const isIPad = navigator.userAgent.includes("iPad");
+const isIPod = navigator.userAgent.includes("iPod");
+const isAppleMobile = isIPhone || isIPad || isIPod;
+const isAndroid = navigator.userAgent.includes("Android");
+const isAndroidMobile = isAndroid && isMobile;
+const isSamsungBrowser = navigator.userAgent.includes("SamsungBrowser");
+
+
+window.isLog = true;
+window.isDebug = true;
+window.isVerbose = false;
+Object.defineProperty(window, "isLogging", {
+    "get": function () { return this.isLog || this.isDebug; },
+    configurable: true,
+    enumerable: false,
+});
+Object.defineProperty(window, "isVerbosely", {
+    "get": function () { return this.isDebug && this.isVerbose; },
+    configurable: true,
+    enumerable: false,
+});
+
+
+const search = new URL(location.href).search;
+let messageElement;
+
+const showMessage = message => {
+    if (messageElement) messageElement.textContent = message;
+};
+
+const onServiceWorkerReady = _ => {
+    showMessage("Starting app...");
+    document.body.addEventListener("click", e => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        location.href = "/" + search;
+
+        return;
+    });
+    setTimeout(_ => {
+        location.href = "/" + search;
+    }, 0);
+};
+
+if ("serviceWorker" in navigator) {
+    let swRegisteration;
+    let isInitialSetup;
+    let isFirstActivated = false;
+    let isSecondActivated = false;
+
+    const serviceWorkerOnInstalling = (worker) => {
+        if (worker) {
+            if (isLogging) console.log("Service Worker is installing:", worker.scriptURL);
+            else if (isVerbosely) console.log("Service Worker is installing:", worker);
+            showMessage("Downloading update...");
+            worker.postMessage({ type: "SKIP_WAITING" });
+        }
+    };
+
+    const serviceWorkerOnWaiting = (worker) => {
+        if (worker) {
+            if (isLogging) console.log("Service Worker is waiting:", worker.scriptURL);
+            else if (isVerbosely) console.log("Service Worker is waiting:", worker);
+            showMessage("Applying update...");
+        }
+    };
+
+    const serviceWorkerOnActivating = (worker, isNewer = false) => {
+        if (worker) {
+            if (isLogging) console.log("Service Worker is activating:", worker.scriptURL);
+            else if (isVerbosely) console.log("Service Worker is activating:", worker);
+            showMessage("Loading service...");
+        }
+    };
+
+    const serviceWorkerOnActive = (worker, isNewer = false) => {
+        if (worker) {
+            if (isLogging) console.log("Service Worker is active:", worker.scriptURL);
+            else if (isVerbosely) console.log("Service Worker is active:", worker);
+            worker.postMessage({ type: "CLIENTS_CLAIM" });
+            if (!isFirstActivated) {
+                isFirstActivated = true;
+                showMessage("Checking for updates...");
+                (async _ => {
+                    try {
+                        const reg = await swRegisteration?.update();
+                        const worker = reg.installing ?? reg.waiting;
+                        if (worker == null) onServiceWorkerReady();
+                    } catch (error) {
+                        console.error(error);
+                        onServiceWorkerReady();
+                    }
+                })();
+            } else if (!isSecondActivated) {
+                isSecondActivated = true;
+                onServiceWorkerReady();
+            }
+        }
+    };
+
+    window.addEventListener("load", () => {
+        messageElement = document.getElementById("message");
+
+        navigator.serviceWorker.oncontrollerchange = (e) => {
+            const controller = navigator.serviceWorker.controller;
+            if (controller) {
+                if (isLogging) console.log("Service Worker controller changed:", controller.scriptURL);
+                else if (isVerbosely) console.log("Service Worker controller changed:", controller);
+            }
+        };
+
+        showMessage("Registering service...");
+
+        navigator.serviceWorker.register("./serviceWorker.js", {
+            // scope: "/", // When use service worker file out of location of index.html, have to set scope with HTTP Server response Header 'Service-Worker-Allowed: /'
+            updateViaCache: "none",
+        }).then(registration => {
+            swRegisteration = registration;
+            if (isLogging) console.log("Service Worker registered with scope:", registration.scope);
+
+            serviceWorkerOnInstalling(registration.installing);
+            serviceWorkerOnWaiting(registration.waiting);
+
+            registration.addEventListener("statechange", () => {
+                const activated = registration.active;
+                const constoller = navigator.serviceWorker.controller;
+                if (activated) {
+                    if (isLogging) console.log("Service Worker state changed to:", activated.state);
+                    serviceWorkerOnActive(registration.active, controller != null && activated != controller);
+                }
+            });
+
+            serviceWorkerOnActive(registration.active);
+            isInitialSetup = registration.active == null;
+
+            registration.addEventListener("updatefound", () => {
+                const newWorker = registration.installing;
+                if (isLogging) console.log("New Service Worker found:", newWorker.scriptURL);
+                else if (isVerbosely) console.log("New Service Worker found:", newWorker);
+                serviceWorkerOnInstalling(newWorker);
+
+                newWorker.addEventListener("statechange", () => {
+                    if (isLogging) console.log("New Service Worker state changed to:", newWorker.state);
+                    switch (newWorker.state) {
+                        case "installed":
+                            if (isLogging) console.log("New Service Worker installed and waiting to activate.");
+                            const controllerExist = navigator.serviceWorker.controller;
+                            const isWaiting = registration.waiting == newWorker;
+                            
+
+                            if (isWaiting) {
+                                if (controllerExist) {
+                                    serviceWorkerOnWaiting(newWorker);
+                                } else {
+                                    // do nothing (first install)
+                                }
+                            }
+                            break;
+
+                        case "activating":
+                            serviceWorkerOnActivating(newWorker, true);
+                            break;
+
+                        case "activated":
+                            serviceWorkerOnActive(newWorker, true);
+                            break;
+                    }
+
+                    if (newWorker == navigator.serviceWorker.controller) {
+                        if (isLogging) console.log("New Service Worker is attached.");
+                    }
+                });
+            });
+        }).catch(error => {
+            console.error("Service Worker registration failed:", error);
+            onServiceWorkerReady();
+        });
+    });
+} else onServiceWorkerReady();
+    </script>
+    <link rel="manifest" href="./webmanifest.json" crossOrigin="use-credentials">
+    <style>
+@keyframes loopmove {
+    0% { translate: -50% 0; }
+    100% { translate: 350% 0; }
+}
+
+body { margin: 0; }
+
+#centerPlacer { position: fixed; display: flex; flex-flow: column nowrap; top: 0; bottom: 0; left: 0; right: 0; width: fit-content; height: fit-content; margin: auto; color: #333; font-size: 0.875rem; line-height: 1.2em; user-select: none; }
+
+#loopbar { position: absolute; bottom: -24px; left: -120px; right: -120px; width: 240px; height: 4px; margin: auto; border-radius: 4px; overflow: hidden; }
+#loopbar::after { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(90deg, #FFF 0%, transparent 20%, transparent 80%, #FFF 100%); }
+#loopworm { position: absolute; top: 0; left: -80%; width: 80%; height: 100%; border-radius: 4px; background-color: #222222; animation: loopmove 1s linear infinite; will-change: transform; }
+    </style>
+</head>
+<body>
+    <div id="centerPlacer">
+        <span id="message">Initializing service...</span>
+        <div id="loopbar"><div id="loopworm"></div></div>
+    </div>
+</body>
+</html>

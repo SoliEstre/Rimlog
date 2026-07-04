@@ -1,0 +1,181 @@
+        <!-- Estre UI stock handle prototype assigned area -->
+        <!-- NOTE: Do not change this implementation. this is reference structure. -->
+        <article class="stock">
+            <template data-handle="unifiedCalendar" class="unified_calendar">
+                <section class="calendar_area" data-size="2" data-max-size="3">
+                    <div class="variable_calendar" data-scale="3" data-begin-scale="3" data-show-today="1" data-show-schedule-whole="1" data-show-schedule-timely="1" data-current-schedule-data-origin="">
+                        <div class="date_indicate_area">
+                            <div class="date_indicator">
+                                <span class="scaler years" data-scale-id="1" title="Choose year"><label>2024</label></span>
+                                <span class="scaler months" data-scale-id="2" title="Choose month"><label>6</label></span>
+                                <span class="scaler weeks" data-scale-id="3" title="Show monthly"><label>3</label></span>
+                                <span class="scaler days" data-scale-id="5" title="Show weekly"><label>Fri</label></span>
+                                <span class="scaler month" data-scale-id="3" data-scale-selected="1" title="Show monthly"><label>🗓️</label></span>
+                                <span class="scaler date" data-scale-id="5" title="Show daily"><label data-prefix="24.06.">21</label></span>
+                                <span class="today" title="Show today">
+                                    <input type="checkbox" id="unicalShowToday" checked />
+                                    <label for="unicalShowToday">Today</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="calendar_structure" data-today-y="2024" data-today-m="6" data-today-w="3" data-today-d="21" data-focus-y="2024" data-focus-m="7" data-focus-w="1" data-focus-d="3" data-hide-weekage="" data-hide-weekend="">
+                        </div>
+                        <div class="calendar_bar">
+                            <div class="schedule_filter_area thin_scroll">
+                                <div class="schedule_filter">
+                                    <label><span>My<br />Sch.</span></label>
+                                    <ul class="fixed">
+                                        <li data-group="whole" data-selected="1"><label>Whole day</label></li>
+                                        <li data-group="timely" data-selected="1"><label>Timely</label></li>
+                                    </ul>
+                                    <label><span>See<br />Together</span></label>
+                                    <ul class="variable">
+                                    </ul>
+                                    <div class="area_pad"></div>
+                                </div>
+                            </div>
+                            <div class="control_area">
+                                <nav class="settings_panel">
+                                    <h3>⚙️ Calendar settings</h3>
+                                    <div class="lines_block inset_on_gap_quarter">
+                                        <div class="line_block v_stretch inset_on_gap_quarter">
+                                            <input type="checkbox" id="hide_weekage">
+                                            <label for="hide_weekage">Hide weekage</label>
+                                        </div>
+                                        <div class="line_block v_stretch inset_on_gap_quarter">
+                                            <input type="checkbox" id="hide_weekend">
+                                            <label for="hide_weekend">Hide weekend</label>
+                                        </div>
+                                    </div>
+                                </nav>
+                                <button class="tp_tiled_btn settings"></button>
+                                <div class="area_handler">
+                                    <button class="tp_tiled_btn to_smaller" title="Show calendar to be more smaller"></button>
+                                    <button class="tp_tiled_btn to_larger" title="Show calendar to be more larger"></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="area_resizer"></div>
+                    </div>
+                </section>
+                <section class="schedule_list">
+                    <div class="scoped_tab_block unified_scheduler" data-begin-tab="4">
+                        <div class="titled_tab_block">
+                            <ul class="tab_set">
+                                <li class="yearly" data-tab-id="1" data-scope="yearly"><span>Yearly</span></li>
+                                <li class="mothly" data-tab-id="2" data-scope="monthly"><span>Monthly</span></li>
+                                <li class="weekly" data-tab-id="3" data-scope="weekly" data-tab-selected="1"><span>Weekly</span></li>
+                                <li class="daily" data-tab-id="4" data-scope="daily"><span>Daily</span></li>
+                            </ul>
+                        </div>
+                        <div class="sliding_subject_block">
+                            <div class="span_wrap" data-tab-id="1" data-scope="yearly"><span>2024</span></div>
+                            <div class="span_wrap" data-tab-id="2" data-scope="monthly"><span>June / 2024</span></div>
+                            <div class="span_wrap" data-tab-id="3" data-scope="weekly" data-tab-selected="1"><span>July week 1</span></div>
+                            <div class="span_wrap" data-tab-id="4" data-scope="daily"><span>June / 21 (Fri)</span></div>
+                            <button class="page_handle tp_tiled_btn" data-direction="prev"></button>
+                            <button class="page_handle tp_tiled_btn" data-direction="next"></button>
+                        </div>
+                        <div class="tab_content_blocks">
+                            <div class="infinite_h_pager linear_time_table schedule_host scope_item" data-tab-id="1" data-scope="yearly">
+                                <ul class="bound_host bxv_scroll" data-bound="2023">
+                                </ul>
+                                <ul class="bound_host bxv_scroll" data-bound="2024" data-page-selected="1">
+                                </ul>
+                                <ul class="bound_host bxv_scroll" data-bound="2025">
+                                </ul>
+                            </div>
+                            <div class="infinite_h_pager linear_time_table schedule_host scope_item" data-tab-id="2" data-scope="monthly" data-preload="1">
+                                <ul class="bound_host bxv_scroll" data-bound="2024.05">
+                                </ul>
+                                <ul class="bound_host bxv_scroll" data-bound="2024.06" data-page-selected="1">
+                                </ul>
+                                <ul class="bound_host bxv_scroll" data-bound="2024.07">
+                                </ul>
+                            </div>
+                            <div class="infinite_h_pager linear_time_table schedule_host scope_item" data-tab-id="3" data-scope="weekly" data-preload="1" data-tab-selected="1">
+                                <ul class="bound_host bxv_scroll" data-bound="2024.06w4">
+                                </ul>
+                                <ul class="bound_host bxv_scroll" data-bound="2024.07w1" data-page-selected="1">
+                                </ul>
+                                <ul class="bound_host bxv_scroll" data-bound="2024.07w2">
+                                </ul>
+                            </div>
+                            <div class="infinite_h_pager linear_time_table schedule_host scope_item" data-tab-id="4" data-scope="daily" data-preload="1">
+                                <ul class="bound_host bxv_scroll" data-bound="2024.06.20">
+                                </ul>
+                                <ul class="bound_host bxv_scroll" data-bound="2024.06.21" data-page-selected="1">
+                                </ul>
+                                <ul class="bound_host bxv_scroll" data-bound="2024.06.22">
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </template>
+            <template data-handle="dedicatedCalendar" class="dedicated_calendar">
+                <div class="calendar_block">
+                    <div class="micro_calendar" data-stretchable="" data-collapsed="">
+                        <div class="calendar_structure" data-structure-type="weekfloor" data-bound-y="" data-bound-m="" data-bound-w="" data-today-y="" data-today-m="" data-today-w="" data-today-d="" data-focus-y="" data-focus-m="" data-focus-w="" data-focus-d="" data-hide-weekage="1" data-hide-weekend="" data-show-pointer-days-subject="" data-show-pointer-days="" data-show-pointer-selected="">
+                            <div class="days_subjects">
+                                <div class="days_holder">
+                                    <div class="days">
+                                        <div class="day" data-day="0"><div class="label"><label>Su</label></div></div>
+                                        <div class="day" data-day="1"><div class="label"><label>Mo</label></div></div>
+                                        <div class="day" data-day="2"><div class="label"><label>Tu</label></div></div>
+                                        <div class="day" data-day="3"><div class="label"><label>We</label></div></div>
+                                        <div class="day" data-day="4"><div class="label"><label>Th</label></div></div>
+                                        <div class="day" data-day="5"><div class="label"><label>Fr</label></div></div>
+                                        <div class="day" data-day="6"><div class="label"><label>Sa</label></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="weeks"></div>
+                        </div>
+                        <!-- <div class="under_gradient"></div> -->
+                        <!-- <div class="stretch_handle"><div class="handle"></div></div> -->
+                    </div>
+                </div>
+                <!-- <div class="schedule_block">
+                    <div class="minimal_scheduler">
+                        <ul class="schedule_list" data-message-on-no-selection="Select a day in the calendar" data-message-on-loading="Loading schedule of selected day" data-message-on-no-data="No any shcedule in selected day"></ul>
+                    </div>
+                </div> -->
+            </template>
+            <template data-handle="monthSelectorBar" class="month_selector_bar" data-current="" data-dropdown-open="" data-auto-init="1" data-blind-float-bg="1" data-use-popup-selector="">
+                <input type="month" class="monthSelectorInput" />
+                <div class="bar_side left_side">
+                    <button class="tp_tiled_btn selector text_darker font_18 font_semi_bold"><span class="current">2025.01</span></button>
+                </div>
+                <div class="bar_side right_side">
+                    <button class="tp_tiled_btn prev text_gray font_16 font_regular"><span>Prev</span></button>
+                    <button class="tp_tiled_btn next text_gray font_16 font_regular"><span>Next</span></button>
+                </div>
+                <div class="float_selections float_bottom">
+                    <ul class="monthes">
+                    </ul>
+                </div>
+            </template>
+            <template data-handle="variableTabBlock" class="variable_tab_block">
+                <div class="tab_list_block line_block from_start thin_divider font_sr16" style="margin-top: 4px; ">
+                    <button class="tp_tiled_btn board_item font_sr16 font_light" data-tab-id="|tabId|"><span class="block inline inset_on_padding">|tabName|</span></button>
+                </div>
+                <div class="tab_content_blocks">
+                    <div class="lines_block" data-tab-id="">
+                    </div>
+                </div>
+            </template>
+            <template data-handle="multiDialSlot" class="multi_dial_slot">
+                <ul class="dialHolder">
+                    <li class="dial_bound" data-index="|boundIndex|">
+                        <div class="prefix"><span></span></div>
+                        <ul class="dial_host">
+                            <li data-index="|index|"><span>|value|</span></li>
+                        </ul>
+                        <div class="suffix"><span></span></div>
+                    </li>
+                    <li class="divider" data-offset="|offset|"><span></span></li>
+                </ul>
+            </template>
+        </article>
+        <!-- end of stock prototypes -->

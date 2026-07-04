@@ -1,0 +1,638 @@
+/* Unified Calendar handle style */
+.unified_calendar { container-name: unical-root; container-type: size; user-select: none; }
+.unified_calendar section {}
+.unified_calendar section.calendar_area { flex-grow: 0; flex-shrink: 0; }
+@container unical-root (min-width: 740px) {
+.unified_calendar section.calendar_area { --side-pad: 16px; }
+} @container unical-root (not (min-width: 740px)) {
+.unified_calendar section.calendar_area { --side-pad: 8px; }
+    @container unical-root (max-width: 460px) {
+.unified_calendar section.calendar_area { --side-pad: 6px; }
+        @container unical-root (max-width: 380px) {
+.unified_calendar section.calendar_area { --side-pad: 4px; }
+            @container unical-root (max-width: 350px) {
+.unified_calendar section.calendar_area { --side-pad: 2px; }
+                @container unical-root (max-width: 340px) {
+.unified_calendar section.calendar_area { --side-pad: 0px; }
+                }
+            }
+        }
+    }
+}
+.unified_calendar section.schedule_list { flex-grow: 1; flex-shrink: 1; height: -moz-available; height: -webkit-fill-available; height: stretch; }
+
+
+.calendar_area { --cal-area-height-ratio: 0.5; --min-height: 0px; --indic-area-min-height: 28px; --cal-bar-height: 60px; --side-pad: 0px; position: relative; height: calc(max(calc((100% - var(--indic-area-min-height) - var(--cal-bar-height) - var(--bottom-pad)) * var(--cal-area-height-ratio)), var(--min-height)) + var(--indic-area-min-height) + var(--cal-bar-height)); margin: 0; padding: 0 max(var(--side-pad), 4px); transition-timing-function: ease; transition-duration: 0.4s; user-select: none; }
+.calendar_area[data-size="0"] { --cal-area-height-ratio: 0; }
+.calendar_area[data-size="1"] { --cal-area-height-ratio: 0.4; --min-height: 240px; }
+.calendar_area[data-size="2"] { --cal-area-height-ratio: 0.6; --min-height: 320px; }
+@container unical-root (min-width: 460px) and (min-height: 760px) {
+.calendar_area[data-size="1"] { --min-height: 320px; }
+.calendar_area[data-size="2"] { --min-height: 500px; }
+}
+@container unical-root (max-height: 650px) {
+.calendar_area[data-size="1"] { --cal-area-height-ratio: 0.25; --min-height: 160px; }
+.calendar_area[data-size="2"] { --cal-area-height-ratio: 0.5; --min-height: 240px; }
+}
+@supports (not (container-type: inline-size)) { /* fallback for iOS(Safari) 15 and under */
+    @media (max-height: 680px) {
+.calendar_area[data-size="1"] { --cal-area-height-ratio: 0.25; --min-height: 160px; }
+.calendar_area[data-size="2"] { --cal-area-height-ratio: 0.5; --min-height: 240px; }
+    }
+}
+.calendar_area[data-size="2"][data-scale-override="4"] { --cal-area-height-ratio: 0.5; }
+.calendar_area[data-size="1"][data-scale-override="5"] { --cal-area-height-ratio: 0.3; }
+.calendar_area[data-size="2"][data-scale-override="5"] { --cal-area-height-ratio: 0.4; }
+.calendar_area:is([data-size="1"], [data-size="2"])[data-scale-override="6"] { --cal-area-height-ratio: 0.2; }
+.calendar_area[data-size="3"] { --cal-area-height-ratio: 1; }
+.calendar_area:not([data-scale-override=""]) { --min-height: 240px; }
+.calendar_area[data-fit-calendar="1"] { --min-height: fit-content; }
+.calendar_area[data-size=""] { height: min(max(var(--height), var(--indic-area-min-height) + var(--cal-bar-height)), calc(100% - var(--bottom-pad))); }
+.calendar_area > div.variable_calendar { --trdl-hide: 0s; --trdr-hide: 0.4s; --trdr-expand: 0.4s; --trdl-item: 0s; --trdl-group: 0.4s; --trdr-group: 0.4s; --trdr-item: 0.4s; --trdl-ratio: 0.4s; position: relative; display: flex; flex-direction: column; flex-wrap: nowrap; height: 100%; margin: 0; }
+.calendar_area > div.variable_calendar[data-no-transition="1"] { --trdl-hide: 0s; --trdr-hide: 0s; --trdr-expand: 0s; --trdl-item: 0s; --trdl-group: 0s; --trdr-group: 0s; --trdr-item: 0s; --trdl-ratio: 0s; }
+.calendar_area > div.variable_calendar div { min-width: fit-content; margin: 0; transition-timing-function: ease; }
+.calendar_area > div.variable_calendar > div { }
+
+div.variable_calendar { user-select: none; }
+div.variable_calendar > div.date_indicate_area { container-name: unical-indic-area; container-type: inline-size; width: 100%; height: var(--indic-area-min-height); flex-grow: 0; flex-shrink: 0; }
+div.variable_calendar > div.date_indicate_area > div.date_indicator { width: max-content; margin: 0 auto; text-wrap: nowrap; /* display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: center; */ }
+div.variable_calendar > div.date_indicate_area > div.date_indicator > span { display: inline-block; padding: 4px; }
+div.variable_calendar > div.date_indicate_area > div.date_indicator > span > label { color: var(--color-text); font-size: 1rem; cursor: pointer; }
+div.variable_calendar > div.date_indicate_area > div.date_indicator > span.scaler[data-today="1"] > label { color: var(--color-today-vivid); }
+div.variable_calendar > div.date_indicate_area > div.date_indicator > span.scaler[data-selected="1"] > label { text-shadow: -0.05em -0.05em 0 rgb(var(--csdg) / 60%), 0.05em 0.05em 0 rgb(var(--csdv) / 40%); }
+@container unical-indic-area (max-width: 380px) {
+div.variable_calendar > div.date_indicate_area > div.date_indicator > span > label { font-size: 0.9375rem; }    
+    @container unical-indic-area (max-width: 360px) {
+div.variable_calendar > div.date_indicate_area > div.date_indicator > span > label { font-size: 0.875rem; }    
+        @container unical-indic-area (max-width: 340px) {
+div.variable_calendar > div.date_indicate_area > div.date_indicator > span > label { font-size: 0.8rem; }    
+        }
+    }
+} @supports (not (container-type: inline-size)) { /* fallback for iOS(Safari) 15 and under */
+    @media (max-width: 380px) {
+div.variable_calendar > div.date_indicate_area > div.date_indicator > span > label { font-size: 0.9375rem; }    
+        @media (max-width: 360px) {
+div.variable_calendar > div.date_indicate_area > div.date_indicator > span > label { font-size: 0.875rem; }    
+            @media (max-width: 340px) {
+div.variable_calendar > div.date_indicate_area > div.date_indicator > span > label { font-size: 0.8rem; }    
+            }
+        }
+    }
+}
+div.variable_calendar > div.date_indicate_area > div.date_indicator > span > label::before { color: var(--color-text-lightest); }
+div.variable_calendar > div.date_indicate_area > div.date_indicator > span > label::after { color: var(--color-text-lightest); }
+div.variable_calendar > div.date_indicate_area > div.date_indicator > span.years { }
+div.variable_calendar > div.date_indicate_area > div.date_indicator > span.years > label { }
+div.variable_calendar > div.date_indicate_area > div.date_indicator > span.years > label::before { content: ''; }
+div.variable_calendar > div.date_indicate_area > div.date_indicator > span.years > label::after { content: ''; }
+div.variable_calendar:lang(ko) > div.date_indicate_area > div.date_indicator > span.years > label::before { content: ''; }
+div.variable_calendar:lang(ko) > div.date_indicate_area > div.date_indicator > span.years > label::after { content: '년도'; }
+div.variable_calendar > div.date_indicate_area > div.date_indicator > span.months { }
+div.variable_calendar > div.date_indicate_area > div.date_indicator > span.months > label { }
+div.variable_calendar > div.date_indicate_area > div.date_indicator > span.months > label::before { content: ''; }
+div.variable_calendar > div.date_indicate_area > div.date_indicator > span.months > label::after { content: ''; }
+div.variable_calendar:lang(ko) > div.date_indicate_area > div.date_indicator > span.months > label::before { content: ''; }
+div.variable_calendar:lang(ko) > div.date_indicate_area > div.date_indicator > span.months > label::after { content: '월'; }
+div.variable_calendar > div.date_indicate_area > div.date_indicator > span.weeks { }
+div.variable_calendar > div.date_indicate_area > div.date_indicator > span.weeks > label { }
+div.variable_calendar > div.date_indicate_area > div.date_indicator > span.weeks > label::before { content: 'week\A0'; }
+div.variable_calendar > div.date_indicate_area > div.date_indicator > span.weeks > label::after { content: ''; }
+div.variable_calendar:lang(ko) > div.date_indicate_area > div.date_indicator > span.weeks > label::before { content: ''; }
+div.variable_calendar:lang(ko) > div.date_indicate_area > div.date_indicator > span.weeks > label::after { content: '주차'; }
+div.variable_calendar > div.date_indicate_area > div.date_indicator > span.month { }
+div.variable_calendar > div.date_indicate_area > div.date_indicator > span.month > label { }
+div.variable_calendar > div.date_indicate_area > div.date_indicator > span.days { }
+div.variable_calendar > div.date_indicate_area > div.date_indicator > span.days > label { }
+div.variable_calendar > div.date_indicate_area > div.date_indicator > span.days > label::before { content: ''; }
+div.variable_calendar > div.date_indicate_area > div.date_indicator > span.days > label::after { content: 'day'; }
+div.variable_calendar:lang(ko) > div.date_indicate_area > div.date_indicator > span.days > label::before { content: ''; }
+div.variable_calendar:lang(ko) > div.date_indicate_area > div.date_indicator > span.days > label::after { content: '요일'; }
+div.variable_calendar > div.date_indicate_area > div.date_indicator > span.date { }
+div.variable_calendar > div.date_indicate_area > div.date_indicator > span.date > label { }
+div.variable_calendar > div.date_indicate_area > div.date_indicator > span.date > label::before { display: inline-block; letter-spacing: -0.05em; margin-inline: -0.1em -0.15em; scale: 0.9 1; }
+div.variable_calendar > div.date_indicate_area > div.date_indicator > span.today { padding: 4px 6px; }
+div.variable_calendar > div.date_indicate_area > div.date_indicator > span.today > input { margin: 0; translate: 0 0.1em; cursor: pointer; }
+div.variable_calendar > div.date_indicate_area > div.date_indicator > span.today > label { color: var(--color-today-vivid); }
+
+
+div.variable_calendar > div.calendar_structure { container-name: unical-str-root; container-type: size; height: 100%; flex-grow: 1; flex-shrink: 1; }
+
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] { text-align: center; }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"][data-transition]:not([data-transition=""]):not([data-transition="0"]) * { will-change: auto; }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] :is(div, label, ul, li, span) { overflow: hidden; }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] div { box-sizing: border-box; }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] label { min-width: fit-content; flex-grow: 0; flex-shrink: 0; color: var(--color-text-dark); transition-timing-function: ease; transition-duration: 0.3s; }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"][data-no-transition="1"] label { transition-duration: unset; }
+
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] .days { display: flex; flex-direction: row; flex-wrap: nowrap; width: 100%; margin: 0 auto; }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] .days > .day { width: 14%; width: round(to-zero, calc(100% / 7), 1%); transition-delay: unset; transition-duration: unset; }
+
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] div.days_subjects { flex-shrink: 0; text-align: center; }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] div.days_subjects > div.days_holder { display: flex; flex-direction: row; flex-wrap: nowrap; align-items: center; }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] div.days_subjects > div.days_holder > label { container-name: unical-days-subject-label; container-type: inline-size; width: min(5em, calc(100% / 8)); min-width: max-content; font-size: 0.875rem; text-wrap: nowrap; transition-timing-function: ease; transition-duration: var(--trdr-expand); cursor: pointer; }
+div.variable_calendar:is([data-scale="1"], [data-scale="2"]) > div.calendar_structure[data-structure-type="massive"] div.days_subjects > div.days_holder > label { opacity: 0; }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] div.days_subjects > div.days_holder > label > span { display: inline-block; padding: 0.16em 0.8em; border-radius: 15px; color: rgb(var(--cwht) / 85%); font-size: 1.25em; line-height: 1.18rem; background-color: rgb(var(--cgn) / 90%); transition-timing-function: ease; transition-duration: var(--trdr-expand); }
+@container unical-days-subject-label (max-width: 58px) {
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] div.days_subjects > div.days_holder > label > span { font-size: 1.00em; transition-duration: 0s; }
+    @container unical-days-subject-label (max-width: 54px) {
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] div.days_subjects > div.days_holder > label > span { font-size: 0.9em; }
+        @container unical-days-subject-label (max-width: 48px) {
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] div.days_subjects > div.days_holder > label > span { font-size: 0.8em; }
+            @container unical-days-subject-label (max-width: 43px) {
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] div.days_subjects > div.days_holder > label > span { font-size: 0.7em; }
+            }
+        }
+    }
+}
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] div.days_subjects > div.days_holder > label > span:not(:empty)::before { content: ''; }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] div.days_subjects > div.days_holder > label > span:not(:empty)::after { content: ''; }
+div.variable_calendar:lang(ko) > div.calendar_structure[data-structure-type="massive"] div.days_subjects > div.days_holder > label > span:not(:empty)::before { content: ''; }
+div.variable_calendar:lang(ko) > div.calendar_structure[data-structure-type="massive"] div.days_subjects > div.days_holder > label > span:not(:empty)::after { content: '월'; }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] div.days_subjects > div.days_holder > div.days { }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] div.days_subjects > div.days_holder > div.days > div { }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] div.days_subjects > div.days_holder > div.days > div > label { letter-spacing: -0.1em; font-size: 0.8125rem; }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] div.days_subjects > div.days_holder > div.days > div > label:before { position: relative; z-index: -1; font-size: 1.153846em; letter-spacing: -0.6em; line-height: 1em; translate: 0 1px; opacity: 0.8; }
+
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] .month[data-today="1"] > div.days_subjects > div.days_holder > label > span { background-color: rgb(var(--ctdv) / 90%); }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] .month[data-selected="1"] > div.days_subjects > div.days_holder > label > span { background-color: rgb(var(--csdv) / 90%); }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] .month[data-selected="1"][data-today="1"] > div.days_subjects > div.days_holder > label > span { text-decoration-style: wavy; text-decoration-line: underline; text-decoration-thickness: 0.1em; text-decoration-color: var(--color-today-gray); }
+
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] :is(.years, .months, .weeks, .days) { padding: 0; transition-delay: var(--trdl-group); transition-duration: var(--trdr-group); }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) :is(.years, .months, .weeks, .days):hover { overflow: visible; }
+@media (pointer: fine) {
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] :is(.years, .months, .weeks, .days) { padding: 4px; }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] :is(.year, .month, .week, .day) { --hover-bgc: rgb(var(--cpl) / 10%); --hover-bs: 0 0 8px 0 rgb(var(--cb) / 60%); transition-delay: var(--trdl-item); transition-duration: var(--trdr-item); }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) :is(.year, .month, .week, .day):hover { z-index: 1; overflow: visible; }
+div.variable_calendar[data-scale="1"] > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) .year:hover { background-color: var(--hover-bgc); box-shadow: var(--hover-bs); }
+div.variable_calendar:not([data-scale="1"]) > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) .year:not(:has(.months:hover)):hover { background-color: var(--hover-bgc); box-shadow: var(--hover-bs); }
+div.variable_calendar[data-scale="1"] > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) .month:hover { background-color: var(--hover-bgc); box-shadow: var(--hover-bs); }
+div.variable_calendar:not([data-scale="1"]) > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) .month:not(:has(> .days_subjects > .days_holder > .days:hover, > .weeks:hover)):hover { background-color: var(--hover-bgc); box-shadow: var(--hover-bs); }
+div.variable_calendar:not([data-scale="1"]) > div.calendar_structure[data-structure-type="massive"] .month:has(> .days_subjects > .days_holder > .days > .day[data-day="0"]:hover) .day[data-day="0"] { background-color: var(--hover-bgc); box-shadow: var(--hover-bs); }
+div.variable_calendar:not([data-scale="1"]) > div.calendar_structure[data-structure-type="massive"] .month:has(> .days_subjects > .days_holder > .days > .day[data-day="1"]:hover) .day[data-day="1"] { background-color: var(--hover-bgc); box-shadow: var(--hover-bs); }
+div.variable_calendar:not([data-scale="1"]) > div.calendar_structure[data-structure-type="massive"] .month:has(> .days_subjects > .days_holder > .days > .day[data-day="2"]:hover) .day[data-day="2"] { background-color: var(--hover-bgc); box-shadow: var(--hover-bs); }
+div.variable_calendar:not([data-scale="1"]) > div.calendar_structure[data-structure-type="massive"] .month:has(> .days_subjects > .days_holder > .days > .day[data-day="3"]:hover) .day[data-day="3"] { background-color: var(--hover-bgc); box-shadow: var(--hover-bs); }
+div.variable_calendar:not([data-scale="1"]) > div.calendar_structure[data-structure-type="massive"] .month:has(> .days_subjects > .days_holder > .days > .day[data-day="4"]:hover) .day[data-day="4"] { background-color: var(--hover-bgc); box-shadow: var(--hover-bs); }
+div.variable_calendar:not([data-scale="1"]) > div.calendar_structure[data-structure-type="massive"] .month:has(> .days_subjects > .days_holder > .days > .day[data-day="5"]:hover) .day[data-day="5"] { background-color: var(--hover-bgc); box-shadow: var(--hover-bs); }
+div.variable_calendar:not([data-scale="1"]) > div.calendar_structure[data-structure-type="massive"] .month:has(> .days_subjects > .days_holder > .days > .day[data-day="6"]:hover) .day[data-day="6"] { background-color: var(--hover-bgc); box-shadow: var(--hover-bs); }
+div.variable_calendar:not([data-scale="1"]) > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) .week:not(:has(.day:hover)):hover { background-color: var(--hover-bgc); box-shadow: var(--hover-bs); }
+div.variable_calendar:not([data-scale="1"]) > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) .day:hover { background-color: var(--hover-bgc); box-shadow: var(--hover-bs); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); }
+}
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] :is(.year, .month, .week, .day) > label { cursor: pointer; }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] :is(.year, .month, .day) { border: solid 1px #FFF0; border-radius: 8px; }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] .week { border-color: rgb(var(--cbl) / 60%); }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years { container-name: unical-str-years; container-type: inline-size; display: flex; flex-direction: row; flex-wrap: wrap; width: 100%; height: 100%; }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year { container-name: unical-str-year; container-type: size; display: flex; flex-direction: column; flex-wrap: nowrap; width: 33%; height: 33%; flex-grow: 1; flex-shrink: 1; justify-content: center; }
+div.variable_calendar[data-scale="1"] > div.calendar_structure[data-structure-type="massive"] > .years:has(.year:nth-child(10)) > .year { width: 33%; height: 24%; }
+div.variable_calendar[data-scale="1"] > div.calendar_structure[data-structure-type="massive"] > .years:has(.year:nth-child(10):is(:last-child)) > .year[data-today="1"] { width: 100%; }
+div.variable_calendar[data-scale="1"] > div.calendar_structure[data-structure-type="massive"] > .years:has(.year:nth-child(11):is(:last-child)) > .year[data-today="1"] { width: 66%; }
+div.variable_calendar[data-scale="1"] > div.calendar_structure[data-structure-type="massive"] > .years:has(.year:nth-child(13)) > .year { width: 24%; height: 24%; }
+div.variable_calendar[data-scale="1"] > div.calendar_structure[data-structure-type="massive"] > .years:has(.year:nth-child(13):is(:last-child)) > .year[data-today="1"] { width: 100%; }
+div.variable_calendar[data-scale="1"] > div.calendar_structure[data-structure-type="massive"] > .years:has(.year:nth-child(14):is(:last-child)) > .year:is([data-today="1"], [data-selected="1"]) { width: 48%; }
+div.variable_calendar[data-scale="1"] > div.calendar_structure[data-structure-type="massive"] > .years:has(.year:nth-child(15):is(:last-child)) > .year[data-today="1"] { width: 48%; }
+div.variable_calendar[data-scale="1"] > div.calendar_structure[data-structure-type="massive"] > .years:has(.year:nth-child(17)) > .year { width: 24%; height: 19%; }
+div.variable_calendar[data-scale="1"] > div.calendar_structure[data-structure-type="massive"] > .years:has(.year:nth-child(17):is(:last-child)) > .year[data-today="1"] { width: 100%; }
+div.variable_calendar[data-scale="1"] > div.calendar_structure[data-structure-type="massive"] > .years:has(.year:nth-child(18):is(:last-child)) > .year:is([data-today="1"], [data-selected="1"]) { width: 48%; }
+div.variable_calendar[data-scale="1"] > div.calendar_structure[data-structure-type="massive"] > .years:has(.year:nth-child(19):is(:last-child)) > .year[data-today="1"] { width: 48%; }
+div.variable_calendar[data-scale="1"] > div.calendar_structure[data-structure-type="massive"] > .years:has(.year:nth-child(21)) { overflow-y: overlay; }
+div.variable_calendar[data-scale="1"] > div.calendar_structure[data-structure-type="massive"] > .years:has(.year:nth-child(21)) > .year { width: 19%; height: 19%; }
+/*
+div.variable_calendar[data-scale="1"] > div.calendar_structure[data-structure-type="massive"] > .years:has(.year:nth-child(21):is(:last-child)) > .year[data-today="1"] { width: 100%; }
+div.variable_calendar[data-scale="1"] > div.calendar_structure[data-structure-type="massive"] > .years:has(.year:nth-child(22):is(:last-child)) > .year:is([data-today="1"], [data-selected="1"]) { width: 38%; }
+div.variable_calendar[data-scale="1"] > div.calendar_structure[data-structure-type="massive"] > .years:has(.year:nth-child(23):is(:last-child)) > .year[data-today="1"] { width: 38%; }
+div.variable_calendar[data-scale="1"] > div.calendar_structure[data-structure-type="massive"] > .years:has(.year:nth-child(24):is(:last-child)) > .year:is([data-today="1"], [data-selected="1"]) { width: 38%; }
+*/
+div.variable_calendar[data-scale="1"] > div.calendar_structure[data-structure-type="massive"] > .years:has(.year:nth-child(26)) > .year { width: 19%; height: 15%; }
+/*
+div.variable_calendar[data-scale="1"] > div.calendar_structure[data-structure-type="massive"] > .years:has(.year:nth-child(26):is(:last-child)) > .year[data-today="1"] { width: 100%; }
+div.variable_calendar[data-scale="1"] > div.calendar_structure[data-structure-type="massive"] > .years:has(.year:nth-child(27):is(:last-child)) > .year:is([data-today="1"], [data-selected="1"]) { width: 38%; }
+div.variable_calendar[data-scale="1"] > div.calendar_structure[data-structure-type="massive"] > .years:has(.year:nth-child(28):is(:last-child)) > .year[data-today="1"] { width: 38%; }
+div.variable_calendar[data-scale="1"] > div.calendar_structure[data-structure-type="massive"] > .years:has(.year:nth-child(29):is(:last-child)) > .year:is([data-today="1"], [data-selected="1"]) { width: 38%; }
+div.variable_calendar[data-scale="1"] > div.calendar_structure[data-structure-type="massive"] > .years:has(.year:nth-child(31)) { overflow-y: overlay; }
+*/
+div.variable_calendar:not([data-scale="1"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year { padding: 0; border-color: #FFF0; border-width: 0; outline-color: #FFF0; outline-width: 0; }
+div.variable_calendar:is([data-scale="2"], [data-scale="3"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year { height: 100%; }
+div.variable_calendar:is([data-scale="2"], [data-scale="3"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year:is([data-selected="1"], [data-today="1"]) { transition-duration: var(--trdr-expand); }
+div.variable_calendar:is([data-scale="2"], [data-scale="3"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year[data-selected="1"] { width: 49%; transition-duration: var(--trdr-expand); }
+div.variable_calendar:is([data-scale="2"], [data-scale="3"])[data-show-today="1"] > div.calendar_structure[data-structure-type="massive"] > .years > .year[data-today="1"] { width: 49%; transition-duration: var(--trdr-expand); }
+div.variable_calendar:is([data-scale="2"], [data-scale="3"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year[data-selected="1"][data-today="1"] { width: 100%; transition-duration: var(--trdr-expand); }
+div.variable_calendar:is([data-scale="2"], [data-scale="3"]):not([data-show-today="1"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year[data-selected="1"] { width: 100%; transition-duration: var(--trdr-expand); }
+div.variable_calendar:is([data-scale="2"], [data-scale="3"]):not([data-show-today="1"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year:not([data-selected="1"]) { width: 0; border-width: 0; flex-grow: 0; opacity: 0; transition-delay: min(var(--trdl-hide), var(--trdl-item)); transition-duration: var(--trdr-hide); }
+div.variable_calendar:is([data-scale="2"], [data-scale="3"]):not([data-show-today="1"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year:not([data-selected="1"]) > .months > *  { display: none; }
+@container unical-str-root (aspect-ratio < 21 / 20) { /* show year vertical division */
+/* div.variable_calendar:is([data-scale="2"], [data-scale="3"])[data-show-today="1"] > div.calendar_structure[data-structure-type="massive"] > .years:has(.year[data-today="1"]):has(.year[data-selected="1"]):not(:has(.year[data-today="1"][data-selected="1"])) { flex-direction: column; justify-content: space-between; } */
+div.variable_calendar:is([data-scale="2"], [data-scale="3"]) > div.calendar_structure[data-structure-type="massive"] > .years { flex-direction: column; justify-content: space-between; }
+div.variable_calendar:is([data-scale="2"], [data-scale="3"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year { width: 100%; }
+div.variable_calendar:is([data-scale="2"], [data-scale="3"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year:is([data-selected="1"], [data-today="1"]) { width: 100%; }
+div.variable_calendar:is([data-scale="2"], [data-scale="3"])[data-show-today="1"] > div.calendar_structure[data-structure-type="massive"] > .years > .year[data-today="1"] { width: 100%; }
+div.variable_calendar:is([data-scale="2"], [data-scale="3"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year[data-selected="1"][data-today="1"] { height: 100%; }
+    @container unical-str-root (min-height: 475px) {
+div.variable_calendar:is([data-scale="2"], [data-scale="3"])[data-show-today="1"] > div.calendar_structure[data-structure-type="massive"] > .years:not(:has(.year[data-today="1"][data-selected="1"])) > .year:is([data-today="1"], [data-selected="1"]) { height: 48%; flex-grow: 0; }
+    } @container unical-str-root (not (min-height: 475px)) {
+div.variable_calendar:is([data-scale="2"], [data-scale="3"]):not([data-show-today="1"]) > div.calendar_structure[data-structure-type="massive"] > .years:not(:has(.year[data-today="1"][data-selected="1"])) > .year[data-today="1"] { height: 0; border-width: 0; flex-grow: 0; opacity: 0; transition-delay: min(var(--trdl-hide), var(--trdl-item)); transition-duration: var(--trdr-hide); }
+div.variable_calendar:is([data-scale="2"], [data-scale="3"]):not([data-show-today="1"]) > div.calendar_structure[data-structure-type="massive"] > .years:not(:has(.year[data-today="1"][data-selected="1"])) > .year[data-today="1"] > .months > * { display: none; }
+div.variable_calendar:is([data-scale="2"], [data-scale="3"])[data-show-today="1"] > div.calendar_structure[data-structure-type="massive"] > .years:not(:has(.year[data-today="1"][data-selected="1"])) > .year:not([data-today="1"]) { height: 0; border-width: 0; flex-grow: 0; opacity: 0; transition-delay: min(var(--trdl-hide), var(--trdl-item)); transition-duration: var(--trdr-hide); }
+div.variable_calendar:is([data-scale="2"], [data-scale="3"])[data-show-today="1"] > div.calendar_structure[data-structure-type="massive"] > .years:not(:has(.year[data-today="1"][data-selected="1"])) > .year:not([data-today="1"]) > .months > *  { display: none; }
+    }
+div.variable_calendar:is([data-scale="2"], [data-scale="3"]):not([data-show-today="1"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year:not([data-selected="1"]) { height: 0; border-width: 0; flex-grow: 0; opacity: 0; transition-delay: min(var(--trdl-hide), var(--trdl-item)); transition-duration: var(--trdr-hide); }
+div.variable_calendar:is([data-scale="2"], [data-scale="3"]):not([data-show-today="1"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year:not([data-selected="1"]) > .months > *  { display: none; }
+div.variable_calendar:is([data-scale="2"], [data-scale="3"])[data-show-today="1"] > div.calendar_structure[data-structure-type="massive"] > .years > .year:not([data-today="1"]):not([data-selected="1"]) { height: 0; border-width: 0; flex-grow: 0; opacity: 0; transition-delay: min(var(--trdl-hide), var(--trdl-item)); transition-duration: var(--trdr-hide); }
+div.variable_calendar:is([data-scale="2"], [data-scale="3"])[data-show-today="1"] > div.calendar_structure[data-structure-type="massive"] > .years > .year:not([data-today="1"]):not([data-selected="1"]) > .months > *  { display: none; }
+} @container unical-str-root (not (aspect-ratio < 21 / 20)) { /* show year horizontal division */
+div.variable_calendar:is([data-scale="2"], [data-scale="3"])[data-show-today="1"] > div.calendar_structure[data-structure-type="massive"] > .years > .year:not([data-today="1"]):not([data-selected="1"]) { width: 0; border-width: 0; flex-grow: 0; opacity: 0; transition-delay: min(var(--trdl-hide), var(--trdl-item)); transition-duration: var(--trdr-hide); }
+div.variable_calendar:is([data-scale="2"], [data-scale="3"])[data-show-today="1"] > div.calendar_structure[data-structure-type="massive"] > .years > .year:not([data-today="1"]):not([data-selected="1"]) > .months > *  { display: none; }
+    @container unical-str-root (max-width: 650px) {
+div.variable_calendar:is([data-scale="2"], [data-scale="3"]):not([data-show-today="1"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year[data-today="1"]:not([data-selected="1"]) { width: 0; border-width: 0; flex-grow: 0; opacity: 0; transition-delay: min(var(--trdl-hide), var(--trdl-item)); transition-duration: var(--trdr-hide); }
+div.variable_calendar:is([data-scale="2"], [data-scale="3"]):not([data-show-today="1"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year[data-today="1"]:not([data-selected="1"]) > .months > *  { display: none; }
+div.variable_calendar:is([data-scale="2"], [data-scale="3"])[data-show-today="1"] > div.calendar_structure[data-structure-type="massive"] > .years > .year:not([data-today="1"]) { width: 0; border-width: 0; flex-grow: 0; opacity: 0; transition-delay: min(var(--trdl-hide), var(--trdl-item)); transition-duration: var(--trdr-hide); }
+div.variable_calendar:is([data-scale="2"], [data-scale="3"])[data-show-today="1"] > div.calendar_structure[data-structure-type="massive"] > .years > .year:not([data-today="1"]) > .months > *  { display: none; } 
+    }
+}
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > label { margin: 0 auto; font-size: 1.125rem; }
+div.variable_calendar:not([data-scale="1"], [data-scale="2"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year:is(:not([data-selected="1"], [data-today="1"]), [data-selected="1"][data-today="1"]) > label { width: 0; height: 0; opacity: 0; transition-duration: var(--trdr-hide); }
+@container unical-str-years (max-width: 240px) {
+div.variable_calendar:not([data-scale="1"])[data-show-today="1"] > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) > .years > .year:not([data-today="1"]) { width: 0; height: 0; border-width: 0; flex-grow: 0; opacity: 0; transition-delay: min(var(--trdl-hide), var(--trdl-item)); transition-duration: var(--trdr-hide); }
+div.variable_calendar:not([data-scale="1"]):not([data-show-today="1"]) > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) > .years > .year:not([data-selected="1"]) { width: 0; height: 0; border-width: 0; flex-grow: 0; opacity: 0; transition-delay: min(var(--trdl-hide), var(--trdl-item)); transition-duration: var(--trdr-hide); }
+div.variable_calendar:not([data-scale="1"]) > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) > .years > .year > label { width: 0; height: 0; opacity: 0; transition-duration: var(--trdr-hide); }
+}
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months { container-name: unical-str-months; container-type: size; display: flex; flex-direction: row; flex-wrap: wrap; width: 100%; height: 100%; flex-grow: 1; }
+div.variable_calendar:not([data-scale="1"], [data-scale="2"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months { padding: 0; }
+@container unical-str-year (max-width: 240px) {
+div.variable_calendar:not([data-scale="2"]) > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) > .years > .year > .months { height: 0; flex-grow: 0; padding: 0; opacity: 0; transition-delay: min(var(--trdl-hide), var(--trdl-group)); transition-duration: var(--trdr-hide); }
+}
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month { container-name: unical-str-month; container-type: size; display: flex; flex-direction: column; flex-wrap: nowrap; width: 33%; height: 24%; flex-grow: 1; flex-shrink: 1; justify-content: center; align-content: center; }
+div.variable_calendar:not([data-scale="1"], [data-scale="2"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month { padding: 0; border-color: #FFF0; border-width: 0; outline-color: #FFF0; outline-width: 0; }
+div.variable_calendar[data-scale="3"] > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month { height: 100%; }
+div.variable_calendar[data-scale="3"] > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month:is([data-selected="1"], [data-today="1"]) { transition-duration: var(--trdr-expand); }
+div.variable_calendar[data-scale="3"] > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month[data-selected="1"] { width: 49%; transition-duration: var(--trdr-expand); }
+div.variable_calendar[data-scale="3"][data-show-today="1"] > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month[data-today="1"] { width: 49%; transition-duration: var(--trdr-expand); }
+div.variable_calendar[data-scale="3"] > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month[data-selected="1"][data-today="1"] { width: 100%; transition-duration: var(--trdr-expand); }
+div.variable_calendar[data-scale="3"]:not([data-show-today="1"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month[data-selected="1"] { width: 100%; transition-duration: var(--trdr-expand); }
+div.variable_calendar[data-scale="3"]:not([data-show-today="1"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month:not([data-selected="1"]) { width: 0; border-width: 0; flex-grow: 0; opacity: 0; transition-delay: min(var(--trdl-hide), var(--trdl-item)); transition-duration: var(--trdr-hide); }
+div.variable_calendar[data-scale="3"]:not([data-show-today="1"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month:not([data-selected="1"]) > .weeks > *  { display: none; }
+@container unical-str-year (aspect-ratio < 21 / 20) { /* show month vertical division */
+/* div.variable_calendar[data-scale="3"][data-show-today="1"] > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months:has(.month[data-today="1"]):has(.month[data-selected="1"]):not(:has(.month[data-today="1"][data-selected="1"])) { flex-direction: column; justify-content: space-between; } */
+div.variable_calendar[data-scale="3"] > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months { flex-direction: column; justify-content: space-between; }
+div.variable_calendar[data-scale="3"] > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month { width: 100%; }
+div.variable_calendar[data-scale="3"] > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month:is([data-selected="1"], [data-today="1"]) { width: 100%; }
+div.variable_calendar[data-scale="3"][data-show-today="1"] > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month[data-today="1"] { width: 100%; }
+div.variable_calendar[data-scale="3"] > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month[data-selected="1"][data-today="1"] { height: 100%; }
+    @container unical-str-year (min-height: 417px) {
+div.variable_calendar[data-scale="3"][data-show-today="1"] > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months:not(:has(.month[data-today="1"][data-selected="1"])):has(.month[data-selected="1"]) > .month[data-today="1"] { height: 48%; flex-grow: 0; }
+div.variable_calendar[data-scale="3"][data-show-today="1"] > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months:not(:has(.month[data-today="1"][data-selected="1"])):has(.month[data-today="1"]) > .month[data-selected="1"] { height: 48%; flex-grow: 0; }
+    } @container unical-str-year (not (min-height: 417px)) {
+div.variable_calendar[data-scale="3"]:not([data-show-today="1"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months:not(:has(.month[data-today="1"][data-selected="1"])) > .month[data-today="1"] { height: 0; transition-delay: min(var(--trdl-hide), var(--trdl-item)); transition-duration: var(--trdr-hide); }
+div.variable_calendar[data-scale="3"]:not([data-show-today="1"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months:not(:has(.month[data-today="1"][data-selected="1"])) > .month[data-today="1"] > .weeks > *  { display: none; }
+div.variable_calendar[data-scale="3"][data-show-today="1"] > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months:not(:has(.month[data-today="1"][data-selected="1"])) > .month:not([data-today="1"]) { height: 0; transition-delay: min(var(--trdl-hide), var(--trdl-item)); transition-duration: var(--trdr-hide); }
+div.variable_calendar[data-scale="3"][data-show-today="1"] > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months:not(:has(.month[data-today="1"][data-selected="1"])) > .month:not([data-today="1"]) > .weeks > *  { display: none; }
+    }
+div.variable_calendar[data-scale="3"]:not([data-show-today="1"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month:not([data-selected="1"]) { height: 0; border-width: 0; flex-grow: 0; opacity: 0; transition-delay: min(var(--trdl-hide), var(--trdl-item)); transition-duration: var(--trdr-hide); }
+div.variable_calendar[data-scale="3"]:not([data-show-today="1"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month:not([data-selected="1"]) > .weeks > *  { display: none; }
+div.variable_calendar[data-scale="3"][data-show-today="1"] > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month:not([data-today="1"]):not([data-selected="1"]) { height: 0; border-width: 0; flex-grow: 0; opacity: 0; transition-delay: min(var(--trdl-hide), var(--trdl-item)); transition-duration: var(--trdr-hide); }
+div.variable_calendar[data-scale="3"][data-show-today="1"] > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month:not([data-today="1"]):not([data-selected="1"]) > .weeks > *  { display: none; }
+} @container unical-str-year (not (aspect-ratio < 21 / 20)) { /* show month horizontal division */
+div.variable_calendar[data-scale="3"][data-show-today="1"] > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month:not([data-today="1"]):not([data-selected="1"]) { width: 0; border-width: 0; flex-grow: 0; opacity: 0; transition-delay: min(var(--trdl-hide), var(--trdl-item)); transition-duration: var(--trdr-hide); }
+div.variable_calendar[data-scale="3"][data-show-today="1"] > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month:not([data-today="1"]):not([data-selected="1"]) > .weeks > *  { display: none; }
+    @container unical-str-year (max-width: 352px) {
+div.variable_calendar[data-scale="3"]:not([data-show-today="1"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month[data-today="1"]:not([data-selected="1"]) { width: 0; border-width: 0; flex-grow: 0; opacity: 0; transition-delay: min(var(--trdl-hide), var(--trdl-item)); transition-duration: var(--trdr-hide); }
+div.variable_calendar[data-scale="3"]:not([data-show-today="1"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month[data-today="1"]:not([data-selected="1"]) > .weeks > *  { display: none; }
+div.variable_calendar[data-scale="3"][data-show-today="1"] > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month:not([data-today="1"]) { width: 0; border-width: 0; flex-grow: 0; opacity: 0; transition-delay: min(var(--trdl-hide), var(--trdl-item)); transition-duration: var(--trdr-hide); }
+div.variable_calendar[data-scale="3"][data-show-today="1"] > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month:not([data-today="1"]) > .weeks > *  { display: none; }
+    }
+}
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > label { margin: 0 auto; font-size: 1rem; word-break: keep-all; }
+/* div.variable_calendar:not([data-scale="1"], [data-scale="2"], [data-scale="3"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month:is(:not([data-selected="1"], [data-today="1"]), [data-selected="1"][data-today="1"]) > label { width: 0; height: 0; opacity: 0; transition-duration: var(--trdr-hide); } */
+div.variable_calendar:not([data-scale="1"], [data-scale="2"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > label { width: 0; height: 0; border-width: 0; flex-grow: 0; opacity: 0; transition-duration: var(--trdr-hide); }
+@container unical-str-months (max-width: 640px) {
+/* div.variable_calendar:not([data-scale="1"], [data-scale="2"])[data-show-today="1"] > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month:not([data-today="1"]) { width: 0; height: 0; border-width: 0; flex-grow: 0; opacity: 0; transition-delay: min(var(--trdl-hide), var(--trdl-item)); transition-duration: var(--trdr-hide); }
+div.variable_calendar:not([data-scale="1"], [data-scale="2"]):not([data-show-today="1"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month:not([data-selected="1"]) { width: 0; height: 0; border-width: 0; flex-grow: 0; opacity: 0; transition-delay: min(var(--trdl-hide), var(--trdl-item)); transition-duration: var(--trdr-hide); }
+div.variable_calendar:not([data-scale="1"], [data-scale="2"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > label { width: 0; height: 0; } */
+}
+@container unical-str-months (aspect-ratio > 20 / 11) {
+div.variable_calendar:is([data-scale="1"], [data-scale="2"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month { width: 24%; height: 33%; }
+}
+@container unical-str-months (aspect-ratio > 4 / 1) {
+div.variable_calendar:is([data-scale="1"], [data-scale="2"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month { width: 16%; height: 49%; }
+}
+@container unical-str-months (aspect-ratio > 19 / 3) {
+div.variable_calendar:is([data-scale="1"], [data-scale="2"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month { width: 8%; height: 100%; }
+    @container unical-str-months (max-width: 440px) {
+div.variable_calendar:is([data-scale="1"], [data-scale="2"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > label:after { display: none; }
+    }
+}
+@container unical-str-months (aspect-ratio < 11 / 20) {
+div.variable_calendar:is([data-scale="1"], [data-scale="2"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month { width: 49%; height: 16%; }
+}
+@container unical-str-months (aspect-ratio < 5 / 19) {
+div.variable_calendar:is([data-scale="1"], [data-scale="2"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month { width: 100%; height: 8%; }
+}
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > label:before { content: ''; }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > label:after { content: ''; }
+div.variable_calendar:lang(ko) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > label:before { content: ''; }
+div.variable_calendar:lang(ko) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > label:after { content: '월'; }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks { container-name: unical-str-weeks; container-type: size; display: flex; flex-direction: column; flex-wrap: nowrap; height: 100%; flex-grow: 1; flex-shrink: 1; text-align: left; }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week { container-name: unical-str-week; container-type: inline-size; display: flex; flex-direction: row; flex-wrap: nowrap; align-items: center; height: 16%; flex-grow: 1; flex-shrink: 1; }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > * { }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > label { width: min(5em, calc(100% / 8)); font-size: 0.8125rem; }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > label:not(:empty):before { content: 'Week\A0'; }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > label:not(:empty):after { content: ''; }
+div.variable_calendar:lang(ko) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > label:not(:empty):before { content: ''; }
+div.variable_calendar:lang(ko) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > label:not(:empty):after { content: '주차'; }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > label:empty:not([data-suffix])::after { content: ''; }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > label:empty { display: inline-flex; flex-direction: row; flex-wrap: wrap; min-width: min-content; }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > label:empty::before { color: var(--color-boundary); }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > label:empty::after { color: var(--color-boundary); }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days { container-name: unical-str-days; container-type: size; height: 100%; flex-grow: 1; flex-shrink: 1; }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days > .day { container-name: unical-str-day; container-type: size; font-size: 0.8125rem; text-wrap: nowrap; transition-delay: unset; transition-duration: unset; }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days > .day > label { --true-color: var(--color-text); --gray-color: var(--color-text-palen); display: inline-block; width: 1.3333333em; padding: 2px 2px; color: var(--true-color); font-size: 0.8462em; }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days > .day[data-day="0"] > label { --true-color: var(--color-sunday); --gray-color: var(--color-sunday-gray); }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days > .day[data-day="6"] > label { --true-color: var(--color-saturday); --gray-color: var(--color-saturday-gray); }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days > .day[data-holiday]:not([data-holiday=""]) > label { --true-color: var(--color-holiday); --gray-color: var(--color-holiday-gray); }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days > .day > span.subjects { font-size: 0.6875rem; font-weight: 300; line-height: 1.0625rem; vertical-align: top; }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month[data-month="1"] > .weeks > .week > .days > .day:not([data-month="1"]) > label,
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month[data-month="2"] > .weeks > .week > .days > .day:not([data-month="2"]) > label,
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month[data-month="3"] > .weeks > .week > .days > .day:not([data-month="3"]) > label,
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month[data-month="4"] > .weeks > .week > .days > .day:not([data-month="4"]) > label,
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month[data-month="5"] > .weeks > .week > .days > .day:not([data-month="5"]) > label,
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month[data-month="6"] > .weeks > .week > .days > .day:not([data-month="6"]) > label,
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month[data-month="7"] > .weeks > .week > .days > .day:not([data-month="7"]) > label,
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month[data-month="8"] > .weeks > .week > .days > .day:not([data-month="8"]) > label,
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month[data-month="9"] > .weeks > .week > .days > .day:not([data-month="9"]) > label,
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month[data-month="10"] > .weeks > .week > .days > .day:not([data-month="10"]) > label,
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month[data-month="11"] > .weeks > .week > .days > .day:not([data-month="11"]) > label,
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month[data-month="12"] > .weeks > .week > .days > .day:not([data-month="12"]) > label
+{ color: var(--gray-color); }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days > .day > ul.scheduled { container-name: unical-str-items; container-type: inline-size; display: flex; flex-direction: column; flex-wrap: nowrap; margin: 0 2px; padding-inline: 0; list-style: none; /* list-style-type: disc; list-style-image: radial-gradient(black 60%, transparent 60%, transparent); list-style-position: inside; */ line-height: 1.1em; }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days > .day > ul.scheduled:empty { display: none; }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) > .years > .year > .months > .month > .weeks > .week > .days > .day > ul.scheduled:hover { overflow: visible; }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days > .day > ul.scheduled > li { container-name: unical-str-item; container-type: inline-size; min-width: 1.1em; height: 1.15em; flex-shrink: 0; padding-inline: 0.15em 1px; color: var(--color-text-dark); background-color: aliceblue; border-radius: 42px; text-wrap: wrap; word-break: break-word; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) > .years > .year > .months > .month > .weeks > .week > .days > .day > ul.scheduled > li:hover { overflow: visible; text-shadow: -1px -1px 0 var(--color-anti-text), 1px 1px 0 var(--color-anti-text); }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days > .day > ul.scheduled > li[data-category="holiday"] { background-color: rgb(var(--csunv) / 60%); }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days > .day > ul.scheduled > li[data-category="vacation"] { background-color: rgb(var(--csatv) / 60%); }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days > .day > ul.scheduled > li[data-category="closed"] { background-color: rgb(var(--csatv) / 60%); }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days > .day > ul.scheduled > li[data-category="ceremony"] { background-color: rgb(var(--cidv) / 60%); }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days > .day > ul.scheduled > li[data-category="exam"] { background-color: rgb(var(--cidv) / 60%); }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days > .day > ul.scheduled[data-group="data"] { }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"][data-transition]:not([data-transition=""]):not([data-transition="0"]) > .years > .year > .months > .month > .weeks > .week > .days > .day > ul.scheduled[data-group="data"] { display: none; }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days > .day > ul.scheduled[data-group="data"] > li { height: fit-content; border-radius: 2px; background-color: transparent; white-space: normal; }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days > .day > ul.scheduled[data-group="data"] > li::before { display: none; }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days > .day > ul.scheduled[data-group="data"] > li > span { word-break: keep-all; white-space: nowrap; }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] :is(.year, .month, .week, .day)[data-today="1"] { border-color: rgb(var(--ctdv) / 60%); }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] :is(.year, .month, .week, .day)[data-today="1"] > label { color: var(--color-today-vivid); }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] .month:not([data-today="1"]) .day[data-today="1"] > label { color: var(--color-today-gray); }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] :is(.year, .month, .day)[data-selected="1"] { outline: solid 2px rgb(var(--csdv) / 60%); outline-offset: -4px; }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] :is(.year, .month, .week, .day)[data-selected="1"] > label { text-shadow: -0.05em -0.05em 0 rgb(var(--csdg) / 60%), 0.05em 0.05em 0 rgb(var(--csdv) / 40%); }
+/* div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days > .day > ul > li::marker { font-size: 2.2em; } */
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days > .day > ul > li::before { content: '●'; color: rgb(var(--ct) / 98%); font-size: 1.125em; letter-spacing: 0.1em; line-height: 1em; vertical-align: bottom; }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days > .day > ul > li > span { font-size: 0.923em; }
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days > .day > ul > li > span:first-child { position: relative; }
+@container unical-str-month (max-width: 320px) or (max-height: 200px) {
+div.variable_calendar:is([data-scale="1"], [data-scale="2"], [data-scale="3"]) > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) > .years > .year > .months > .month > .days_subjects { height: 0; flex-grow: 0; padding: 0; }
+div.variable_calendar:is([data-scale="1"], [data-scale="2"], [data-scale="3"]) > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) > .years > .year > .months > .month > .weeks { flex-direction: row; }
+div.variable_calendar:is([data-scale="1"], [data-scale="2"], [data-scale="3"]) > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) > .years > .year > .months > .month > .weeks > .week { flex-direction: column; width: 20%; height: 100%; flex-grow: 1; flex-shrink: 1; }
+div.variable_calendar:is([data-scale="1"], [data-scale="2"], [data-scale="3"]) > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) > .years > .year > .months > .month > .weeks > .week:not(:last-child) { border-right-style: solid; border-right-width: 1px; }
+div.variable_calendar:is([data-scale="1"], [data-scale="2"], [data-scale="3"]) > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) > .years > .year > .months > .month > .weeks > .week:is([data-week="0"], [data-week=""]):not([data-selected="1"]) { width: 0; border-width: 0; border-color: #FFF0; flex-grow: 0; transition-delay: min(var(--trdl-hide), var(--trdl-item)); transition-duration: var(--trdr-hide); }
+div.variable_calendar:is([data-scale="1"], [data-scale="2"], [data-scale="3"]) > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) > .years > .year > .months > .month > .weeks > .week > .days { flex-direction: column; padding: 0; padding-right: 4px; flex-grow: 1; overflow-y: overlay; }
+div.variable_calendar:is([data-scale="1"], [data-scale="2"], [data-scale="3"]) > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) > .years > .year > .months > .month > .weeks > .week > .days > .day { position: relative; display: table; width: 100%; flex-shrink: 0; border: 0; overflow: visible; }
+div.variable_calendar:is([data-scale="1"], [data-scale="2"], [data-scale="3"]) > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) > .years > .year > .months > .month > .weeks > .week > .days > .day > label { height: 0; padding: 0; text-shadow: -1px -1px 1px transparent, -1px 1px 1px transparent, 1px -1px 1px transparent, 1px 1px 1px transparent; }
+div.variable_calendar:is([data-scale="1"], [data-scale="2"], [data-scale="3"]) > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) > .years > .year > .months > .month > .weeks > .week > .days > .day:hover > label { position: absolute; left: -1.7em; height: fit-content; padding-inline: 0.25em 0.2em; border-radius: 0.5em; background-color: rgb(var(--cat) / 80%); text-shadow: -1px -1px 1px var(--color-anti-text), -1px 1px 1px var(--color-anti-text), 1px -1px 1px var(--color-anti-text), 1px 1px 1px var(--color-anti-text); }
+div.variable_calendar:is([data-scale="1"], [data-scale="2"], [data-scale="3"]) > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) > .years > .year > .months > .month > .weeks > .week > .days > .day:hover > span.subjects { border-radius: 0.5em; background-color: rgb(var(--cat) / 80%); text-shadow: -1px -1px 1px var(--color-anti-text), -1px 1px 1px var(--color-anti-text), 1px -1px 1px var(--color-anti-text), 1px 1px 1px var(--color-anti-text); }
+div.variable_calendar:is([data-scale="1"], [data-scale="2"], [data-scale="3"]) > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) > .years > .year > .months > .month > .weeks > .week > .days > .day > ul.scheduled { width: 100%; height: fit-content; }
+div.variable_calendar:is([data-scale="1"], [data-scale="2"], [data-scale="3"]) > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) > .years > .year > .months > .month > .weeks > .week > .days > .day > ul.scheduled[data-group="data"] { /* display: none; this occurs STATUS_ACCESS_VIOLATION crash */ width: 0; height: 0; margin: 0; padding: 0; overflow: hidden; }
+div.variable_calendar:is([data-scale="1"], [data-scale="2"], [data-scale="3"]) > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) > .years > .year > .months > .month > .weeks > .week > .days > .day > ul.scheduled > li { margin-bottom: 1px; text-overflow: clip; }
+    @container unical-str-month (max-width: 220px) or (max-height: 110px) {
+        @container unical-str-month (max-width: 220px) {
+div.variable_calendar:is([data-scale="2"]) > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) > .years > .year > .months > .month > .weeks { flex-wrap: wrap; align-content: flex-start; }
+div.variable_calendar:is([data-scale="2"]) > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) > .years > .year > .months > .month > .weeks > .week { width: 33%; height: 49%; margin: 1px; border-style: solid; border-width: 1px; border-radius: 8px; }
+div.variable_calendar:is([data-scale="2"]) > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) > .years > .year > .months > .month > .weeks:has(.week[data-week="5"]) > .week { height: 33%; }
+           @container unical-str-month (max-width: 190px) or (max-height: 100px) {
+div.variable_calendar:is([data-scale="2"]) > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) > .years > .year > .months > .month > .weeks { height: 0; padding: 0; flex-grow: 0; transition-delay: min(var(--trdl-hide), var(--trdl-group)); transition-duration: var(--trdr-hide); }
+            }
+div.variable_calendar:is([data-scale="2"]) > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) > .years > .year > .months > .month > .weeks > .week { justify-content: center; }
+div.variable_calendar:is([data-scale="2"]) > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) > .years > .year > .months > .month > .weeks > .week > .days { height: 0; flex-grow: 0; overflow-y: hidden; }
+        }
+    }
+    @container unical-str-month (max-width: 190px) or (max-height: 100px) {
+div.variable_calendar:is([data-scale="1"], [data-scale="2"]) > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) > .years > .year > .months > .month > .weeks > .week { justify-content: center; }
+div.variable_calendar:is([data-scale="1"], [data-scale="2"]) > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) > .years > .year > .months > .month > .weeks > .week > .days { height: 0; flex-grow: 0; overflow-y: hidden; transition-delay: min(var(--trdl-hide), var(--trdl-group)); transition-duration: var(--trdr-hide); }
+        @container unical-str-month (max-width: 190px) or (max-height: 90px) {
+div.variable_calendar:is([data-scale="1"], [data-scale="2"]) > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) > .years > .year > .months > .month > .weeks { height: 0; padding: 0; flex-grow: 0; transition-delay: min(var(--trdl-hide), var(--trdl-group)); transition-duration: var(--trdr-hide); }
+        }
+    }
+} @container unical-str-month (not (max-width: 320px)) and (not (max-height: 200px)) {
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week:not(:last-child) { border-bottom-style: solid; border-bottom-width: 1px; }
+    @container unical-str-days (max-height: 32px) {
+div.variable_calendar:is([data-scale="1"], [data-scale="2"], [data-scale="3"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days > .day { display: flex; flex-direction: row; flex-wrap: nowrap; align-items: center; outline-offset: -1px; overflow: visible; }
+div.variable_calendar:is([data-scale="1"], [data-scale="2"], [data-scale="3"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days > .day > ul { flex-direction: row; width: 100%; height: 100%; margin-left: 0; flex-grow: 1; flex-shrink: 1; justify-content: flex-start; align-items: center; overflow: visible; }
+    }
+}
+@container unical-str-day (min-width: 120px) or (min-height: 200px) {
+div.variable_calendar > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days > .day > ul.scheduled[data-group="data"] > li > span { white-space: normal; }
+}
+@container unical-str-day (max-width: 70px) or (max-height: 30px) {
+div.variable_calendar:is([data-scale="1"], [data-scale="2"], [data-scale="3"], [data-scale="5"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days > .day > ul > li { padding-inline-end: 0; }
+div.variable_calendar:is([data-scale="1"], [data-scale="2"], [data-scale="3"], [data-scale="5"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days > .day > ul > li::before { display: inline-block; font-size: 1.1em; translate: -0.0333em -0.2em; opacity: 75%; }
+div.variable_calendar:is([data-scale="1"], [data-scale="2"], [data-scale="3"], [data-scale="5"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days > .day > ul > li > span { display: inline-block; letter-spacing: -0.05em; transform-origin: left; scale: 80% 100%; transition-duration: 0.2s; }
+div.variable_calendar:is([data-scale="1"], [data-scale="2"], [data-scale="3"], [data-scale="5"])[data-no-transition="1"] > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days > .day > ul > li > span { transition-duration: unset; }
+    @media all and (max-width: 400px) {
+div.variable_calendar:is([data-scale="1"], [data-scale="2"], [data-scale="3"], [data-scale="5"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days > .day > ul > li > span { scale: 60% 100%; }
+    }
+    @container unical-str-day (max-width: 34px) or (max-height: 30px) {
+div.variable_calendar:is([data-scale="1"], [data-scale="2"], [data-scale="3"], [data-scale="5"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days > .day > ul > li > span { display: inline-block; }
+div.variable_calendar:is([data-scale="1"], [data-scale="2"], [data-scale="3"], [data-scale="5"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days > .day > ul > li:not(:hover) > span { width: 0; text-shadow: -1px -1px 1px transparent, -1px 1px 1px transparent, 1px -1px 1px transparent, 1px 1px 1px transparent; opacity: 0; transition-duration: var(--trdr-hide); }
+div.variable_calendar:is([data-scale="1"], [data-scale="2"], [data-scale="3"], [data-scale="5"]) > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) > .years > .year > .months > .month > .weeks > .week > .days > .day > ul > li:hover > span { padding-inline: 0.25em 0.35em; border-radius: 0.5em; background-color: rgb(var(--cat) / 80%); text-shadow: -1px -1px 1px var(--color-anti-text), -1px 1px 1px var(--color-anti-text), 1px -1px 1px var(--color-anti-text), 1px 1px 1px var(--color-anti-text); opacity: 1; }
+        @container unical-str-day (max-height: 30px) {
+div.variable_calendar:is([data-scale="1"], [data-scale="2"], [data-scale="3"], [data-scale="5"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days > .day > ul > li { position: absolute; }
+        }
+    }
+    @container unical-str-day (not (max-width: 34px)) and (not (max-height: 30px)) {
+div.variable_calendar:is([data-scale="1"], [data-scale="2"], [data-scale="3"], [data-scale="5"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days > .day > ul { }
+div.variable_calendar:is([data-scale="1"], [data-scale="2"], [data-scale="3"], [data-scale="5"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days > .day > ul > li:not(:hover) { text-overflow: clip; }
+div.variable_calendar:is([data-scale="1"], [data-scale="2"], [data-scale="3"], [data-scale="5"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days > .day > ul > li::before { margin-inline-start: -0.2em; font-size: 0.6em; vertical-align: middle; letter-spacing: 0; translate: 0 -0.35em; }
+div.variable_calendar:is([data-scale="1"], [data-scale="2"], [data-scale="3"], [data-scale="5"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days > .day > ul > li > span { padding-inline-end: 0; }
+        @media all and (max-width: 400px) {
+div.variable_calendar:is([data-scale="1"], [data-scale="2"], [data-scale="3"], [data-scale="5"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days > .day > ul > li::before { font-size: 0.4em; translate: 0 -0.75em; }
+        }
+    }
+}
+/* div.variable_calendar:not([data-scale="1"], [data-scale="2"], [data-scale="3"]) { height: auto; }
+div.variable_calendar:not([data-scale="1"], [data-scale="2"], [data-scale="3"]) > div:is(.days_subjects, .calendar_structure) { height: auto; } */
+div.variable_calendar:not([data-scale="1"], [data-scale="2"], [data-scale="3"]) > div.calendar_structure[data-structure-type="massive"] > .years { flex-direction: column; flex-wrap: nowrap; /* height: auto; */ }
+div.variable_calendar:not([data-scale="1"], [data-scale="2"], [data-scale="3"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year { width: 100%; /* height: auto; */ }
+div.variable_calendar:not([data-scale="1"], [data-scale="2"], [data-scale="3"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year:not([data-selected="1"], [data-today="1"]) { height: 0; flex-grow: 0; transition-duration: 0s; }
+div.variable_calendar:not([data-scale="1"], [data-scale="2"], [data-scale="3"]):not([data-show-today="1"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year:not([data-selected="1"])[data-today="1"] { height: 0; flex-grow: 0; transition-duration: 0s; }
+div.variable_calendar:not([data-scale="1"], [data-scale="2"], [data-scale="3"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months { flex-direction: column; flex-wrap: nowrap; width: 100%; /* height: auto; */ }
+div.variable_calendar:not([data-scale="1"], [data-scale="2"], [data-scale="3"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month { width: 100%; /* height: auto; */ }
+div.variable_calendar:not([data-scale="1"], [data-scale="2"], [data-scale="3"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month:not([data-selected="1"], [data-today="1"]) { height: 0; flex-grow: 0; transition-duration: 0s; }
+div.variable_calendar:not([data-scale="1"], [data-scale="2"], [data-scale="3"]):not([data-show-today="1"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month:not([data-selected="1"])[data-today="1"] { height: 0; flex-grow: 0; transition-duration: 0s; }
+div.variable_calendar:not([data-scale="1"], [data-scale="2"], [data-scale="3"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month:not([data-selected="1"], [data-today="1"]) > .days_subjects { height: 0; flex-grow: 0; padding: 0; }
+div.variable_calendar:not([data-scale="1"], [data-scale="2"], [data-scale="3"]):not([data-show-today="1"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month:not([data-selected="1"])[data-today="1"] > .days_subjects { height: 0; flex-grow: 0; padding: 0; }
+div.variable_calendar:not([data-scale="1"], [data-scale="2"], [data-scale="3"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks { width: 100%; /* height: auto; */ }
+div.variable_calendar:not([data-scale="1"], [data-scale="2"], [data-scale="3"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week { width: 100%; /* height: auto; */ }
+div.variable_calendar:not([data-scale="1"], [data-scale="2"], [data-scale="3"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week:is([data-week="0"], [data-week=""]):not([data-selected="1"]) { height: 0; border-width: 0; border-color: #FFF0; flex-grow: 0; transition-delay: min(var(--trdl-hide), var(--trdl-item)); transition-duration: var(--trdr-hide); }
+div.variable_calendar:not([data-scale="1"], [data-scale="2"], [data-scale="3"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days { /* height: auto; */ }
+div.variable_calendar:not([data-scale="1"], [data-scale="2"], [data-scale="3"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days > .day { /* height: auto; min-height: 36px; */ }
+div.variable_calendar:not([data-scale="1"], [data-scale="2"], [data-scale="3"], [data-scale="4"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week:not([data-selected="1"], [data-today="1"]) { height: 0; border-width: 0; border-color: #FFF0; flex-grow: 0; opacity: 0; transition-delay: min(var(--trdl-hide), var(--trdl-item)); transition-duration: var(--trdr-hide); }
+div.variable_calendar:not([data-scale="1"], [data-scale="2"], [data-scale="3"], [data-scale="4"]):not([data-show-today="1"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week:not([data-selected="1"])[data-today="1"] { height: 0; border-width: 0; border-color: #FFF0; flex-grow: 0; transition-delay: min(var(--trdl-hide), var(--trdl-item)); transition-duration: var(--trdr-hide); }
+@container unical-str-root (max-height: 184px) {
+div.variable_calendar[data-scale="5"]:not([data-show-today="1"]) > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) > .years > .year[data-today="1"]:not([data-selected="1"]) { height: 0; border-width: 0; flex-grow: 0; opacity: 0; transition-delay: min(var(--trdl-hide), var(--trdl-item)); transition-duration: var(--trdr-hide); }
+div.variable_calendar[data-scale="5"][data-show-today="1"] > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) > .years > .year:not([data-today="1"]) { height: 0; border-width: 0; flex-grow: 0; opacity: 0; transition-delay: min(var(--trdl-hide), var(--trdl-item)); transition-duration: var(--trdr-hide); }
+    @container unical-str-root (max-height: 138px) {
+div.variable_calendar[data-scale="5"]:not([data-show-today="1"]) > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) > .years > .year > .months > .month[data-today="1"]:not([data-selected="1"]) { height: 0; border-width: 0; flex-grow: 0; opacity: 0; transition-delay: min(var(--trdl-hide), var(--trdl-item)); transition-duration: var(--trdr-hide); }
+div.variable_calendar[data-scale="5"][data-show-today="1"] > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) > .years > .year > .months > .month:not([data-today="1"]) { height: 0; border-width: 0; flex-grow: 0; opacity: 0; transition-delay: min(var(--trdl-hide), var(--trdl-item)); transition-duration: var(--trdr-hide); }
+        @container unical-str-root (max-height: 133px) {
+div.variable_calendar[data-scale="5"]:not([data-show-today="1"]) > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) > .years > .year > .months > .month > .weeks > .week[data-today="1"]:not([data-selected="1"]) { height: 0; border-width: 0; border-color: #FFF0; flex-grow: 0; overflow: hidden; transition-delay: min(var(--trdl-hide), var(--trdl-item)); transition-duration: var(--trdr-hide); }
+div.variable_calendar[data-scale="5"][data-show-today="1"] > div.calendar_structure[data-structure-type="massive"]:is(:not([data-transition]), [data-transition=""], [data-transition="0"]) > .years > .year > .months > .month > .weeks > .week:not([data-today="1"]) { height: 0; border-width: 0; border-color: #FFF0; flex-grow: 0; overflow: hidden; transition-delay: min(var(--trdl-hide), var(--trdl-item)); transition-duration: var(--trdr-hide); }
+        }
+    }
+}
+div.variable_calendar > div.calendar_structure[data-hide-weekage="1"] > .years > .year > .months > .month > .days_subjects > .days_holder > label { display: none; }
+div.variable_calendar > div.calendar_structure[data-hide-weekage="1"] > .years > .year > .months > .month > .weeks > .week > label { display: none !important; }
+div.variable_calendar > div.calendar_structure[data-hide-weekend="1"] .days > .day { width: round(to-zero, calc(100% / 5), 1%); }
+div.variable_calendar > div.calendar_structure[data-hide-weekend="1"] > .years > .year > .months > .month > .days_subjects > .days_holder > .days > .day[data-day="0"] { display: none; }
+div.variable_calendar > div.calendar_structure[data-hide-weekend="1"] > .years > .year > .months > .month > .days_subjects > .days_holder > .days > .day[data-day="6"] { display: none; }
+div.variable_calendar > div.calendar_structure[data-hide-weekend="1"] > .years > .year > .months > .month[data-month="1"] > .weeks > .week:not(:has(> .days > .day:not([data-day="0"]):not([data-day="6"])[data-month="1"])) { display: none; }
+div.variable_calendar > div.calendar_structure[data-hide-weekend="1"] > .years > .year > .months > .month[data-month="2"] > .weeks > .week:not(:has(> .days > .day:not([data-day="0"]):not([data-day="6"])[data-month="2"])) { display: none; }
+div.variable_calendar > div.calendar_structure[data-hide-weekend="1"] > .years > .year > .months > .month[data-month="3"] > .weeks > .week:not(:has(> .days > .day:not([data-day="0"]):not([data-day="6"])[data-month="3"])) { display: none; }
+div.variable_calendar > div.calendar_structure[data-hide-weekend="1"] > .years > .year > .months > .month[data-month="4"] > .weeks > .week:not(:has(> .days > .day:not([data-day="0"]):not([data-day="6"])[data-month="4"])) { display: none; }
+div.variable_calendar > div.calendar_structure[data-hide-weekend="1"] > .years > .year > .months > .month[data-month="5"] > .weeks > .week:not(:has(> .days > .day:not([data-day="0"]):not([data-day="6"])[data-month="5"])) { display: none; }
+div.variable_calendar > div.calendar_structure[data-hide-weekend="1"] > .years > .year > .months > .month[data-month="6"] > .weeks > .week:not(:has(> .days > .day:not([data-day="0"]):not([data-day="6"])[data-month="6"])) { display: none; }
+div.variable_calendar > div.calendar_structure[data-hide-weekend="1"] > .years > .year > .months > .month[data-month="7"] > .weeks > .week:not(:has(> .days > .day:not([data-day="0"]):not([data-day="6"])[data-month="7"])) { display: none; }
+div.variable_calendar > div.calendar_structure[data-hide-weekend="1"] > .years > .year > .months > .month[data-month="8"] > .weeks > .week:not(:has(> .days > .day:not([data-day="0"]):not([data-day="6"])[data-month="8"])) { display: none; }
+div.variable_calendar > div.calendar_structure[data-hide-weekend="1"] > .years > .year > .months > .month[data-month="9"] > .weeks > .week:not(:has(> .days > .day:not([data-day="0"]):not([data-day="6"])[data-month="9"])) { display: none; }
+div.variable_calendar > div.calendar_structure[data-hide-weekend="1"] > .years > .year > .months > .month[data-month="10"] > .weeks > .week:not(:has(> .days > .day:not([data-day="0"]):not([data-day="6"])[data-month="10"])) { display: none; }
+div.variable_calendar > div.calendar_structure[data-hide-weekend="1"] > .years > .year > .months > .month[data-month="11"] > .weeks > .week:not(:has(> .days > .day:not([data-day="0"]):not([data-day="6"])[data-month="11"])) { display: none; }
+div.variable_calendar > div.calendar_structure[data-hide-weekend="1"] > .years > .year > .months > .month[data-month="12"] > .weeks > .week:not(:has(> .days > .day:not([data-day="0"]):not([data-day="6"])[data-month="12"])) { display: none; }
+div.variable_calendar > div.calendar_structure[data-hide-weekend="1"] > .years > .year > .months > .month > .weeks > .week > .days > .day[data-day="0"] { display: none; }
+div.variable_calendar > div.calendar_structure[data-hide-weekend="1"] > .years > .year > .months > .month > .weeks > .week > .days > .day[data-day="6"] { display: none; }
+div.variable_calendar:not([data-show-schedule-whole="1"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days > .day > ul.scheduled[data-group="whole"] { display: none; }
+div.variable_calendar:not([data-show-schedule-timely="1"]) > div.calendar_structure[data-structure-type="massive"] > .years > .year > .months > .month > .weeks > .week > .days > .day > ul.scheduled[data-group="timely"] { display: none; }
+
+
+div.variable_calendar > div.calendar_bar { --area-handler-width: 108px; position: relative; left: calc(var(--side-pad) * -1); right: calc(var(--side-pad) * -1); width: calc(100% + (var(--side-pad) * 2)); min-width: 100%; height: var(--cal-bar-height); padding-bottom: 3px; border-top: solid 1px rgb(var(--cbl) / 40%); box-sizing: border-box; user-select: none; }
+div.variable_calendar > div.calendar_bar div { min-width: unset; }
+div.variable_calendar > div.calendar_bar > div { height: 100%; }
+
+div.variable_calendar > div.calendar_bar > div.schedule_filter_area { width: 100%; padding: 4px 0; box-sizing: border-box; flex-grow: 1; flex-shrink: 1; overflow: overlay hidden; overscroll-behavior-x: none; user-select: none; }
+div.variable_calendar > div.calendar_bar > div.schedule_filter_area::-webkit-scrollbar-thumb { border-right-width: var(--area-handler-width); }
+@media (pointer: fine) {
+div.variable_calendar > div.calendar_bar > div.schedule_filter_area { padding-bottom: 2px; }
+}
+div.variable_calendar > div.calendar_bar > div.schedule_filter_area > div.schedule_filter { display: flex; flex-direction: row; flex-wrap: nowrap; width: max-content; height: 100%; margin-inline: 8px; align-items: center; }
+div.variable_calendar > div.calendar_bar > div.schedule_filter_area > div.schedule_filter label {  }
+div.variable_calendar > div.calendar_bar > div.schedule_filter_area > div.schedule_filter ul { list-style: none; margin: 0; padding: 0; }
+div.variable_calendar > div.calendar_bar > div.schedule_filter_area > div.schedule_filter ul > li { background-color: rgb(var(--cb) / 15%); border-radius: 0.4em; }
+div.variable_calendar > div.calendar_bar > div.schedule_filter_area > div.schedule_filter ul > li > label { position: relative; padding: 0 8px; }
+div.variable_calendar > div.calendar_bar > div.schedule_filter_area > div.schedule_filter ul > li[data-selected="1"] > label::after { content: ''; position: absolute; bottom: -0.2em; right: calc(8px + -0.75em); width: 1em; aspect-ratio: 1; background-color: var(--color-point); mask-image: var(--svg-check); }
+div.variable_calendar > div.calendar_bar > div.schedule_filter_area > div.schedule_filter > label {  }
+div.variable_calendar > div.calendar_bar > div.schedule_filter_area > div.schedule_filter > label:not(:first-child) { margin-inline: 8px 2px; }
+div.variable_calendar > div.calendar_bar > div.schedule_filter_area > div.schedule_filter > label > span { display: inline-block; --h-scale-adjust: -14%; margin-inline-end: var(--h-scale-adjust); font-size: 1rem; scale: calc(100% + var(--h-scale-adjust)) 1; }
+div.variable_calendar > div.calendar_bar > div.schedule_filter_area > div.schedule_filter > ul { height: 100%; }
+div.variable_calendar > div.calendar_bar > div.schedule_filter_area > div.schedule_filter > ul > li { }
+div.variable_calendar > div.calendar_bar > div.schedule_filter_area > div.schedule_filter > ul > li > label { }
+div.variable_calendar > div.calendar_bar > div.schedule_filter_area > div.schedule_filter > ul.fixed { display: flex; flex-direction: column; flex-wrap: wrap; justify-content: stretch; gap: 4px; }
+div.variable_calendar > div.calendar_bar > div.schedule_filter_area > div.schedule_filter > ul.fixed > li { display: flex; flex-flow: row nowrap; justify-content: center; align-items: center; flex-grow: 1; cursor: pointer; transition-duration: 0.2s; }
+div.variable_calendar > div.calendar_bar > div.schedule_filter_area > div.schedule_filter > ul.fixed > li:hover { background-color: rgb(var(--cpl) / 15%); }
+div.variable_calendar > div.calendar_bar > div.schedule_filter_area > div.schedule_filter > ul.fixed > li:active { background-color: rgb(var(--cpl) / 35%); }
+div.variable_calendar > div.calendar_bar > div.schedule_filter_area > div.schedule_filter > ul.fixed > li > label { position: relative; padding-inline: 8px calc(8px + 1.1em); font-size: 0.8125rem; cursor: pointer; }
+/* div.variable_calendar > div.calendar_bar > div.schedule_filter_area > div.schedule_filter > ul.fixed > li > label::before { position: relative; display: inline-block; top: -2px; height: fit-content; } */
+div.variable_calendar > div.calendar_bar > div.schedule_filter_area > div.schedule_filter > ul.fixed > li[data-selected="1"] > label::after { top: -2px; bottom: 0; right: calc(8px + -0.2em); height: 1em; margin: auto 0; line-height: 1em; }
+div.variable_calendar > div.calendar_bar > div.schedule_filter_area > div.schedule_filter > ul.variable { display: flex; flex-direction: row; flex-wrap: nowrap; }
+div.variable_calendar > div.calendar_bar > div.schedule_filter_area > div.schedule_filter > ul.variable > li { }
+div.variable_calendar > div.calendar_bar > div.schedule_filter_area > div.schedule_filter > ul.variable > li > label { cursor: pointer; transition-duration: 0.2s; }
+div.variable_calendar > div.calendar_bar > div.schedule_filter_area > div.schedule_filter > ul.variable > li > label:hover { background-color: rgb(var(--cpl) / 15%); }
+div.variable_calendar > div.calendar_bar > div.schedule_filter_area > div.schedule_filter > ul.variable > li > label:active { background-color: rgb(var(--cpl) / 35%); }
+div.variable_calendar > div.calendar_bar > div.schedule_filter_area > div.schedule_filter > ul.variable > li > ul.data_selection { display: flex; flex-direction: row; flex-wrap: nowrap; margin: 4px 8px; }
+div.variable_calendar > div.calendar_bar > div.schedule_filter_area > div.schedule_filter > ul.variable > li > ul.data_selection > li { margin-inline-start: 8px; cursor: pointer; transition-duration: 0.2s; }
+div.variable_calendar > div.calendar_bar > div.schedule_filter_area > div.schedule_filter > ul.variable > li > ul.data_selection > li:hover { background-color: rgb(var(--cpl) / 15%); }
+div.variable_calendar > div.calendar_bar > div.schedule_filter_area > div.schedule_filter > ul.variable > li > ul.data_selection > li:active { background-color: rgb(var(--cpl) / 35%); }
+div.variable_calendar > div.calendar_bar > div.schedule_filter_area > div.schedule_filter > ul.variable > li > ul.data_selection > li > label { display: inline-block; height: 100%; cursor: pointer; }
+div.variable_calendar > div.calendar_bar > div.schedule_filter_area > div.schedule_filter > ul.variable > li > ul.data_selection > li > label > span { }
+div.variable_calendar > div.calendar_bar > div.schedule_filter_area > div.schedule_filter > ul.variable > li > ul.data_selection > li > label > select { }
+div.variable_calendar > div.calendar_bar > div.schedule_filter_area > div.schedule_filter > div.area_pad { width: var(--area-handler-width); }
+
+div.variable_calendar > div.calendar_bar > div.control_area { position: absolute; display: flex; flex-direction: row; flex-wrap: nowrap; top: 0; bottom: 0; right: 0; width: var(--area-handler-width); box-sizing: border-box; gap: 4px; padding: 4px 4px 6px 6px; backdrop-filter: blur(1.5px); -webkit-backdrop-filter: blur(1.5px); }
+div.variable_calendar > div.calendar_bar > div.control_area button { color: var(--color-point); font-size: 1.125rem; text-shadow: 0 0 4px white; box-shadow: 0.5px 0.5px 2px 0 #0002; }
+div.variable_calendar > div.calendar_bar > div.control_area > * { flex-basis: 0; flex-grow: 1; align-self: stretch; }
+div.variable_calendar > div.calendar_bar > div.control_area > div { display: flex; flex-direction: column; flex-wrap: nowrap; gap: 4px; }
+div.variable_calendar > div.calendar_bar > div.control_area > div > * { flex-basis: 0; flex-grow: 1; align-self: stretch; }
+div.variable_calendar > div.calendar_bar > div.control_area > nav { position: absolute; z-index: 1; right: 4px; bottom: calc(100% + 2px); width: max-content; height: max-content; border-radius: var(--basic-ui-inset-half); background-color: rgb(var(--cbbr) / 75%); backdrop-filter: blur(1.5px); -webkit-backdrop-filter: blur(1.5px); }
+div.variable_calendar > div.calendar_bar > div.control_area > nav.settings_panel { display: flex; flex-flow: column; padding: var(--basic-ui-inset-half) var(--basic-ui-inset); gap: var(--basic-ui-inset-quarter); font-size: 14px; line-height: 1.5em; }
+div.variable_calendar > div.calendar_bar > div.control_area > nav.settings_panel input { cursor: pointer; }
+div.variable_calendar > div.calendar_bar > div.control_area > nav.settings_panel label { cursor: pointer; }
+div.variable_calendar > div.calendar_bar > div.control_area > nav.settings_panel > div { }
+div.variable_calendar > div.calendar_bar > div.control_area > nav.settings_panel > div > div { padding-right: var(--basic-ui-inset-h-half); border-radius: 2px; transition-timing-function: ease; transition-duration: 0.3s; }
+div.variable_calendar > div.calendar_bar > div.control_area > nav.settings_panel > div > div:hover { background-color: var(--color-boundary-o20); }
+div.variable_calendar > div.calendar_bar > div.control_area > nav:not([data-show="1"]) { display: none; }
+div.variable_calendar > div.calendar_bar > div.control_area > button.settings::before { content: '⚙️'; }
+div.variable_calendar > div.calendar_bar > div.control_area > div.area_handler { }
+div.variable_calendar > div.calendar_bar > div.control_area > div.area_handler > button.to_smaller { }
+div.variable_calendar > div.calendar_bar > div.control_area > div.area_handler > button.to_smaller::before { content: '▲'; }
+div.variable_calendar > div.calendar_bar > div.control_area > div.area_handler > button.to_larger { }
+div.variable_calendar > div.calendar_bar > div.control_area > div.area_handler > button.to_larger::before { content: '▼'; }
+
+div.variable_calendar > div.area_resizer { position: absolute; bottom: 0; left: calc(var(--side-pad) * -1); right: calc(var(--side-pad) * -1); width: calc(100% + (var(--side-pad) * 2)); height: 2px; min-width: 100%; border-top: solid 1px transparent; border-bottom: solid 1px transparent; background-color: rgb(var(--cb) / 20%); background-clip: content-box; cursor: row-resize; transition-duration: 0.2s; }
+div.variable_calendar > div.area_resizer:hover { box-shadow: 0 0 2px 0.5px var(--color-boundary-bright); }
+div.variable_calendar > div.area_resizer:active { background-color: rgb(var(--cbl) / 80%); }
+
+
+
+.schedule_list { box-sizing: border-box; margin: 4px 0 0; overflow: hidden; user-select: none; }
+.schedule_list > .unified_scheduler { display: flex; flex-direction: column; flex-wrap: nowrap; box-sizing: border-box; height: 100%; margin: 0; }
+.schedule_list > .unified_scheduler > div { box-sizing: border-box; margin-inline: 0; }
+.schedule_list > .unified_scheduler > .titled_tab_block { margin-top: 0; }
+.schedule_list > .unified_scheduler > .tab_content_blocks { height: 0; flex-grow: 1; flex-shrink: 1; margin-bottom: 0; }
+
+.schedule_list .schedule_host { display: flex; flex-direction: row; flex-wrap: nowrap; margin-inline: 0; }
+.schedule_list .schedule_host > ul { display: flex; flex-direction: row; flex-wrap: nowrap; }
+.schedule_list .schedule_host > ul > li { padding-bottom: var(--bottom-pad); }
+.schedule_list .schedule_host > ul > li[data-division="schedule"] { height: max-content; flex-grow: 1; }
+.schedule_list .schedule_host > ul > li[data-division="schedule"] > div.schedule_placeholder { color: var(--color-text-lightest); font-weight: 300; text-align: center; }
+.schedule_list .schedule_host > ul > li[data-division="schedule"]:not([data-count="0"]) > div.schedule_placeholder { display: none; }
+.schedule_list .schedule_host ul.schedule_holder { display: flex; flex-direction: column; flex-wrap: nowrap; margin: 0; padding: 0; list-style: none; }
+.schedule_list .schedule_host ul.schedule_holder > li { margin-bottom: 8px; padding-bottom: 8px; border-bottom: solid 1px rgb(var(--cmv) / 30%); border-radius: 5%; }
+.schedule_list .schedule_host ul.schedule_holder:last-of-type > li:last-of-type { border-bottom-color: transparent; }
+.schedule_list .schedule_host li.schedule_item { padding-inline: 8px; border-radius: 4%; }
+.schedule_list .schedule_host li.schedule_item > .event_type { margin: 2px; }
+.schedule_list .schedule_host li.schedule_item > .event_type > span { position: relative; }
+.schedule_list .schedule_host li.schedule_item > .event_type > span::before { content: '📅'; /* 📆🗓️ */ font-size: 1em; }
+.schedule_list .schedule_host li.schedule_item[data-category="holiday"] > .event_type > span::before { content: '🏠'; }
+.schedule_list .schedule_host li.schedule_item[data-category="vacation"] > .event_type > span::before { content: '🏖️'; }
+.schedule_list .schedule_host li.schedule_item[data-category="closed"] > .event_type > span::before { content: '⛓️'; }
+.schedule_list .schedule_host li.schedule_item[data-category="ceremony"] > .event_type > span::before { content: '🎉'; }
+.schedule_list .schedule_host li.schedule_item[data-category="exam"] > .event_type > span::before { content: '💯'; }
+.schedule_list .schedule_host li.schedule_item > .event_type > span::after { content: ''; position: absolute; display: block; top: -0.2em; bottom: 0; right: -0.4em; width: 0.25em; height: 1.25em; margin: auto 0; border-radius: 0.1em; background-color: rgb(var(--cbd) / 60%); }
+.schedule_list .schedule_host li.schedule_item[data-category="holiday"] > .event_type > span::after { background-color: rgb(var(--csunv) / 60%); }
+.schedule_list .schedule_host li.schedule_item[data-category="vacation"] > .event_type > span::after { background-color: rgb(var(--csatv) / 60%); }
+.schedule_list .schedule_host li.schedule_item[data-category="closed"] > .event_type > span::after { background-color: rgb(var(--csatv) / 60%); }
+.schedule_list .schedule_host li.schedule_item[data-category="ceremony"] > .event_type > span::after { background-color: rgb(var(--cidv) / 60%); }
+.schedule_list .schedule_host li.schedule_item[data-category="exam"] > .event_type > span::after { background-color: rgb(var(--cidv) / 60%); }
+.schedule_list .schedule_host li.schedule_item > .content { margin-top: 0; flex-grow: 1; text-align: left; }
+.schedule_list .schedule_host .datetime { margin: 0; margin-inline-start: 0.6em; padding: 0; justify-content: flex-start; font-weight: lighter; }
+.schedule_list .schedule_host .datetime span { font-size: smaller; }
+.schedule_list .schedule_host .datetime .year { }
+.schedule_list .schedule_host .datetime .month { margin-inline: 0; color: var(--color-text-lighter); }
+.schedule_list .schedule_host .datetime .date { margin-inline: 0; width: 1.25em; text-align: end; }
+.schedule_list .schedule_host .datetime .date::before { content: '.'; }
+.schedule_list .schedule_host .datetime .day { }
+.schedule_list .schedule_host .datetime rt.week { text-wrap: nowrap; }
+.schedule_list .schedule_host .datetime rt.week > .month { }
+.schedule_list .schedule_host .datetime rt.week > .month::before { content: ''; }
+.schedule_list .schedule_host .datetime rt.week > .month::after { content: ''; }
+.schedule_list:lang(ko) .schedule_host .datetime rt.week > .month::before { content: ''; }
+.schedule_list:lang(ko) .schedule_host .datetime rt.week > .month::after { content: '월'; }
+.schedule_list .schedule_host .datetime rt.week > .week { }
+.schedule_list .schedule_host .datetime rt.week > .week::before { content: '\A0Week\A0'; }
+.schedule_list .schedule_host .datetime rt.week > .week::after { content: ''; }
+.schedule_list:lang(ko) .schedule_host .datetime rt.week > .week::before { content: '\A0'; }
+.schedule_list:lang(ko) .schedule_host .datetime rt.week > .week::after { content: '주차'; }
+.schedule_list .schedule_host .datetime > .timespan { }
+.schedule_list .schedule_host .datetime > .timespan > .time_begin { }
+.schedule_list .schedule_host .datetime > .timespan > .time_end { }
+.schedule_list .schedule_host .datetime > .timespan > .time_end::before { content: ' ~ '; }
+.schedule_list .schedule_host .datetime > .timespan > .time_begin:only-child::after { content: ' ~'; }
+.schedule_list .schedule_host .datetime > .timespan > .time_end:only-child::before { }
+.schedule_list .schedule_host li.schedule_item[data-holiday]:not([data-holiday=""]) .datetime { color: var(--color-holiday); }
+.schedule_list .schedule_host li.schedule_item[data-holiday]:not([data-holiday=""]) .datetime .month { color: var(--color-holiday-gray); }
+.schedule_list .schedule_host .subject { }
+.schedule_list .schedule_host .subject::before { content: '●'; display: inline-block; margin-left: -1.2em; font-size: 0.9em; letter-spacing: 0.25em; translate: 0em -0.1em; }
+

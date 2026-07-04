@@ -1,0 +1,401 @@
+/* managed overlay content page area */
+nav#managedOverlay { }
+nav#managedOverlay > section { }
+nav#managedOverlay > section > div.container { position: fixed; z-index: 400; top: initial; bottom: initial; left: 0; right: 0; height: 0; padding-top: 0; padding-bottom: 0; overflow: visible; box-sizing: border-box; }
+nav#managedOverlay > section > div.container.top { top: 0; width: fit-content; height: fit-content; margin: 0 auto; }
+nav#managedOverlay > section > div.container.bottom { bottom: 0; width: fit-content; height: fit-content; margin: 0 auto; }
+nav#managedOverlay > section > div.container.slider { transition-timing-function: ease; transition-duration: 0.5s; will-change: auto; }
+nav#managedOverlay > section > div.container.blind:is([data-on-top="1"], [data-on-top="0*"]) { height: 100vh; }
+nav#managedOverlay > section > div.container:not(.blind):is([data-on-top="1"], [data-on-top="0*"]) { height: fit-content; }
+nav#managedOverlay > section > div.container[data-on-top=""] { display: none; }
+nav#managedOverlay > section > div.container[data-on-top="1"] { z-index: 410; }
+nav#managedOverlay > section > div.container > article { }
+nav#managedOverlay > section > div.container > article[data-on-top="1"] { z-index: 411; }
+nav#managedOverlay > section > div.container > .container_master_float { z-index: 412; }
+
+nav#managedOverlay > section#functional > div.container > article.constraint {  }
+nav#managedOverlay > section#functional > div.container > article.constraint > .webview { display: flex; flex-flow: column nowrap; height: 100%; }
+nav#managedOverlay > section#functional > div.container > article.constraint > .webview > div {  }
+nav#managedOverlay > section#functional > div.container > article.constraint > .webview > div.browser_area { position: relative; flex-grow: 1; }
+nav#managedOverlay > section#functional > div.container > article.constraint > .webview > div.browser_area > iframe { position: absolute; top: 0; bottom: 0; left: 0; right: 0; width: 100%; height: 100%; border: 0; }
+nav#managedOverlay > section#functional > div.container > article.constraint > .webview > div.navigation_area { --height: 56px; height: var(--height); flex-grow: 0; align-items: center; }
+nav#managedOverlay > section#functional > div.container > article.constraint > .webview > div.navigation_area > * { height: 100%; box-sizing: border-box; }
+nav#managedOverlay > section#functional > div.container > article.constraint > .webview > div.navigation_area > button { --size: 20px; aspect-ratio: 1; background-size: var(--size) var(--size); background-position: center; background-repeat: no-repeat; }
+nav#managedOverlay > section#functional > div.container > article.constraint > .webview > div.navigation_area > .titleArea { padding-inline: 8px; flex-grow: 1; align-items: center; }
+
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface { }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog { --full-width: calc(100% - var(--left-pad) - var(--right-pad)); --radius: 24px; --bg-color: rgb(from var(--common-bg-color) r g b / 66.6667%); display: flex; flex-flow: column nowrap; top: var(--top-safe-pad); bottom: var(--bottom-safe-pad); left: var(--left-pad); right: var(--right-pad); width: var(--full-width); min-width: 240px; max-width: calc(100vw - var(--left-pad) - var(--right-pad)); max-height: calc(100vh - var(--top-safe-pad) - var(--bottom-safe-pad)); box-sizing: border-box; padding: 20px; border-radius: var(--radius); background-color: transparent; backdrop-filter: var(--basic-backdrop-blur); -webkit-backdrop-filter: var(--basic-backdrop-blur); overflow-wrap: break-word; }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog:before { content: ''; z-index: -2; position: absolute; top: 0; bottom: 0; left: 0; right: 0; border-radius: var(--radius); background-color: var(--bg-color); translate: 1% 2.5%; transform: scale(1.05, 1.1); filter: brightness(0.15) blur(2px) opacity(0.25); }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog:after { content: ''; z-index: -1; position: absolute; top: 0; bottom: 0; left: 0; right: 0; border-radius: var(--radius); background-color: var(--bg-color); }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog > div { width: -moz-available; width: -webkit-fill-available; width: stretch; height: fit-content; flex-grow: 0; flex-shrink: 0; }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog > div.title { position: relative; font-size: 1.25rem; font-weight: 600; text-align: center; }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog > div.title > button { position: absolute; top: 0; bottom: 0; height: 40px; aspect-ratio: 1; margin: auto; padding: 0; border-style: none; border-width: 0; border-radius: 8px; background-color: transparent; background-position: center; background-repeat: no-repeat; cursor: pointer; transition-duration: 0.2s; }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog > div.title > button:focus { outline-style: none; outline-width: 0; box-shadow: solid 4px var(--color-adaptive-dimmest); }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog > div.title > button:hover { backdrop-filter: blur(1px); -webkit-backdrop-filter: blur(1px); }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog > div.title > button:active { background-color: var(--color-adaptive-bright); }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog > div.title > button.back { left: -8px; background-image: var(--svg-back); }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog:not([data-back="1"]) > div.title > button.back { display: none; }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog > div.title > button.close { right: -8px; background-image: var(--svg-close); }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog:not([data-close="1"]) > div.title > button.close { display: none; }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog > div.message { flex-shrink: 1; font-size: 1rem; text-align: center; word-break: keep-all; overflow: hidden auto; }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog > div.message:has(> span:not(:empty)) { margin-top: 12px; }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog > div.content { display: flex; flex-flow: column nowrap; flex-shrink: 1; overflow: hidden auto; }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog > div.content > div.message { flex-shrink: 1; font-size: 1rem; text-align: center; word-break: keep-all; overflow: hidden auto; }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog > div.content:not(:empty):has(> div.message:is(:not(:only-child), :has(> span:not(:empty)))) { margin-top: 12px; }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog > div.actions { display: flex; flex-flow: row nowrap; margin-top: 16px; justify-content: space-evenly; column-gap: var(--basic-ui-inset-h-half); }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog > div.actions :is(input, button) { border-radius: 1.25em; background-color: rgb(255 255 255 / 0%); backdrop-filter: var(--basic-backdrop-blur); -webkit-backdrop-filter: var(--basic-backdrop-blur); }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog > div.actions :is(input, button):focus { outline-color: rgb(var(--cpl) / 50%); }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog > div.actions input { margin-right: 8px; padding: 16px 12px; border-style: none; }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog > div.actions button { width: 100%; min-width: 4.5em; padding: 8px; border: solid 1px var(--color-adaptive); border-radius: 0.75em; font-size: 1rem; word-break: keep-all; cursor: pointer; transition-timing-function: ease; transition-duration: 0.3s; will-change: auto; }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog > div.actions button:focus { outline: dashed 2px var(--color-poind-darker); outline-offset: -3px; }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog > div.actions button.confirm { background-color: var(--color-point); }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog > div.actions button.confirm:hover { background-color: var(--color-point-light); }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog > div.actions button.confirm:active { background-color: var(--color-point-dark); }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog > div.actions button.positive { background-color: var(--color-point); }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog > div.actions button.positive:hover { background-color: var(--color-point-light); }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog > div.actions button.positive:active { background-color: var(--color-point-dark); }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog > div.actions button.negative { background-color: var(--color-adaptive-bright); }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog > div.actions button.negative:hover { background-color: var(--color-adaptive-brightest); }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog > div.actions button.negative:active { background-color: var(--color-adaptive-light); }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog > div.actions button.neutral { background-color: var(--color-point-sub); }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog > div.actions button.neutral:hover { background-color: var(--color-point-sub-light); }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog > div.actions button.neutral:active { background-color: var(--color-point-sub-dark); }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog > div.actions:has(> span) { flex-direction: row-reverse; justify-content: space-between; }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog > div.actions > span { display: flex; flex-flow: row nowrap; justify-content: space-evenly; flex-grow: 1; flex-shrink: 1; column-gap: var(--basic-ui-inset-h-half); }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog > div.actions > span:empty { display: none; }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog > div.actions > span.left { }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog > div.actions > span.left > button { }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog > div.actions > span.right { flex-direction: row-reverse; }
+nav#managedOverlay > section#customDialog > div.container > article.popup_interface > .dialog > div.actions > span.right > button { }
+
+nav#managedOverlay > section#customToast > div.container > article.popup_interface { scrollbar-width: none; }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog { --height: max-content; --padding-v: 28px; --padding-h: 0; --padding-t: var(--padding-v); --padding-b: var(--padding-v); --padding-l: var(--padding-h); --padding-r: var(--padding-h); --radius: 24px; --bg-color: rgb(from var(--common-bg-color) r g b / 98%); display: flex; flex-flow: column nowrap; left: var(--left-pad); right: var(--right-pad); width: calc(100vw - var(--left-pad) - var(--right-pad) - var(--padding-l) - var(--padding-r)); height: var(--height); max-height: calc(100vh - var(--top-safe-pad) - var(--padding-t) - var(--bottom-safe-pad) - var(--padding-b)); padding: var(--padding-t) 0 calc(var(--bottom-safe-pad) + var(--padding-b)); border-top-left-radius: var(--radius); border-top-right-radius: var(--radius); background-color: transparent; backdrop-filter: var(--basic-backdrop-blur); -webkit-backdrop-filter: var(--basic-backdrop-blur); overflow-wrap: break-word; transition-timing-function: ease; transition-duration: 0.3s; will-change: auto; }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog[data-on-grab="1"] { bottom: min(min(calc(0px - var(--grab-y)), 0px), 0px); transition-duration: 0s; }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface:is([data-on-top="0"], [data-on-top="0*"]) > .dialog { bottom: -100%; transition-duration: 0.5s; }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog:before { content: ''; z-index: -2; position: absolute; top: 0; bottom: 0; left: 0; right: 0; border-top-left-radius: var(--radius); border-top-right-radius: var(--radius); background-color: var(--bg-color); translate: 1% 2.5%; transform: scale(1.05, 1.05); filter: brightness(0.15) blur(2px) opacity(0.25); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog:after { content: ''; z-index: -1; position: absolute; top: 0; bottom: 0; left: 0; right: 0; border-top-left-radius: var(--radius); border-top-right-radius: var(--radius); background-color: var(--bg-color); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div { width: -moz-available; width: -webkit-fill-available; width: stretch; height: fit-content; flex-grow: 0; flex-shrink: 0; }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.handle { --width: 80px; --height: 4px; --expand: 6px; position: absolute; z-index: 1; top: 0; left: 0; right: 0; width: var(--width); height: var(--height); margin: 12px auto; border-radius: calc(var(--height) / 2); background-color: var(--color-boundary-lightside); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.handle:hover { background-color: var(--color-boundary-dark); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.handle:active { background-color: var(--color-boundary-darkness); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.handle::after { --deposition: calc(var(--expand) * -1); content: ''; position: absolute; display: block; top: var(--deposition); bottom: var(--deposition); left: var(--deposition); right: var(--deposition); border-radius: calc(var(--height) + (var(--expand) * 2)); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.title { position: relative; margin-inline: 16px; font-size: 1.25rem; font-weight: 600; text-align: center; }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.title > button:empty { position: absolute; top: 0; bottom: 0; height: 40px; aspect-ratio: 1; margin: auto; padding: 0; border-style: none; border-width: 0; border-radius: 8px; background-color: transparent; background-position: center; background-repeat: no-repeat; cursor: pointer; transition-duration: 0.2s; }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.title > button:empty:focus { outline-style: none; outline-width: 0; box-shadow: solid 4px var(--color-adaptive-dimmest); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.title > button:empty:hover { backdrop-filter: blur(1px); -webkit-backdrop-filter: blur(1px); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.title > button:empty:active { background-color: var(--color-adaptive-bright); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.title > button:empty.back { left: -8px; background-image: var(--svg-back); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog:not([data-back="1"]) > div.title > button.back { display: none; }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.title > button.close:empty { right: -8px; background-image: var(--svg-close); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog:not([data-close="1"]) > div.title > button.close { display: none; }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.message { flex-shrink: 1; margin-inline: 16px; font-size: 1rem; text-align: left; word-break: keep-all; overflow: hidden auto; }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.message:has(> span:not(:empty)) { margin-top: 12px; }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.content { display: flex; flex-flow: column nowrap; flex-shrink: 1; overflow: hidden auto; }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.content > div.message { flex-shrink: 1; margin-inline: 16px; font-size: 1rem; text-align: left; word-break: keep-all; overflow: hidden auto; }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.content:not(:empty):has(> div.message:is(:not(:only-child), :has(> span:not(:empty)))) { margin-top: 12px; }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.options { --inter-item-margin: 0; --margin-inline: 16px; display: flex; flex-flow: column nowrap; padding-top: 16px; flex-shrink: 1; overflow-y: auto; }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.options > button { word-break: keep-all; }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.options > button.tp_tiled_btn { text-align: left; }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.options > button.tp_tiled_btn:not(.no_pad) { padding: 16px; padding-inline: var(--margin-inline); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.options > button:not(.tp_tiled_btn) { margin-inline: var(--margin-inline); padding: 8px; border: solid 1px var(--color-adaptive); border-radius: 0.75em; font-size: 1rem; cursor: pointer; }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.options > button:not(.tp_tiled_btn):not(:first-child) { margin-top: var(--inter-item-margin); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.options > button > div.line_block { position: relative; }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.options > button > div.line_block > label { display: inline-block; width: 100%; height: -webkit-fill-available; flex-grow: 1; flex-shrink: 1; }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.options > button.no_pad > div.line_block > label { padding: 16px; padding-inline: var(--margin-inline); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.options > button > div.line_block > input[type="checkbox"] { position: absolute; z-index: -1; top: 0; bottom: 0; right: 0; margin: auto 0; }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.options > button.no_pad > div.line_block > input[type="checkbox"] { margin-inline: var(--margin-inline); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions { --inter-item-margin: var(--basic-ui-inset-h-half); display: flex; flex-flow: row nowrap; margin-top: 16px; margin-inline: 16px; justify-content: space-evenly; column-gap: var(--inter-item-margin); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions:not(.vertical):not(.reverse) > button:not(:first-child) { margin-left: var(--inter-item-margin); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions.reverse { flex-direction: row-reverse; }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions.reverse:not(.vertical) > button:not(:first-child) { margin-right: var(--inter-item-margin); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions.vertical { flex-direction: column; }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions.vertical > * { width: -moz-available; width: -webkit-fill-available; width: stretch; }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions.vertical:not(.reverse) > *:not(:first-child) { margin-top: var(--inter-item-margin); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions.vertical.reverse { flex-direction: column-reverse; }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions.vertical.reverse > *:not(:first-child) { margin-bottom: var(--inter-item-margin); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions :is(input, button) { border-radius: 1.25em; background-color: rgb(var(--cb) / 10%); backdrop-filter: var(--basic-backdrop-blur); -webkit-backdrop-filter: var(--basic-backdrop-blur); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions :is(input, button):focus { outline-color: rgb(var(--cpl) / 50%); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions input { padding: 16px 12px; border-style: none; }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions button { width: 100%; min-width: 4.5em; width: 33%; flex-grow: 1; flex-shrink: 1; padding: 8px; border: solid 1px var(--color-adaptive); border-radius: 0.75em; font-size: 1rem; word-break: keep-all; cursor: pointer; transition-timing-function: ease; transition-duration: 0.3s; will-change: auto; }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions button:focus { outline: dashed 2px var(--color-poind-darker); outline-offset: -3px; }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions button.confirm { background-color: var(--color-point); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions button.confirm:hover { background-color: var(--color-point-light); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions button.confirm:active { background-color: var(--color-point-dark); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions button.confirm:disabled { background-color: rgb(var(--cpl) / 20%); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions button.another { background-color: var(--color-adaptive-bright); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions button.another:hover { background-color: var(--color-adaptive-brightest); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions button.another:active { background-color: var(--color-adaptive-light); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions button.another:disabled { background-color: rgb(var(--cabt) / 20%); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions button.positive { background-color: var(--color-point); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions button.positive:hover { background-color: var(--color-point-light); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions button.positive:active { background-color: var(--color-point-dark); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions button.positive:disabled { background-color: rgb(var(--cpl) / 20%); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions button.negative { background-color: var(--color-adaptive-bright); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions button.negative:hover { background-color: var(--color-adaptive-brightest); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions button.negative:active { background-color: var(--color-adaptive-light); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions button.negative:disabled { background-color: rgb(var(--cabt) / 20%); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions button.neutral { background-color: var(--color-point-sub); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions button.neutral:hover { background-color: var(--color-point-sub-light); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions button.neutral:active { background-color: var(--color-point-sub-dark); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions button.neutral:disabled { background-color: rgb(var(--cpsl) / 20%); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions:has(> span) { flex-direction: row-reverse; justify-content: space-between; }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions > div { display: flex; flex-flow: row nowrap; justify-content: space-evenly; }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions > div:not(.vertical) > button:not(:first-child) { margin-left: var(--inter-item-margin); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions > div.vertical { flex-direction: column; }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions > div.vertical > button:not(:first-child) { margin-top: var(--inter-item-margin); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions > span { display: flex; flex-flow: row nowrap; justify-content: space-evenly; flex-grow: 1; flex-shrink: 1; column-gap: var(--inter-item-margin); }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions > span:empty { display: none; }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions > span.left { }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions > span.left > button { }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions > span.right { flex-direction: row-reverse; }
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog > div.actions > span.right > button { }
+@media all and (min-height: 700px) and (min-width: 740px) {
+nav#managedOverlay > section#customToast > div.container > article.popup_interface > .dialog { max-width: var(--on-screen-limit-width); }
+}
+
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface { scrollbar-width: none; }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog { --height: max-content; --padding-v: 28px; --padding-h: 0; --padding-t: var(--padding-v); --padding-b: var(--padding-v); --padding-l: var(--padding-h); --padding-r: var(--padding-h); --radius: 24px; --bg-color: rgb(from var(--common-bg-color) r g b / 98%); display: flex; flex-flow: column nowrap; left: var(--left-pad); right: var(--right-pad); width: calc(100vw - var(--left-pad) - var(--right-pad) - var(--padding-l) - var(--padding-r)); height: var(--height); max-height: calc(100vh - var(--top-safe-pad) - var(--padding-t) - var(--bottom-safe-pad) - var(--padding-b)); padding: 28px 0 calc(28px + var(--bottom-safe-pad)); border-top-left-radius: var(--radius); border-top-right-radius: var(--radius); background-color: transparent; backdrop-filter: var(--basic-backdrop-blur); -webkit-backdrop-filter: var(--basic-backdrop-blur); overflow-wrap: break-word; transition-timing-function: ease; transition-duration: 0.3s; will-change: auto; }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog[data-on-grab="1"] { bottom: min(min(calc(0px - var(--grab-y)), 0px), 0px); transition-duration: 0s; }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface:not([data-on-top="1"], [data-on-top="0*"]) > .dialog { bottom: -100%; transition-duration: 0.5s; }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog:before { content: ''; z-index: -2; position: absolute; top: 0; bottom: 0; left: 0; right: 0; border-top-left-radius: var(--radius); border-top-right-radius: var(--radius); background-color: var(--bg-color); translate: 1% 2.5%; transform: scale(1.05, 1.05); filter: brightness(0.15) blur(2px) opacity(0.25); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog:after { content: ''; z-index: -1; position: absolute; top: 0; bottom: 0; left: 0; right: 0; border-top-left-radius: var(--radius); border-top-right-radius: var(--radius); background-color: var(--bg-color); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div { width: -moz-available; width: -webkit-fill-available; width: stretch; height: fit-content; flex-grow: 0; flex-shrink: 0; }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.handle { --width: 80px; --height: 4px; --expand: 6px; position: absolute; z-index: 1; top: 0; left: 0; right: 0; width: var(--width); height: var(--height); margin: 12px auto; border-radius: calc(var(--height) / 2); background-color: var(--color-boundary-lightside); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.handle:hover { background-color: var(--color-boundary-dark); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.handle:active { background-color: var(--color-boundary-darkness); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.handle::after { --deposition: calc(var(--expand) * -1); content: ''; position: absolute; display: block; top: var(--deposition); bottom: var(--deposition); left: var(--deposition); right: var(--deposition); border-radius: calc(var(--height) + (var(--expand) * 2)); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.title { position: relative; margin-inline: 16px; font-size: 1.25rem; font-weight: 600; text-align: center; }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.title > button { position: absolute; top: 0; bottom: 0; height: 40px; aspect-ratio: 1; margin: auto; padding: 0; border-style: none; border-width: 0; border-radius: 8px; background-color: transparent; background-position: center; background-repeat: no-repeat; cursor: pointer; transition-duration: 0.2s; }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.title > button:focus { outline-style: none; outline-width: 0; box-shadow: solid 4px var(--color-adaptive-dimmest); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.title > button:hover { backdrop-filter: blur(1px); -webkit-backdrop-filter: blur(1px); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.title > button:active { background-color: var(--color-adaptive-bright); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.title > button.back { left: -8px; background-image: var(--svg-back); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog:not([data-back="1"]) > div.title > button.back { display: none; }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.title > button.close { right: -8px; background-image: var(--svg-close); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog:not([data-close="1"]) > div.title > button.close { display: none; }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.message { flex-shrink: 1; margin-inline: 16px; font-size: 1rem; text-align: left; word-break: keep-all; overflow: hidden auto; }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.message:has(> span:not(:empty)) { margin-top: 12px; }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.content { display: flex; flex-flow: column nowrap; flex-shrink: 1; overflow: hidden auto; }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.content > div.message { flex-shrink: 1; margin-inline: 16px; font-size: 1rem; text-align: left; word-break: keep-all; overflow: hidden auto; }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.content:not(:empty):has(> div.message:is(:not(:only-child), :has(> span:not(:empty)))) { margin-top: 12px; }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.options { --inter-item-margin: 0; --margin-inline: 16px; display: flex; flex-flow: column nowrap; padding-top: 16px; flex-shrink: 1; overflow-y: auto; }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.options > button { word-break: keep-all; }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.options > button.tp_tiled_btn { text-align: left; }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.options > button.tp_tiled_btn:not(.no_pad) { padding: 16px; padding-inline: var(--margin-inline); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.options > button:not(.tp_tiled_btn) { margin-inline: var(--margin-inline); padding: 8px; border: solid 1px var(--color-adaptive); border-radius: 0.75em; font-size: 1rem; cursor: pointer; }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.options > button:not(.tp_tiled_btn):not(:first-child) { margin-top: var(--inter-item-margin); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.options > button > div.line_block { position: relative; }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.options > button > div.line_block > label { display: inline-block; width: 100%; height: -webkit-fill-available; flex-grow: 1; flex-shrink: 1; }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.options > button.no_pad > div.line_block > label { padding: 16px; padding-inline: var(--margin-inline); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.options > button > div.line_block > input[type="checkbox"] { position: absolute; z-index: -1; top: 0; bottom: 0; right: 0; margin: auto 0; }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.options > button.no_pad > div.line_block > input[type="checkbox"] { margin-inline: var(--margin-inline); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions { --inter-item-margin: var(--basic-ui-inset-h-half); display: flex; flex-flow: row nowrap; margin-top: 16px; margin-inline: 16px; justify-content: space-evenly; column-gap: var(--inter-item-margin); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions:not(.vertical):not(.reverse) > button:not(:first-child) { margin-left: var(--inter-item-margin); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions.reverse { flex-direction: row-reverse; }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions.reverse:not(.vertical) > button:not(:first-child) { margin-right: var(--inter-item-margin); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions.vertical { flex-direction: column; }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions.vertical > * { width: -moz-available; width: -webkit-fill-available; width: stretch; }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions.vertical:not(.reverse) > *:not(:first-child) { margin-top: var(--inter-item-margin); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions.vertical.reverse { flex-direction: column-reverse; }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions.vertical.reverse > *:not(:first-child) { margin-bottom: var(--inter-item-margin); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions :is(input, button) { border-radius: 1.25em; background-color: rgb(var(--cb) / 10%); backdrop-filter: var(--basic-backdrop-blur); -webkit-backdrop-filter: var(--basic-backdrop-blur); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions :is(input, button):focus { outline-color: rgb(var(--cpl) / 50%); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions input { padding: 16px 12px; border-style: none; }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions button { width: 100%; min-width: 4.5em; width: 33%; flex-grow: 1; flex-shrink: 1; padding: 8px; border: solid 1px var(--color-adaptive); border-radius: 0.75em; font-size: 1rem; word-break: keep-all; cursor: pointer; transition-timing-function: ease; transition-duration: 0.3s; will-change: auto; }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions button:focus { outline: dashed 2px var(--color-poind-darker); outline-offset: -3px; }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions button.confirm { background-color: var(--color-point); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions button.confirm:hover { background-color: var(--color-point-light); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions button.confirm:active { background-color: var(--color-point-dark); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions button.confirm:disabled { background-color: rgb(var(--cpl) / 20%); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions button.another { background-color: var(--color-adaptive-bright); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions button.another:hover { background-color: var(--color-adaptive-brightest); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions button.another:active { background-color: var(--color-adaptive-light); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions button.another:disabled { background-color: rgb(var(--cabt) / 20%); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions button.positive { background-color: var(--color-point); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions button.positive:hover { background-color: var(--color-point-light); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions button.positive:active { background-color: var(--color-point-dark); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions button.positive:disabled { background-color: rgb(var(--cpl) / 20%); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions button.negative { background-color: var(--color-adaptive-bright); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions button.negative:hover { background-color: var(--color-adaptive-brightest); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions button.negative:active { background-color: var(--color-adaptive-light); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions button.negative:disabled { background-color: rgb(var(--cabt) / 20%); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions button.neutral { background-color: var(--color-point-sub); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions button.neutral:hover { background-color: var(--color-point-sub-light); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions button.neutral:active { background-color: var(--color-point-sub-dark); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions button.neutral:disabled { background-color: rgb(var(--cpsl) / 20%); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions:has(> span) { flex-direction: row-reverse; justify-content: space-between; }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions > div { display: flex; flex-flow: row nowrap; justify-content: space-evenly; }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions > div:not(.vertical) > button:not(:first-child) { margin-left: var(--inter-item-margin); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions > div.vertical { flex-direction: column; }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions > div.vertical > button:not(:first-child) { margin-top: var(--inter-item-margin); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions > span { display: flex; flex-flow: row nowrap; justify-content: space-evenly; flex-grow: 1; flex-shrink: 1; column-gap: var(--inter-item-margin); }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions > span:empty { display: none; }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions > span.left { }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions > span.left > button { }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions > span.right { flex-direction: row-reverse; }
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog > div.actions > span.right > button { }
+@media all and (min-height: 700px) and (min-width: 740px) {
+nav#managedOverlay > section#toastUpSlide > div.container > article.popup_interface > .dialog { max-width: var(--on-screen-limit-width); }
+}
+
+nav#managedOverlay > section#interaction > div.container > article.popup_interface { }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog { --radius: 24px; --bg-color: rgb(from var(--common-bg-color) r g b / 66.6667%); display: flex; flex-flow: column nowrap; top: var(--top-safe-pad); bottom: var(--bottom-safe-pad); left: var(--left-pad); right: var(--right-pad); min-width: 240px; max-width: calc(100vw - var(--left-pad) - var(--right-pad)); max-height: calc(100vh - var(--top-safe-pad) - var(--bottom-safe-pad)); box-sizing: border-box; padding: 20px; border-radius: var(--radius); background-color: transparent; backdrop-filter: var(--basic-backdrop-blur); -webkit-backdrop-filter: var(--basic-backdrop-blur); overflow-wrap: break-word; }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog:before { content: ''; z-index: -2; position: absolute; top: 0; bottom: 0; left: 0; right: 0; border-radius: var(--radius); background-color: var(--bg-color); translate: 1% 2.5%; transform: scale(1.05, 1.1); filter: brightness(0.15) blur(2px) opacity(0.25); }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog:after { content: ''; z-index: -1; position: absolute; top: 0; bottom: 0; left: 0; right: 0; border-radius: var(--radius); background-color: var(--bg-color); }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog > div { width: -moz-available; width: -webkit-fill-available; width: stretch; height: fit-content; flex-grow: 0; flex-shrink: 0; }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog > div.title { position: relative; font-size: 1.25rem; font-weight: 600; text-align: center; }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog > div.title > button { position: absolute; top: 0; bottom: 0; height: 40px; aspect-ratio: 1; margin: auto; padding: 0; border-style: none; border-width: 0; border-radius: 8px; background-color: transparent; background-position: center; background-repeat: no-repeat; cursor: pointer; transition-duration: 0.2s; }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog > div.title > button:focus { outline-style: none; outline-width: 0; box-shadow: solid 4px var(--color-adaptive-dimmest); }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog > div.title > button:hover { backdrop-filter: blur(1px); -webkit-backdrop-filter: blur(1px); }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog > div.title > button:active { background-color: var(--color-adaptive-bright); }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog > div.title > button.back { left: -8px; background-image: var(--svg-back); }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog:not([data-back="1"]) > div.title > button.back { display: none; }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog > div.title > button.close { right: -8px; background-image: var(--svg-close); }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog:not([data-close="1"]) > div.title > button.close { display: none; }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog > div.message { flex-shrink: 1; font-size: 1rem; text-align: center; word-break: keep-all; overflow: hidden auto; }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog > div.message:has(> span:not(:empty)) { margin-top: 12px; }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog > div.content { display: flex; flex-flow: column nowrap; flex-shrink: 1; overflow: hidden auto; }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog > div.content > div.message { flex-shrink: 1; font-size: 1rem; text-align: center; word-break: keep-all; overflow: hidden auto; }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog > div.content:not(:empty):has(> div.message:is(:not(:only-child), :has(> span:not(:empty)))) { margin-top: 12px; }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog > div.actions { display: flex; flex-flow: row nowrap; margin-top: 16px; justify-content: space-evenly; column-gap: var(--basic-ui-inset-h-half); }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog > div.actions :is(input, button) { border-radius: 1.25em; background-color: rgb(255 255 255 / 0%); backdrop-filter: var(--basic-backdrop-blur); -webkit-backdrop-filter: var(--basic-backdrop-blur); }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog > div.actions :is(input, button):focus { outline-color: rgb(var(--cpl) / 50%); }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog > div.actions input { margin-right: 8px; padding: 16px 12px; border-style: none; }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog > div.actions button { width: 100%; min-width: 4.5em; padding: 8px; border: solid 1px var(--color-adaptive); border-radius: 0.75em; font-size: 1rem; word-break: keep-all; cursor: pointer; transition-timing-function: ease; transition-duration: 0.3s; will-change: auto; }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog > div.actions button:focus { outline: dashed 2px var(--color-poind-darker); outline-offset: -3px; }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog > div.actions button.confirm { background-color: var(--color-point); }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog > div.actions button.confirm:hover { background-color: var(--color-point-light); }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog > div.actions button.confirm:active { background-color: var(--color-point-dark); }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog > div.actions button.positive { background-color: var(--color-point); }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog > div.actions button.positive:hover { background-color: var(--color-point-light); }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog > div.actions button.positive:active { background-color: var(--color-point-dark); }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog > div.actions button.negative { background-color: var(--color-adaptive-bright); }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog > div.actions button.negative:hover { background-color: var(--color-adaptive-brightest); }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog > div.actions button.negative:active { background-color: var(--color-adaptive-light); }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog > div.actions button.neutral { background-color: var(--color-point-sub); }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog > div.actions button.neutral:hover { background-color: var(--color-point-sub-light); }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog > div.actions button.neutral:active { background-color: var(--color-point-sub-dark); }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog > div.actions:has(> span) { flex-direction: row-reverse; justify-content: space-between; }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog > div.actions > span { display: flex; flex-flow: row nowrap; justify-content: space-evenly; flex-grow: 1; flex-shrink: 1; column-gap: var(--basic-ui-inset-h-half); }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog > div.actions > span:empty { display: none; }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog > div.actions > span.left { }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog > div.actions > span.left > button { }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog > div.actions > span.right { flex-direction: row-reverse; }
+nav#managedOverlay > section#interaction > div.container > article.popup_interface > .dialog > div.actions > span.right > button { }
+
+
+nav#managedOverlay > section#notification { }
+nav#managedOverlay > section#notification > div.container { --bg-color: rgb(var(--cabr) / 70%); position: fixed; width: 100vw; height: 0; background-color: transparent; overflow: visible; user-select: none; }
+nav#managedOverlay > section#notification > div.container > article { position: absolute; left: 0; right: 0; width: max-content; height: fit-content; margin: 0 auto; background-color: transparent; backdrop-filter: blur(1px); -webkit-backdrop-filter: blur(1px); transition-timing-function: ease; transition-duration: 0.5s; will-change: auto; }
+nav#managedOverlay > section#notification > div.container > article:not(:is([data-on-top^="1"], [data-on-top^="0"])) { display: none; }
+nav#managedOverlay > section#notification > div.container > article:not([data-on-top="1"]) { opacity: 0; }
+nav#managedOverlay > section#notification > div.container[data-container-id="noti"] { top: var(--top-pad); }
+nav#managedOverlay > section#notification > div.container[data-container-id="noti"] > article { top: 0; transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94); transition-duration: 0.45s; will-change: transform, opacity; }
+nav#managedOverlay > section#notification > div.container[data-container-id="noti"] > article[data-on-top="1"] { top: 12px; transform: translateY(0); }
+nav#managedOverlay > section#notification > div.container[data-container-id="noti"] > article[data-on-top="0"] { top: 12px; transform: translateY(calc(-100% - var(--top-pad) - 12px)); }
+nav#managedOverlay > section#notification > div.container[data-container-id="noti"] > article > .post_block { display: flex; align-items: center; gap: 10px; padding: 10px 14px; max-width: calc(100vw - var(--left-pad) - var(--right-pad) - 16px); min-width: min(320px, calc(100vw - var(--left-pad) - var(--right-pad) - 16px)); box-sizing: border-box; border-radius: 18px; background-color: var(--bg-color); backdrop-filter: var(--basic-backdrop-blur); -webkit-backdrop-filter: var(--basic-backdrop-blur); box-shadow: 1px 4px 8px 2px rgb(var(--ca) / 25%); cursor: pointer; }
+nav#managedOverlay > section#notification > div.container[data-container-id="noti"] > article > .post_block:not([data-interactive]) { cursor: default; }
+nav#managedOverlay > section#notification > div.container[data-container-id="noti"] > article > .post_block > .icon_place { flex: 0 0 auto; width: 38px; height: 38px; border-radius: 8px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+nav#managedOverlay > section#notification > div.container[data-container-id="noti"] > article > .post_block > .icon_place > img { width: 100%; height: 100%; object-fit: cover; }
+nav#managedOverlay > section#notification > div.container[data-container-id="noti"] > article > .post_block > .content_place { flex: 1 1 auto; min-width: 0; --color: var(--color-text); --size: 0.9375rem; --weight: 400; }
+nav#managedOverlay > section#notification > div.container[data-container-id="noti"] > article > .post_block > .content_place > .title_line { font-size: 0.9375rem; font-weight: 600; color: var(--color-text); line-height: 1.25em; }
+nav#managedOverlay > section#notification > div.container[data-container-id="noti"] > article > .post_block > .content_place > .subtitle_line { font-size: 0.8125rem; font-weight: 400; color: rgb(var(--ca) / 70%); line-height: 1.25em; margin-top: 1px; }
+nav#managedOverlay > section#notification > div.container[data-container-id="noti"] > article > .post_block > .content_place > .content_area { display: flex; gap: 8px; align-items: flex-start; margin-top: 3px; }
+nav#managedOverlay > section#notification > div.container[data-container-id="noti"] > article > .post_block > .content_place > .content_area > .content_place { flex: 1 1 auto; min-width: 0; color: var(--color); font-size: var(--size); font-weight: var(--weight); line-height: 1.3em; word-break: break-word; }
+nav#managedOverlay > section#notification > div.container[data-container-id="noti"] > article > .post_block > .content_place > .content_area > .icon_place { flex: 0 0 auto; width: 20px; height: 20px; border-radius: 4px; overflow: hidden; }
+nav#managedOverlay > section#notification > div.container[data-container-id="noti"] > article > .post_block > .content_place > .content_area > .icon_place > img { width: 100%; height: 100%; object-fit: cover; }
+nav#managedOverlay > section#notification > div.container[data-container-id="noti"] > article > .post_block { position: relative; z-index: 1; }
+nav#managedOverlay > section#notification > div.container[data-container-id="noti"] > article > .post_block.banner_incoming { animation: banner-incoming 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94) both; }
+nav#managedOverlay > section#notification > div.container[data-container-id="noti"] > article > .post_block.banner_ghost_exit { z-index: 0; animation: banner-ghost-exit 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; pointer-events: none; }
+@keyframes banner-incoming {
+    0%   { opacity: 0; transform: translateY(calc(-100% - var(--top-pad) - 12px)); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes banner-ghost-exit {
+    0%   { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(calc(-100% - var(--top-pad) - 12px)); }
+}
+nav#managedOverlay > section#notification > div.container[data-container-id="note"] { bottom: var(--bottom-pad); }
+nav#managedOverlay > section#notification > div.container[data-container-id="note"] > article { bottom: 0; }
+nav#managedOverlay > section#notification > div.container[data-container-id="note"] > article:is([data-on-top^="1"], [data-on-top="0"]) { }
+nav#managedOverlay > section#notification > div.container[data-container-id="note"] > article[data-on-top="1"] { bottom: 32px; }
+nav#managedOverlay > section#notification > div.container[data-container-id="note"] > article[data-on-top="0"] { bottom: 40px; }
+nav#managedOverlay > section#notification > div.container[data-container-id="note"] > article > .post_block { padding: 12px 16px; max-width: calc(100vw - var(--left-pad) - var(--right-pad) - 16px); box-sizing: border-box; border-radius: 16px; background-color: var(--bg-color); box-shadow: 1px 4px 8px 2px rgb(var(--ca) / 25%); cursor: pointer; }
+nav#managedOverlay > section#notification > div.container[data-container-id="note"] > article > .post_block:not([data-interactive]) { cursor: default; }
+nav#managedOverlay > section#notification > div.container[data-container-id="note"] > article > .post_block > .icon_place { }
+nav#managedOverlay > section#notification > div.container[data-container-id="note"] > article > .post_block > .icon_place > img { }
+nav#managedOverlay > section#notification > div.container[data-container-id="note"] > article > .post_block > .content_place { --color: var(--color-text); --size: 1.125rem; --weight: 300; --height: 1.25em; text-align: center; text-shadow: 0 0 2px var(--color-text-inverse); }
+nav#managedOverlay > section#notification > div.container[data-container-id="note"] > article > .post_block > .content_place > span { color: var(--color); font-size: var(--size); font-weight: var(--weight); line-height: var(--height); }
+
+
+/* Common frame styles */
+/* tag based common styles */
+div.container { }
+div.container article.max_width { width: 100vw; }
+div.container article.max_height { height: 100vh; }
+div.container[data-container-id][data-article-steps-id] > article:not([data-on-top]) { display: none; }
+div.container[data-container-id][data-article-steps-id] > article[data-on-top] { display: block; }
+div.container:is(.v_stack, .h_stack)[data-container-id] > article { --shift-depth: 64px; position: relative; }
+div.container:is(.v_stack, .h_stack)[data-container-id] > article:not(:is([data-on-top^="+"], [data-on-top^="-"])) { position: relative; }
+div.container:is(.v_stack, .h_stack)[data-container-id] > article[data-on-top^="+"] { --shift: var(--shift-depth); z-index: -1; }
+div.container:is(.v_stack, .h_stack)[data-container-id] > article[data-on-top^="-"] { --shift: calc(var(--shift-depth) * -1); }
+div.container:is(.v_stack, .h_stack)[data-container-id] > article:not(:is([data-on-top="1"], [data-on-top="0*"])) { position: absolute; z-index: -1; }
+div.container:is(.v_stack, .h_stack)[data-container-id] > article[data-on-top]:not([data-on-top="1"]) { }
+div.container:is(.v_stack, .h_stack)[data-container-id] > article[data-on-top]:is([data-on-top^="+"], [data-on-top^="-"]) { transition-timing-function: ease; }
+div.container:is(.v_stack, .h_stack)[data-container-id] > article[data-on-top]:is([data-on-top="+"], [data-on-top="-"]) { transition-delay: 0.2s; }
+div.container:is(.v_stack, .h_stack)[data-container-id] > article[data-on-top]:is([data-on-top="+1"], [data-on-top="-1"]) { opacity: 0; }
+div.container.v_stack[data-container-id] > article[data-on-top]:is([data-on-top^="+"], [data-on-top^="-"]) { }
+div.container.v_stack[data-container-id] > article[data-on-top]:is([data-on-top^="+"], [data-on-top^="-"]).max_width { left: 0; right: 0; }
+div.container.v_stack[data-container-id] > article[data-on-top]:is([data-on-top="+1"], [data-on-top="-1"]) { translate: 0 var(--shift); }
+div.container.v_stack[data-container-id] > article[data-on-top^="-"] { }
+div.container.v_stack[data-container-id] > article[data-on-top="-1"] { }
+div.container.v_stack[data-container-id] > article[data-on-top^="+"] { }
+div.container.v_stack[data-container-id] > article[data-on-top="+1"] { }
+div.container.v_stack[data-container-id] > article[data-on-top="1"] { }
+div.container.h_stack[data-container-id] > article[data-on-top]:is([data-on-top^="+"], [data-on-top^="-"]) { }
+div.container.h_stack[data-container-id] > article[data-on-top]:is([data-on-top^="+"], [data-on-top^="-"]).max_width { top: 0; bottom: 0; }
+div.container.h_stack[data-container-id] > article[data-on-top]:is([data-on-top="+1"], [data-on-top="-1"]) { translate: var(--shift) 0; }
+div.container.h_stack[data-container-id] > article[data-on-top^="-"] { }
+div.container.h_stack[data-container-id] > article[data-on-top="-1"] { }
+div.container.h_stack[data-container-id] > article[data-on-top^="+"] { }
+div.container.h_stack[data-container-id] > article[data-on-top="+1"] { }
+div.container.h_stack[data-container-id] > article[data-on-top="1"] { }
+@media all and (min-height: 700px) and (min-width: 740px) {
+div.container.limit_on_screen.v_stack > article { --margin-h: auto; width: var(--width); }
+div.container.limit_on_screen.h_stack > article { --margin-v: auto; height: var(--height); }
+}
+
+article {
+    --article-theme-color: var(--cgd);
+    --atc: var(--article-theme-color);
+
+    background-color: rgb(var(--atc) / 3%); 
+}
+
+article.constraint { }
+
+article.dummy { display: none; }
+
+/* full width vertical scroll */
+article.fwvs { position: absolute; top: 0; bottom: 0; left: 0; right: 0; width: 100%; height: 100%; box-sizing: border-box; margin: 0 auto; padding: var(--top-safe-pad) var(--right-pad) var(--bottom-safe-pad) var(--left-pad); overflow: hidden overlay; }
+article.fwvs.flows { display: flex; flex-flow: column nowrap; }
+article.fwvs.match_height { display: flex; flex-direction: column; flex-wrap: nowrap; min-height: 100%; justify-content: space-between; }
+article.fwvs .fixed { position: fixed; left: 0; right: 0; width: calc(100% - var(--left-pad) - var(--right-pad)); margin: 0 auto; }
+article.fwvs .fixed.top { top: var(--top-safe-pad); }
+article.fwvs .fixed.bottom { bottom: var(--bottom-safe-pad); }
+@media all and (min-height: 700px) and (min-width: 740px) {
+article.fwvs.limit_on_screen { --height: min(var(--on-screen-limit-height), 100vh); --margin: auto !important; max-width: var(--on-screen-limit-width); max-height: var(--height); }
+article.fwvs.limit_on_screen.fixed_height { min-height: var(--height); }
+article.fwvs.limit_on_screen.full_height { --height: 100vh; min-height: min(var(--on-screen-limit-height), 100vh); max-height: max-content; }
+article.fwvs.limit_on_screen.full_height:not(.back_visible)::before { content: ''; position: fixed; z-index: -1; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--common-bg-color); }
+article.fwvs.limit_on_screen.max_height { --width: var(--on-screen-limit-width); --height: 100vh; --inner-pad-h: max(0px, calc((100vw - var(--width) - var(--left-pad) - var(--right-pad)) / 2)); width: 100vw; max-width: 100vw; min-height: var(--height); max-height: var(--height); padding-left: calc(var(--inner-pad-h) + var(--left-pad)); padding-right: calc(var(--inner-pad-h) + var(--right-pad)); }
+} @media all and (not ((min-height: 700px) and (min-width: 740px))) {
+article.top_expand:first-of-type { padding-top: var(--top-pad); }
+article.top_expand:first-of-type.constraint { top: 0; }
+article.top_expand:first-of-type:not(.constraint) { position: relative; --margin-t: calc(var(--top-pad) * -1); }
+article.bottom_expand:last-of-type { padding-bottom: var(--bottom-pad); }
+article.bottom_expand:last-of-type.constraint { bottom: 0; }
+article.bottom_expand:last-of-type:not(.constraint) { position: relative; --margin-b: calc(var(--bottom-pad) * -1); }
+article.floor_up:is(.top_expand:first-of-type, .bottom_expand:last-of-type) { z-index: 1; box-shadow: 0 0 8px var(--color-grayscale-lightest); }
+}
+

@@ -1,0 +1,187 @@
+/* styles */
+:root, html, body {
+    position: relative;
+    width: var(--viewport-width, 100vh);
+    height: var(--viewport-height, 100vh);
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    overscroll-behavior: none;
+    -webkit-text-size-adjust: none;
+}
+
+/* Screen inset adaptor */
+html {
+    --fvw: 100vw;
+    --fvh: 100vh;
+
+    --viewport-width: var(--fvw);
+    --viewport-height: var(--fvh);
+
+    --vw: calc(var(--fvw, 100vw) / 100);
+    --vh: calc(var(--fvh, 100vh) / 100);
+
+    --safe-area-inset-top: env(safe-area-inset-top, 0px);
+    --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-area-inset-left: env(safe-area-inset-left, 0px);
+    --safe-area-inset-right: env(safe-area-inset-right, 0px);
+
+    --viewport-inset-top: 0px;
+    --viewport-inset-bottom: calc((var(--fvh) - var(--viewport-height)) + calc(var(--viewport-inset-top) + var(--safe-area-inset-top)));
+    --viewport-inset-horizontal: calc(var(--fvw) - var(--viewport-width));
+    --viewport-inset-left: calc(var(--viewport-inset-horizontal) / 2);
+    --viewport-inset-right: calc(var(--viewport-inset-horizontal) / 2);
+
+    --top-inset: max(var(--safe-area-inset-top), var(--viewport-inset-top, 0px));
+    --bottom-inset: max(var(--safe-area-inset-bottom), var(--viewport-inset-bottom, 0px));
+    --left-inset: max(var(--safe-area-inset-left), var(--viewport-inset-left, 0px));
+    --right-inset: max(var(--safe-area-inset-right), var(--viewport-inset-right, 0px));
+
+    --top-pad: calc(var(--top-inset) + var(--appbar-height));
+    --bottom-pad: calc(var(--bottom-inset) + var(--rootbar-height));
+    --top-safe-pad: var(--top-inset);
+    --bottom-safe-pad: var(--bottom-inset);
+    --left-pad: var(--left-inset);
+    --right-pad: var(--right-inset);
+
+    --top-fixed-height: 0px;
+    --bottom-fixed-height: 0px;
+
+}
+
+/* Visual initialization */
+body {
+    position: fixed;
+
+    color: var(--color-text);
+
+    /* Concrete hex literal: this stylesheet loads eagerly, before the lazy-loaded estreUiRoot.css defines --color-* tokens, so var(--color-*) here would resolve to the guaranteed-invalid value and background-color would fall back to transparent. Host projects that want a project-owned splash tone override --common-bg-color in their own non-lazy initialize stylesheet. */
+    --common-bg-color: #CCC;
+    background-color: var(--common-bg-color);
+
+    font-size: 16px;
+}
+body[data-dark-mode="1"] {
+
+    /* adaptive color (dark) */
+
+    /* Dark-mode splash fallback. Only takes effect in sessions that opt into FOLM pre-paint coupling (see index.html); otherwise the dark attribute lands after first paint and the light value above is what the splash shows. */
+    --common-bg-color: #222;
+
+}
+
+
+/* Style indication */
+body { --support-container-query: 0; }
+@supports (container-type: inline-size) { 
+    body { --support-container-query: 1; }
+}
+
+@media all and (display-mode: standalone) {
+    html {
+
+    }
+    body {
+        --display-mode: standalone;
+    }
+} @media all and (not (display-mode: standalone)) {
+    html {
+
+    }
+    body {
+        --display-mode: browser;
+    }
+}
+body {
+    --ui-extensive: false;
+}
+@media all and (min-height: 700px) and (min-width: 740px) {
+    body {
+        --ui-extensive: true;
+    }
+}
+
+/* EstreUI rim figure */
+/* pull to refresh */
+div#ptr { --size: 240px; --crop: 96px; --initial: -52px; --anchor: 0px; --opacity: 0;  position: fixed; top: 0; left: 0; right: 0; width: calc(var(--size) - (var(--crop) * 2)); height: 0; margin: 0 auto; user-select: none; }
+div#ptr > div { position: absolute; top: calc(var(--top-pad) + var(--initial) + var(--anchor)); width: fit-content; height: fit-content; margin: 0; opacity: var(--opacity); scale: var(--scale); }
+div#ptr > div > lottie-player { width: var(--size); height: var(--size); margin: calc(var(--crop) * -1); }
+
+/* main content area commons */
+body > main { display: flex; flex-direction: row; flex-wrap: nowrap; position: fixed; box-sizing: border-box; width: 100%; height: var(--fvh); padding: var(--top-safe-pad) 0 var(--bottom-safe-pad) 0; overflow: hidden; overscroll-behavior-y: contain; }
+body > main > section { container-name: main-static-section; container-type: size; display: none; flex-grow: 0; position: absolute; top: 0; bottom: 0; left: 0; right: 0; width: 100%; box-sizing: border-box; padding: var(--top-safe-pad) var(--right-pad) var(--bottom-safe-pad) var(--left-pad); background-color: var(--common-bg-color); overflow: hidden; overscroll-behavior-y: none; }
+body > main > section.tpbg { background-color: transparent; }
+body > :is(main, header, footer) > section:not([data-on-top=""]) { display: block; flex-grow: 1; opacity: 0; transition-timing-function: ease-in; transition-delay: 0.2s; transition-duration: 0.2s; will-change: auto; }
+body > :is(main, header, footer) > section:is([data-on-top="1"], [data-on-top="0*"]) { opacity: 1; transition-timing-function: ease-out; transition-delay: 0s; }
+body > :is(main, header, footer) > section > div { opacity: 0; transition-timing-function: ease-in; transition-delay: 0.3s; transition-duration: 0.2s; will-change: auto; }
+body > :is(main, header, footer) > section:is([data-on-top="1"], [data-on-top="0*"]) > div { opacity: 1; transition-timing-function: ease-out; transition-delay: 0s; transition-duration: 0.5s; }
+body > :is(main, nav, header, footer) > section > div.container { --margin: 0; position: absolute; top: 0; bottom: 0; left: 0; right: 0; width: 100%; height: 100%; box-sizing: border-box; margin: var(--margin); padding: var(--top-safe-pad) var(--right-pad) var(--bottom-safe-pad) var(--left-pad); overflow: hidden overlay; }
+body > :is(main, nav, header, footer) > section:not(.modal) > div.container { background-color: var(--common-bg-color); }
+body > :is(main, nav, header, footer) > section > div.container > article { --scalable-method: item; --margin: 0px; --margin-v: var(--margin); --margin-h: var(--margin); --margin-t: var(--margin-v); --margin-b: var(--margin-v); --margin-l: var(--margin-h); --margin-r: var(--margin-h); margin: var(--margin-t) var(--margin-r) var(--margin-b) var(--margin-l); background-color: var(--common-bg-color); transition-duration: 0.5s; will-change: auto; }
+body > :is(main, nav, header, footer) > section > div.container > article.constraint { --scalable-method: constraint; position: absolute; top: 0; bottom: 0; left: 0; right: 0; width: 100vw; height: 100vh; max-width: 100%; max-height: 100%; padding: var(--top-safe-pad) var(--right-pad) var(--bottom-safe-pad) var(--left-pad); box-sizing: border-box; overflow: hidden; overscroll-behavior: none; }
+body > :is(main, nav, header, footer) > section > div.container > article.constraint.vertical_fit { display: flex; flex-direction: column; flex-wrap: nowrap; }
+body > :is(main, nav, header, footer) > section:not(.modal) > div.container > article:not(.constraint) { }
+@media all and (min-height: 700px) and (min-width: 740px) {
+body > :is(main, nav, header, footer) > section > div.container > article.constraint.limit_on_screen { --height: min(var(--on-screen-limit-height), 100vh); --margin: auto !important; max-width: var(--on-screen-limit-width); max-height: var(--height); }
+body > :is(main, nav, header, footer) > section > div.container > article.constraint.limit_on_screen.fixed_height { min-height: var(--height); }
+body > :is(main, nav, header, footer) > section > div.container > article.constraint.limit_on_screen.full_height { --height: 100vh; min-height: min(var(--on-screen-limit-height), 100vh); max-height: max-content; }
+body > :is(main, nav, header, footer) > section > div.container > article.constraint.limit_on_screen.full_height:not(.back_visible)::before { content: ''; position: fixed; z-index: -1; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--common-bg-color); }
+body > :is(main, nav, header, footer) > section > div.container > article.constraint.limit_on_screen.max_height { --width: var(--on-screen-limit-width); --height: 100vh; --inner-pad-h: max(0px, calc((100vw - var(--width) - var(--left-pad) - var(--right-pad)) / 2)); width: 100vw; max-width: 100vw; min-height: var(--height); max-height: var(--height); padding-left: calc(var(--inner-pad-h) + var(--left-pad)); padding-right: calc(var(--inner-pad-h) + var(--right-pad)); }
+body > :is(main, nav, header, footer) > section > div.container > article.constraint.limit_on_screen:is(.full_height, .max_height) .flexv_fill { min-height: max-content; max-height: -moz-available; max-height: -webkit-fill-available; max-height: stretch; }
+}
+
+body > :is(main, nav, header, footer) > section > div.container button:is(.back_navigation, .container_closer) { position: absolute; top: 0; height: var(--appbar-height); aspect-ratio: 1; margin: auto 0; }
+body > :is(main, nav, header, footer) > section > div.container button:is(.back_navigation, .container_closer) > * { position: absolute; top: 0; bottom: 0; left: 0; right: 0; margin: auto; width: fit-content; height: fit-content; max-width: 100%; max-height: 100%; }
+body > :is(main, nav, header, footer) > section > div.container:has(> article[data-article-id$="%0"][data-on-top]) *[data-hide-on="first_article"] { display: none; }
+body > :is(main, nav, header, footer) > section > div.container:has(> article.dummy):has(> article:nth-child(2):is([data-on-top="1"], [data-on-top^="+"], [data-on-top^="-"])) *[data-hide-on="first_article"] { display: none; }
+body > :is(main, nav, header, footer) > section > div.container::not(:has(> article.dummy)):has(> article:first-child:is([data-on-top="1"], [data-on-top^="+"], [data-on-top^="-"])) *[data-hide-on="first_article"] { display: none; }
+body > :is(main, nav, header, footer) > section > div.container button.back_navigation { left: 0; }
+body > :is(main, nav, header, footer) > section > div.container button.back_navigation:empty { background-image: var(--svg-back); background-position: center; background-repeat: no-repeat; }
+body > :is(main, nav, header, footer) > section > div.container button.container_closer { right: 0; }
+body > :is(main, nav, header, footer) > section > div.container button.container_closer:empty { background-image: var(--svg-close); background-position: center; background-repeat: no-repeat; }
+body > :is(main, nav, header, footer) > section > div.container > div.handle_set { left: 0; right: 0; margin: 0; }
+body > :is(main, nav, header, footer) > section > div.container > div.top { top: 0; }
+body > :is(main, nav, header, footer) > section > div.container > div.bottom { bottom: 0; }
+body > :is(main, nav, header, footer) > section > div.container > div.left { right: unset; margin-right: auto; }
+body > :is(main, nav, header, footer) > section > div.container > div.right { left: unset; margin-left: auto; }
+
+body > :is(main, nav) > section > div.container > .step_navigation { --padding-bottom: 8px; position: relative; z-index: 112; width: 100%; padding: 0 var(--right-pad) var(--padding-bottom) var(--left-pad); }
+body > :is(main, nav) > section > div.container > .step_navigation > .step_title_bar { position: relative; width: -moz-available; width: -webkit-fill-available; width: stretch; height: var(--appbar-height); }
+body > :is(main, nav) > section > div.container > .step_navigation > .step_title_bar > button { bottom: 0; margin: auto 0; }
+body > :is(main, nav) > section > div.container > .step_navigation > .step_title_bar > button.back_navigation { }
+body > :is(main, nav) > section > div.container > .step_navigation > .step_title_bar > button.container_closer { }
+body > :is(main, nav) > section > div.container > .step_navigation > .step_title_bar > .step_title { position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: auto; height: fit-content; text-align: center; }
+body > :is(main, nav) > section > div.container > .step_navigation > .step_title_bar > .step_title .cur_step_name { font-size: 1.375rem; font-weight: bold; }
+body > :is(main, nav) > section > div.container > .step_navigation > .step_indicator { display: flex; flex-direction: row; flex-wrap: nowrap; margin: 16px 0 8px;  justify-content: center; }
+body > :is(main, nav) > section > div.container > .step_navigation > .step_indicator > .step_pointer { --unactive-color: #D0D0D0; --active-color: var(--color-point-dark); width: 26px; aspect-ratio: 1; box-sizing: border-box; border: solid 1px transparent; border-radius: 100%; background-image: radial-gradient(var(--unactive-color) 0%, var(--unactive-color) 29%, transparent 30%); transition-duration: 0.5s; will-change: auto; }
+body > :is(main, nav) > section > div.container > .step_navigation > .step_indicator > .step_pointer[data-active="1"] { border-color: rgb(from var(--active-color) r g b / 50%); background-image: radial-gradient(var(--active-color) 0%, var(--active-color) 29%, transparent 30%); }
+body > :is(main, nav) > section > div.container > .step_navigation > .step_indicator > .step_divider { --unactive-color: rgb(0 0 0 / 10%); --active-color: var(--color-point-dark); width: 16px; height: 1px; margin: auto 4px; background-color: var(--unactive-color); transition-duration: 0.5s; }
+body > :is(main, nav) > section > div.container > .step_navigation > .step_indicator > .step_divider[data-active="1"] { background-color: rgb(from var(--active-color) r g b / 50%); }
+body > :is(main, nav) > section > div.container > .container_master_float { position: fixed; z-index: 112; bottom: 0; left: 0; right: 0; margin: 0; padding: 0 var(--right-pad) var(--bottom-safe-pad) var(--left-pad); background-color: rgb(from var(--common-bg-color) r g b / 66.6667%); backdrop-filter: var(--basic-backdrop-blur); -webkit-backdrop-filter: var(--basic-backdrop-blur); }
+body > :is(main, nav) > section > div.container > .container_master_float > article { width: 100%; }
+body > :is(main, nav) > section > div.container > .container_master_float > article > button.container_master_button { margin: 8px 16px 24px; }
+@media all and (min-height: 700px) and (min-width: 740px) {
+body > :is(main, nav) > section > div.container.limit_on_screen { --width: var(--on-screen-limit-width); --full-height: calc(100vh - var(--top-safe-pad) - var(--bottom-safe-pad)); --height: min(var(--on-screen-limit-height), var(--full-height)); --margin: auto !important; --inner-pad-v: max(0px, calc((100vh - var(--height) - var(--top-safe-pad) - var(--bottom-safe-pad)) / 2)); --inner-pad-h: max(0px, calc((100vw - var(--width) - var(--left-pad) - var(--right-pad)) / 2)); max-width: var(--width); max-height: var(--height); box-sizing: content-box; padding: calc(var(--inner-pad-v) + var(--top-safe-pad)) calc(var(--inner-pad-h) + var(--right-pad)) calc(var(--inner-pad-v) + var(--bottom-safe-pad)) calc(var(--inner-pad-h) + var(--left-pad)); }
+body > :is(main#staticDoc, nav#mainMenu) > section > div.container.limit_on_screen { --full-height: calc(100vh - var(--top-pad) - var(--bottom-pad)); --inner-pad-v: calc((100vh - var(--height) - var(--top-pad) - var(--bottom-pad)) / 2); padding: calc(var(--inner-pad-v) + var(--top-pad)) calc(var(--inner-pad-h) + var(--right-pad)) calc(var(--inner-pad-v) + var(--bottom-pad)) calc(var(--inner-pad-h) + var(--left-pad)); }
+body > :is(main, nav) > section > div.container.limit_on_screen.fixed_height { min-height: var(--height); }
+body > :is(main, nav) > section > div.container.limit_on_screen.full_height { --height: var(--full-height); }
+body > :is(main, nav) > section > div.container.limit_on_screen.max_height { --height: var(--full-height); }
+body > :is(main, nav) > section > div.container.limit_on_screen > article.constraint { width: var(--width); height: var(--height); margin: auto; }
+body > :is(main, nav) > section > div.container.limit_on_screen > article.fwvs { width: var(--width); height: var(--height); min-height: min(var(--on-screen-limit-height), 100vh); max-height: var(--on-screen-limit-height); margin: auto; }
+body > :is(main, nav) > section > div.container.limit_on_screen.full_height > article.fwvs { max-height: max-content; }
+body > :is(main, nav) > section > div.container.limit_on_screen.max_height > article.fwvs { min-height: 100vh; max-height: 100vh; }
+body > :is(main, nav) > section > div.container.limit_on_screen > .container_master_float { margin: 0 calc(calc(100vw - var(--width)) / 2) calc(calc(100vh - var(--height)) / 2); }
+body > :is(main, nav) > section > div.container.limit_on_screen > .step_navigation { padding: 0; padding-bottom: var(--padding-bottom); }
+}
+    
+
+
+/* splash page area */
+main#splashRoot { position: fixed; z-index: 300; display: flex; padding: 0; background-color: var(--common-bg-color); transition-duration: 0.5s; user-select: none; }
+body[data-on-ready="0"] main#splashRoot { opacity: 0; }
+body[data-on-ready="1"] main#splashRoot { display: none; }
+main#splashRoot > section { }
+main#splashRoot > section[data-on-top="1"] { transition-duration: 2s; }
+main#splashRoot > section > div.container { }
+main#splashRoot > section > div.container > article { }
+main#splashRoot > section > div.container > article > .float_center { position: absolute; top: 0; bottom: 0; left: 0; right: 0; width: fit-content; height: fit-content; margin: auto; }

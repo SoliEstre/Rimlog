@@ -1,0 +1,22 @@
+@component ai-insight-card
+@intent AI 인사이트 카드 — Rimlog 의 EstreUV(Lit) 위젯 (PM 014 V2, D1 γ 스코프의 "UV 위젯 병치" 실증). 호스트(EstreUI 페이지)가 인사이트 데이터를 주입하면 보라 테마 카드로 렌더한다: 연결 제안(kind=link — 과거 메모와의 연결 설명 + 확장 질문) 또는 주간 요약(kind=weekly). 👍(유용해요 토글)·가리기 피드백을 event-up 으로 호스트에 올린다 — 호스트가 저장·목록 갱신을 담당(격리 컴포넌트, 자체 스토리지 접근 없음).
+@expansion temperature=0.2 model=agent/claude template=estreux/v0.0.1
+@targets estreuv
+
+@ports
+in   kind  : string   # "link" | "weekly"
+in   body  : string   # 본문 (연결 설명 또는 주간 요약)
+in   q     : string   # 확장 질문/실천 제안 (없으면 미표시)
+in   liked : boolean  # 👍 상태 초기값
+out  feedback(action) : 👍 클릭 → {action:"like", liked} / 가리기 클릭 → {action:"hide"} — CustomEvent "feedback"
+
+@state
+liked : boolean = false   # 👍 토글 뷰 상태 (in.liked 로 초기화, 클릭 시 반전)
+
+@behavior
+like : 👍 버튼 — liked 반전 + feedback{action:"like", liked} event-up. liked 면 버튼이 보라 강조 + "👍 유용해요" 라벨.
+hide : "가리기" 버튼 — feedback{action:"hide"} event-up (숨김 처리는 호스트 몫 — 카드 자신은 상태 없음).
+lifecycle : EstreUI 8훅 placeholder 함유(EstreUVElement 계약). 타이머·외부 리스너 없음.
+
+@render
+보라 테마 카드(배경 rgba(122,77,255,.12)·보더 #7a4dff·라운드 14px): 헤드 "✨ AI 연결 제안"(kind=link) 또는 "✨ AI 주간 요약"(kind=weekly, 보라 굵은 글씨) → 본문(body) → 질문/제안(q — 있을 때만, 회색 이탤릭) → 액션 행(👍 토글·가리기, weekly 는 가리기 없음). CSS 커스텀 프로퍼티(--aic-accent·--aic-bg)로 테마 오버라이드 가능. shadow DOM 격리.

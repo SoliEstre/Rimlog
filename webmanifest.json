@@ -1,0 +1,32 @@
+{
+    "id": "./",
+    "name": "App title",
+    "short_name": "App name",
+    "description": "App description",
+    "icons": [
+        {
+            "src": "./images/app_icon_192x192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "./images/app_icon_512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ],
+    "start_url": "./serviceLoader.html",
+    "theme_color": "#222222",
+    "background_color": "#FFFFFF",
+    "display_override": ["minimal-ui", "standalone"],
+    "display": "window-controls-overlay",
+    "orientation": "natural",
+    "scope": ".",
+    "serviceworker": {
+        "scope": "./",
+        "src": "./serviceWorker.js",
+        "updateViaCache": false
+    }
+}

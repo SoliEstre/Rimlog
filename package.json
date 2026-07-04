@@ -1,0 +1,15 @@
+{
+    "name": "Rimlog",
+    "version": "1.0.0",
+    "description": "EstreUI Project",
+    "private": true,
+    "scripts": {
+        "dev": "estreui dev"
+    },
+    "dependencies": {
+        "estreui": "^1.1.0"
+    },
+    "devDependencies": {
+        "create-estreui": "^1.0.5"
+    }
+}

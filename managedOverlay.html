@@ -1,0 +1,222 @@
+        <section id="functional" class="tpbg" data-static="1" data-on-top="">
+            <div class="container blind" data-container-id="popupBrowser" data-static="" data-on-top="1" data-multi-instance="1" data-instance-origin="" style="background-color: rgb(var(--cbdm) / 50%);">
+                <article class="constraint" data-article-id="main" data-static="1" style="background-color: var(--color-boundary-bright); ">
+                    <div class="webview">
+                        <div class="browser_area"></div>
+                        <div class="line_block navigation_area">
+                            <button class="tp_tiled_btn back" style="background-image: var(--svg-back-arrow); "></button>
+                            <button class="tp_tiled_btn forward" style="background-image: var(--svg-forward-arrow); "></button>
+                            <button class="tp_tiled_btn home" style="background-image: var(--svg-home); "></button>
+                            <div class="line_block titleArea"><span class="blocked pageTitle" style="flex-grow: 1; font-weight: 700; "></span></div>
+                            <button class="tp_tiled_btn refresh" style="background-image: var(--svg-reload); "></button>
+                            <button class="tp_tiled_btn close" style="background-image: var(--svg-close); "></button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+        <section id="customDialog" class="tpbg" data-static="1" data-on-top="">
+        </section>
+        <section id="customToast" class="tpbg" data-static="1" data-on-top="">
+        </section>
+        <section id="toastUpSlide" class="tpbg" data-static="1" data-on-top="">
+            <div class="container blind" data-container-id="alert" data-static="" data-on-top="1" data-multi-instance="1" data-instance-origin="" style="background-color: rgb(var(--cbdm) / 50%);">
+                <article class="fwvs popup_interface" data-article-id="main" data-static="1" style="background-color: rgb(var(--cbbr) / 25%);">
+                    <div class="fixed_bottom dialog">
+                        <div class="handle"></div>
+                        <div class="title">
+                            <button class="back"></button>
+                            <span data-bind="title"></span>
+                            <button class="close"></button>
+                        </div>
+                        <div class="message"><span data-bind="message"></span></div>
+                        <div class="actions"><button class="confirm"><span data-bind="ok">OK</span></button></div>
+                    </div>
+                </article>
+            </div>
+            <div class="container blind" data-container-id="confirm" data-static="" data-on-top="1" data-multi-instance="1" data-instance-origin="" style="background-color: rgb(var(--cbdm) / 50%);">
+                <article class="fwvs popup_interface" data-article-id="main" data-static="1" style="background-color: rgb(var(--cbbr) / 25%);">
+                    <div class="fixed_bottom dialog">
+                        <div class="handle"></div>
+                        <div class="title">
+                            <button class="back"></button>
+                            <span data-bind="title"></span>
+                            <button class="close"></button>
+                        </div>
+                        <div class="message"><span data-bind="message"></span></div>
+                        <div class="actions reverse">
+                            <button class="positive"><span data-bind="positive">Yes</span></button>
+                            <button class="negative"><span data-bind="negative">No</span></button>
+                            <button class="neutral"><span data-bind="neutral">Later</span></button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="container blind" data-container-id="prompt" data-static="" data-on-top="1" data-multi-instance="1" data-instance-origin="" style="background-color: rgb(var(--cbdm) / 50%);">
+                <article class="fwvs popup_interface" data-article-id="main" data-static="1" style="background-color: rgb(var(--cbbr) / 25%);">
+                    <div class="fixed_bottom dialog">
+                        <div class="handle"></div>
+                        <div class="title">
+                            <button class="back"></button>
+                            <span data-bind="title"></span>
+                            <button class="close"></button>
+                        </div>
+                        <div class="message"><span data-bind="message"></span></div>
+                        <div class="actions vertical">
+                            <input data-bind-attr="type@type placeholder@placeholder value@value" />
+                            <div>
+                                <button class="confirm"><span data-bind="confirm">OK</span></button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="container blind" data-container-id="option" data-static="" data-on-top="1" data-multi-instance="1" data-instance-origin="" style="background-color: rgb(var(--cbdm) / 50%);">
+                <article class="fwvs popup_interface" data-article-id="main" data-static="1" style="background-color: rgb(var(--cbbr) / 25%);">
+                    <div class="fixed_bottom dialog">
+                        <div class="handle"></div>
+                        <div class="title">
+                            <button class="back"></button>
+                            <span data-bind="title"></span>
+                            <button class="close"></button>
+                        </div>
+                        <div class="message"><span data-bind="message"></span></div>
+                        <div class="vertical options" data-bind-array="options">
+                            <button class="tp_tiled_btn option text_darker font_16" data-bind-array-index-attr="data-index"><span data-bind-array-item>option A</span></button>
+                        </div>
+                        <div class="actions vertical">
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="container blind" data-container-id="selection" data-static="" data-on-top="1" data-multi-instance="1" data-instance-origin="" style="background-color: rgb(var(--cbdm) / 50%);">
+                <article class="fwvs popup_interface" data-article-id="main" data-static="1" style="background-color: rgb(var(--cbbr) / 25%);">
+                    <div class="fixed_bottom dialog">
+                        <div class="handle"></div>
+                        <div class="title">
+                            <button class="back"></button>
+                            <span data-bind="title"></span>
+                            <button class="close"></button>
+                        </div>
+                        <div class="message"><span data-bind="message"></span></div>
+                        <div class="options" data-bind-array="options">
+                            <button class="tp_tiled_btn no_pad option text_darker font_16" data-bind-array-index-attr="data-index">
+                                <div class="line_block">
+                                    <label data-bind-array-index-attr="for^option#">
+                                        <span data-bind-array-item>option A</span>
+                                    </label>
+                                    <input type="checkbox" data-bind-array-index-attr="id^option# data-index" data-bind-array-item-value />
+                                </div>
+                            </button>
+                        </div>
+                        <div class="actions vertical">
+                            <div>
+                                <button class="another"><span data-bind="another">Later</span></button>
+                                <button class="confirm"><span data-bind="confirm">OK</span></button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+        <section id="interaction" class="tpbg" data-static="1" data-on-top="">
+            <div class="container blind" data-container-id="onRunning" data-static="" data-on-top="1" data-multi-instance="1" data-instance-origin="" style="background-color: rgb(0 0 0 / 50%);">
+                <article class="constraint" data-article-id="main" data-static="1" style="background-color: rgb(255 255 255 / 25%);">
+                    <div class="float_center">
+                        <dotlottie-loader src="./lotties/loading_circle.json" background="transparent" speed="1.5" style="width: 150px; height: 150px; " loop></dotlottie-loader>
+                    </div>
+                </article>
+            </div>
+            <div class="container blind" data-container-id="onProgress" data-static="" data-on-top="1" data-multi-instance="1" data-instance-origin="" style="background-color: rgb(0 0 0 / 50%);">
+                <article class="constraint" data-article-id="main" data-static="1" style="background-color: rgb(255 255 255 / 25%);">
+                    <div class="float_center">
+                        <dotlottie-loader src="./lotties/progress_bar.json" background="transparent" speed="1" style="width: 144px; height: 108px; filter: drop-shadow(0 0 2px #DDDA); "></dotlottie-loader>
+                    </div>
+                </article>
+            </div>
+            <div class="container blind" data-container-id="alert" data-static="" data-on-top="1" data-multi-instance="1" data-instance-origin="" style="background-color: rgb(0 0 0 / 50%);">
+                <article class="constraint popup_interface" data-article-id="main" data-static="1" style="background-color: rgb(255 255 255 / 25%);">
+                    <div class="fixed_center dialog">
+                        <div class="title">
+                            <button class="back"></button>
+                            <span data-bind="title"></span>
+                            <button class="close"></button>
+                        </div>
+                        <div class="message"><span data-bind="message"></span></div>
+                        <div class="actions"><button class="confirm"><span data-bind="ok">OK</span></button></div>
+                    </div>
+                </article>
+            </div>
+            <div class="container blind" data-container-id="confirm" data-static="" data-on-top="1" data-multi-instance="1" data-instance-origin="" style="background-color: rgb(0 0 0 / 50%);">
+                <article class="constraint popup_interface" data-article-id="main" data-static="1" style="background-color: rgb(255 255 255 / 25%);">
+                    <div class="fixed_center dialog">
+                        <div class="title">
+                            <button class="back"></button>
+                            <span data-bind="title"></span>
+                            <button class="close"></button>
+                        </div>
+                        <div class="message"><span data-bind="message"></span></div>
+                        <div class="actions">
+                            <span class="right">
+                                <button class="positive"><span data-bind="positive">Yes</span></button>
+                                <button class="negative"><span data-bind="negative">No</span></button>
+                            </span>
+                            <span class="left">
+                                <button class="neutral"><span data-bind="neutral">Later</span></button>
+                            </span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="container blind" data-container-id="prompt" data-static="" data-on-top="1" data-multi-instance="1" data-instance-origin="" style="background-color: rgb(0 0 0 / 50%);">
+                <article class="constraint popup_interface" data-article-id="main" data-static="1" style="background-color: rgb(255 255 255 / 25%);">
+                    <div class="fixed_center dialog">
+                        <div class="title">
+                            <button class="back"></button>
+                            <span data-bind="title"></span>
+                            <button class="close"></button>
+                        </div>
+                        <div class="message"><span data-bind="message"></span></div>
+                        <div class="actions">
+                            <input data-bind-attr="type@type placeholder@placeholder value@value" />
+                            <button class="confirm"><span data-bind="confirm">OK</span></button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+        <section id="operation" class="tpbg" data-static="1" data-on-top="" style="display: none; note: 'currently not implemented'; ">
+            <div class="container top slider blind" data-container-id="root" data-static="1" data-on-top="" style="background-color: rgb(0 0 0 / 50%);">
+                <article class="constraint" data-article-id="timeline" data-static="1" style="background-color: rgb(255 255 255 / 25%);">
+    
+                </article>
+                <article class="constraint" data-article-id="quickPanel" data-static="1" style="background-color: rgb(255 255 255 / 25%);">
+    
+                </article>
+            </div>
+        </section>
+        <section id="notification" class="tpbg" data-static="1" data-on-top="">
+            <div class="container top" data-container-id="noti" data-static="1" data-on-top="1">
+                <article class="" data-article-id="noti" data-static="" data-multi-instance="1" data-instance-origin="">
+                    <div class="h_icon_set post_block" data-bind-attr="interactive@data-interactive" data-bind-style="bgColor@--bg-color">
+                        <div class="icon_place"><img data-bind-attr="largeIconSrc@src" /></div>
+                        <div class="content_place">
+                            <div class="title_line"><span data-bind="contentTitle"></span></div>
+                            <div class="subtitle_line"><span data-bind="subtitle"></span></div>
+                            <div class="h_icon_Set content_area">
+                                <div class="content_place" data-bind="content" data-bind-style="textColor@--color textSize@--size textWeight@--weight"></div>
+                                <div class="icon_place"><img data-bind-attr="iconSrc@src" /></div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="container bottom" data-container-id="note" data-static="1" data-on-top="1">
+                <article class="" data-article-id="note" data-static="" data-multi-instance="1" data-instance-origin="">
+                    <div class="h_icon_set post_block" data-bind-attr="interactive@data-interactive" data-bind-style="bgColor@--bg-color">
+                        <div class="icon_place"><img data-bind-attr="iconSrc@src" /></div>
+                        <div class="content_place"><span data-bind="content" data-bind-style="textColor@--color textSize@--size textWeight@--weight"></span></div>
+                    </div>
+                </article>
+            </div>
+        </section>

@@ -1,0 +1,635 @@
+/* static main content area (when logged in) */
+main#staticDoc { --available-max-height: calc(100vh - var(--top-pad) - var(--bottom-pad)); padding: var(--top-pad) 0 var(--bottom-pad) 0; }
+main#staticDoc > section { z-index: 0; padding: var(--top-pad) var(--right-pad) var(--bottom-pad) var(--left-pad); }
+main#staticDoc > section[data-on-top="1"] { z-index: 10; opacity: 1; }
+main#staticDoc > section > div.container { z-index: 0; padding: var(--top-pad) var(--right-pad) var(--bottom-pad) var(--left-pad); }
+main#staticDoc > section > div.container[data-on-top="1"] { z-index: 1; }
+main#staticDoc > section > div.container > article { }
+main#staticDoc > section > div.container > article[data-on-top="1"] { z-index: 1; }
+main#staticDoc > section > div.container > article.constraint { padding-top: var(--top-pad); padding-bottom: var(--bottom-pad); }
+main#staticDoc > section > div.container > article.constraint.extended { top: 0; bottom: 0; height: 100wv; padding-top: 0; padding-bottom: 0; }
+main#staticDoc > section > div.container > article.constraint.extended.top_padded { padding-top: var(--top-pad); }
+main#staticDoc > section > div.container > article.constraint.extended.bottom_padded { padding-bottom: var(--bottom-pad); }
+main#staticDoc > section > div.container > article.fwvs { padding-top: var(--top-pad); padding-bottom: var(--bottom-pad); }
+main#staticDoc > section > div.container > article.fwvs::-webkit-scrollbar {
+    width: 8px;
+    border: solid 0px transparent;
+}
+
+main#staticDoc > section > div.container > article.fwvs::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 8px 8px transparent;
+    border: solid 2px transparent;
+}
+
+main#staticDoc > section > div.container > article.fwvs::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 8px 8px #4444;
+    border: solid 2px transparent;
+    border-top-width: calc(var(--top-pad) + var(--top-fixed-height) + 2px);
+    border-bottom-width: calc(var(--bottom-pad) + var(--bottom-fixed-height) + 2px);
+}
+
+main#staticDoc > section > div.container > article.fwvs::-webkit-scrollbar-thumb:hover {
+    box-shadow: inset 0 0 8px 8px #6666;
+}
+
+main#staticDoc > section > div.container > article.fwvs::-webkit-scrollbar-thumb:active {
+    box-shadow: inset 0 0 8px 8px #AAA8;
+}
+
+@media all and (min-height: 700px) and (min-width: 740px) {
+main#staticDoc > section:not(.modal) > div.container { align-items: center; }
+main#staticDoc > section:not(.modal) > div.container.v_inline { flex-direction: column; flex-wrap: wrap; }
+main#staticDoc > section:not(.modal) > div.container:not(.v_inline) { flex-direction: row; flex-wrap: nowrap; padding-top: 0; padding-bottom: 0; justify-content: space-evenly; overflow-y: visible; }
+main#staticDoc > section:not(.modal):not([data-on-top=""]) > div.container { display: flex; }
+main#staticDoc > section:not(.modal) > div.container > article:not(.constraint, .fwvs, [data-for-new="1"]) { width: -moz-available; width: -webkit-fill-available; width: stretch; min-width: 320px; max-width: min(var(--on-screen-limit-width), calc(var(--available-max-width) / 2)); }
+main#staticDoc > section:not(.modal) > div.container.v_inline > article:not(.constraint, .fwvs, [data-for-new="1"]) { }
+main#staticDoc > section:not(.modal) > div.container:not(.v_inline) > article:not(.constraint, .fwvs, [data-for-new="1"]) { --scalable-method: vertical; --margin-t: var(--top-pad); --margin-b: var(--bottom-pad); position: relative; height: calc(100% - var(--margin-t) - var(--margin-b)); flex-grow: 1; overflow-y: overlay; }
+main#staticDoc > section:not(.modal) > div.container > article:not(.constraint, .fwvs, .v_inline)[data-for-new="1"] { width: fit-content; flex-grow: 0; margin-left: 12px; }
+}
+
+main#staticDoc > section > div.container > .container_master_float { padding-bottom: var(--bottom-pad); }
+
+
+/* fixed top include app bar (top) */
+header#fixedTop { --common-bg-color: transparent; position: fixed; z-index: 130; top: 0; left: 0; right: 0; height: calc(var(--appbar-height) + var(--top-safe-pad)); box-sizing: border-box; margin: 0; padding: var(--top-safe-pad) var(--right-pad) 0 var(--left-pad); background-color: transparent; backdrop-filter: var(--basic-backdrop-blur); -webkit-backdrop-filter: var(--basic-backdrop-blur); user-select: none; }
+header#fixedTop > section { position: absolute; display: flex; flex-direction: row; flex-wrap: nowrap; top: 0; left: 0; right: 0; width: 100vw; height: 100%; box-sizing: border-box; padding: var(--top-safe-pad) var(--right-pad) 0 var(--left-pad); }
+header#fixedTop > section > div.container { padding-bottom: 0; }
+header#fixedTop > section > div.container[data-on-top="1*"] { z-index: 130; }
+header#fixedTop > section > div.container:is([data-on-top="1"], [data-on-top="0"]) { z-index: 131; }
+header#fixedTop > section > div.container:not(:is([data-on-top^="1"], [data-on-top^="0"])) { display: none; }
+header#fixedTop > section > div.container:not([data-on-top="1"]) { opacity: 0; }
+header#fixedTop > section > div.container > article { }
+header#fixedTop > section > div.container > article[data-on-top="1"] { z-index: 131; }
+header#fixedTop > section > div.container > article button { position: relative; height: 100%; margin: 0; font-size: 1rem; }
+header#fixedTop > section > div.container > article button.square { aspect-ratio: 1; }
+header#fixedTop > section > div.container > article button#mainMenuBtn { overflow: hidden; }
+header#fixedTop > section > div.container > article button#mainMenuBtn dotlottie-player { --extend: 24px; --size: calc(var(--appbar-height) + (var(--extend) * 2)); width: var(--size); height: var(--size); margin: calc(var(--extend) * -1); translate: 0 3.8%; }
+header#fixedTop > section > div.container > article button#mainMenuBtn.closer dotlottie-player { --extend: -8px; }
+header#fixedTop > section > div.container > article button > .square_icon { display: inline-block; width: 1em; aspect-ratio: 1; }
+header#fixedTop > section > div.container > article hr { display: inline-block; position: relative; width: 1px; height: 10px; min-width: 1px; margin: auto 6px; border-style: none; background-color: rgb(0 0 0 / 10%); }
+header#fixedTop > section#appbar { user-select: none; }
+header#fixedTop > section#appbar > div.container { display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: space-between; }
+header#fixedTop > section#appbar > div.container > .float_area { position: absolute; top: 0; bottom: 0; margin: 0; }
+header#fixedTop > section#appbar > div.container > .float_area.left { left: 0; }
+header#fixedTop > section#appbar > div.container > .float_area.right { right: 0; }
+header#fixedTop > section#appbar > div.container > .float_area.center { left: 0; right: 0; width: max-content; }
+header#fixedTop > section#appbar > div.container > article { display: flex; width: max-content; }
+header#fixedTop > section#appbar > div.container > article > *:not(nav.tool_set) { max-height: 100%; flex-shrink: 0; margin-top: auto; margin-bottom: auto; }
+header#fixedTop > section#appbar > div.container > article > *:not(nav.tool_set) > * { max-height: 100%; }
+header#fixedTop > section#appbar > div.container > article > nav.tool_set { display: flex; width: max-content; height: 100%; align-items: center; }
+header#fixedTop > section#appbar > div.container > article > nav.tool_set > * { width: max-content; max-height: 100%; flex-shrink: 0; margin-top: auto; margin-bottom: auto; }
+header#fixedTop > section#appbar > div.container > article > nav.tool_set > * > * { min-width: max-content; max-height: 100%; }
+header#fixedTop > section#appbar > div.container > article.appbarCenter { flex-direction: row; flex-wrap: nowrap; flex-grow: 0; flex-shrink: 0; }
+header#fixedTop > section#appbar > div.container > article.appbarCenter > nav.tool_set { flex-direction: row; flex-wrap: nowrap; }
+header#fixedTop > section#appbar > div.container > article:is(.appbarLeft, .appbarRight) { width: 0%; flex-grow: 1; flex-shrink: 1; }
+header#fixedTop > section#appbar > div.container:has(> article.appbarCenter:not(:has(> *))):is(:has(> article.appbarCenter > *:not(nav.tool_set)), :has(> article.appbarCenter > nav.tool_set:not(:has(> *)))) > article:is(.appbarLeft, .appbarRight) { width: 40%; }
+header#fixedTop > section#appbar > div.container > article.appbarLeft { flex-direction: row; flex-wrap: nowrap; }
+header#fixedTop > section#appbar > div.container > article.appbarLeft > nav.tool_set { flex-direction: row; flex-wrap: nowrap; }
+header#fixedTop > section#appbar > div.container > article.appbarRight { flex-direction: row-reverse; flex-wrap: nowrap; }
+header#fixedTop > section#appbar > div.container > article.appbarRight > nav.tool_set { flex-direction: row-reverse; flex-wrap: nowrap; }
+header#fixedTop > section#appbar > div.container > button#home { }
+header#fixedTop > section#appbar > div.container > button#home img { height: 86%; }
+
+/* main menu (left/right float) */
+nav#mainMenu { --grab-x: 0px; --menu-area-blur: 8px; position: fixed; z-index: 120; display: flex; flex-direction: row; flex-wrap: nowrap; top: 0; bottom: 0; justify-content: flex-start; user-select: none; }
+nav#mainMenu.right { right: 0; flex-direction: row-reverse; }
+nav#mainMenu[data-opened="1"] { width: 100vw; }
+nav#mainMenu > section { --padding-top: 4px; --padding-bottom: 0px; height: 100vh; box-sizing: border-box; padding: calc(var(--top-pad) + var(--padding-top)) 0 calc(var(--bottom-pad) + var(--padding-bottom)) 0; }
+nav#mainMenu > section#menuArea { --grab-ax: var(--grab-x); --max-width: 360px; --opened-width: 60vw; width: 0; margin: 0; background-color: rgba(var(--cabr) / 40%); backdrop-filter: blur(0px); -webkit-backdrop-filter: blur(0px); overflow: hidden overlay; transition-duration: 0.3s; }
+nav#mainMenu[data-on-grab="1"] > section#menuArea { width: max(calc(0vw + var(--grab-x)), 0px); transition-delay: 0s; transition-duration: 0s; }
+nav#mainMenu[data-on-grab="1"].right > section#menuArea { width: max(calc(0vw - var(--grab-x)), 0px); }
+nav#mainMenu[data-opened="1"] > section#menuArea { width: min(var(--opened-width), var(--max-width)); backdrop-filter: blur(var(--menu-area-blur)); -webkit-backdrop-filter: blur(var(--menu-area-blur)); }
+nav#mainMenu[data-opened="1"].right > section#menuArea { padding-right: var(--right-pad); }
+nav#mainMenu[data-opened="1"]:not(.right) > section#menuArea { padding-left: var(--left-pad); }
+nav#mainMenu[data-opened="1"][data-on-grab="1"] > section#menuArea { width: calc(min(var(--opened-width), var(--max-width)) + var(--grab-x)); }
+nav#mainMenu[data-opened="1"][data-on-grab="1"].right > section#menuArea { width: calc(min(var(--opened-width), var(--max-width)) - var(--grab-x)); }
+nav#mainMenu > section#menuArea > div.container { padding-top: var(--top-pad); background-color: transparent; }
+nav#mainMenu > section#menuArea > div.container:not([data-on-top^="1"]) { display: none; }
+nav#mainMenu > section#menuArea > div.container > article { background-color: transparent; }
+nav#mainMenu > section#menuArea .maxWidth { width: min(var(--max-width), var(--opened-width)); }
+nav#mainMenu > section#menuArea ul { margin: 0 0 0; padding: 0; list-style: none; }
+nav#mainMenu > section#menuArea ul > li { }
+nav#mainMenu > section#menuArea ul > li > button { width: 100%; padding: var(--basic-ui-inset-v) var(--basic-ui-inset-h); text-align: left; font-size: 1.125rem; backdrop-filter: none; -webkit-backdrop-filter: none; text-shadow: 0 0 4px var(--color-anti-text); }
+nav#mainMenu > section#menuArea section.grouped { flex-direction: column; flex-wrap: nowrap; }
+nav#mainMenu > section#menuArea section.grouped > label { }
+nav#mainMenu > section#menuArea section.grouped > ul {  }
+nav#mainMenu > section#menuArea section.grouped > ul > li {  }
+nav#mainMenu > section#grabArea { width: 3vw; max-width: 12px; }
+nav#mainMenu[data-opened="1"] > section#grabArea { flex-grow: 1; max-width: none; background-color: rgb(var(--cadm) / 20%); }
+nav#mainMenu > section#grabArea div.pad { height: 100%; transition-duration: 0.3s; }
+nav#mainMenu[data-opened="1"] > section#grabArea div.pad { backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); }
+@media all and (min-height: 700px) {
+    @media all and (min-width: 740px) {
+nav#mainMenu[data-opened="1"] > section#grabArea div.pad { backdrop-filter: unset; -webkit-backdrop-filter: unset; }
+    }
+}
+
+/* overwatchPanel (drops from top) */
+nav#overwatchPanel { --grab-y: 0px; --panel-block-height: calc(100vh - var(--top-pad) - 42px - var(--bottom-safe-pad)); position: fixed; z-index: 120; top: 0; left: 0; right: 0; bottom: 0; display: flex; flex-direction: column; pointer-events: none; user-select: none; }
+nav#overwatchPanel > header#panelHeader,
+nav#overwatchPanel > .dynamic_section_host,
+nav#overwatchPanel > .dynamic_section_block,
+nav#overwatchPanel > section#panelGrabArea { position: relative; pointer-events: auto; }
+nav#overwatchPanel > header#panelHeader { z-index: 4; }
+nav#overwatchPanel > .dynamic_section_host { z-index: 3; }
+nav#overwatchPanel > .dynamic_section_block { z-index: 2; }
+nav#overwatchPanel > section#panelGrabArea { z-index: 1; }
+nav#overwatchPanel > header#panelHeader { display: flex; flex-direction: row; align-items: baseline; gap: 0.5em; padding: calc(var(--top-pad) + 4px) var(--basic-ui-inset-h) 4px; flex-shrink: 0; background-color: rgba(var(--cabr) / 60%); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); transform: translateY(-100%); transition-duration: 0.3s; }
+nav#overwatchPanel > header#panelHeader > #panelClock { font-size: 1.125rem; font-weight: 600; }
+nav#overwatchPanel > header#panelHeader > #panelDate { font-size: 0.875rem; opacity: 0.75; }
+nav#overwatchPanel > .dynamic_section_host { display: flex; flex-flow: row nowrap; flex-shrink: 0; padding-inline: var(--basic-ui-inset-h); color: var(--color-text-lightest); background-color: rgba(var(--cabr) / 60%); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); transform: translateY(calc(-100% - var(--panel-block-height))); transition-duration: 0.3s; }
+nav#overwatchPanel > .dynamic_section_host > .host_item { flex-grow: 1; padding: 8px 0 7px; border-bottom: solid 1px var(--color-boundary-o10); font-size: 1rem; font-weight: 500; text-align: center; line-height: 1.5em; cursor: pointer; transition-duration: 0.2s; }
+nav#overwatchPanel > .dynamic_section_host > .host_item[data-showing="1"] { padding-bottom: 6px; border-bottom: solid 2px var(--color-indicator-bold); color: var(--color-text-darker); }
+nav#overwatchPanel > .dynamic_section_block { display: flex; flex-flow: row nowrap; flex-shrink: 1; height: var(--panel-block-height); max-height: calc(100vh - var(--top-pad) - 42px - var(--bottom-safe-pad)); overflow-x: overlay; scrollbar-width: none; scroll-behavior: smooth; scroll-snap-type: x mandatory; background-color: rgba(var(--cabr) / 40%); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); transform: translateY(calc(-100vh - var(--panel-block-height))); transition-duration: 0.3s; }
+nav#overwatchPanel > .dynamic_section_block > .block_item { width: 100%; flex-shrink: 0; overflow-y: auto; scroll-snap-align: start; }
+nav#overwatchPanel > section#panelGrabArea { flex-grow: 0; flex-shrink: 0; height: 42px; background-color: transparent; opacity: 0; pointer-events: none; transition-duration: 0.3s; }
+nav#overwatchPanel > section#panelGrabArea > div.handle { --width: 64px; --height: 4px; display: block; width: var(--width); height: var(--height); margin: 10px auto 0; border-radius: calc(var(--height) / 2); background-color: var(--color-boundary-lightside); }
+nav#overwatchPanel > section#panelGrabArea > div.pad { flex-grow: 1; }
+
+nav#overwatchPanel[data-opened="1"] > header#panelHeader,
+nav#overwatchPanel[data-opened="1"] > .dynamic_section_host,
+nav#overwatchPanel[data-opened="1"] > .dynamic_section_block { transform: translateY(0); }
+nav#overwatchPanel[data-opened="1"] > section#panelGrabArea { opacity: 1; pointer-events: auto; background-color: rgb(var(--cadm) / 20%); backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); }
+
+nav#overwatchPanel[data-on-grab="1"] > header#panelHeader,
+nav#overwatchPanel[data-on-grab="1"] > .dynamic_section_host,
+nav#overwatchPanel[data-on-grab="1"] > .dynamic_section_block { transition-delay: 0s; transition-duration: 0s; }
+nav#overwatchPanel[data-on-grab="1"]:not([data-opened="1"]) > header#panelHeader { transform: translateY(calc(-100% + min(max(var(--grab-y), 0px), 100%))); }
+nav#overwatchPanel[data-on-grab="1"]:not([data-opened="1"]) > .dynamic_section_host { transform: translateY(calc(-100% - var(--panel-block-height) + min(max(var(--grab-y), 0px), calc(100% + var(--panel-block-height))))); }
+nav#overwatchPanel[data-on-grab="1"]:not([data-opened="1"]) > .dynamic_section_block { transform: translateY(calc(-100vh - var(--panel-block-height) + min(max(var(--grab-y), 0px), calc(100vh + var(--panel-block-height))))); }
+nav#overwatchPanel[data-opened="1"][data-on-grab="1"] > header#panelHeader,
+nav#overwatchPanel[data-opened="1"][data-on-grab="1"] > .dynamic_section_host,
+nav#overwatchPanel[data-opened="1"][data-on-grab="1"] > .dynamic_section_block { transform: translateY(min(var(--grab-y), 0px)); }
+
+/* Tablet+ (≥740 wide) — surface both block_items side-by-side instead of tab swipe. */
+@media all and (min-width: 740px) {
+    nav#overwatchPanel > .dynamic_section_host { display: none; }
+    nav#overwatchPanel > .dynamic_section_block { scroll-snap-type: none; overflow-x: hidden; }
+    nav#overwatchPanel > .dynamic_section_block > .block_item { width: auto; flex: 1 1 0; min-width: 0; }
+}
+
+/* Top swipe trigger strip. Sits above fixedTop (z-index 130) so the downward swipe can fire while the panel is closed.
+   Height stays inside the safe area (status bar / notch) plus a small 8px bleed into fixedTop so the strip
+   does not cover tappable fixedTop controls. */
+section#panelTrigger { position: fixed; z-index: 135; top: 0; left: 0; right: 0; height: calc(var(--top-safe-pad) + 8px); user-select: none; pointer-events: auto; background-color: transparent; }
+nav#overwatchPanel[data-opened="1"] ~ section#panelTrigger { pointer-events: none; }
+
+/* Quick panel tiles */
+.quick_tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 8px; padding: 8px var(--basic-ui-inset-h); }
+.quick_tile { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding: 12px 8px; border-radius: 12px; border: 1px solid rgb(var(--cadm) / 20%); background-color: rgba(var(--cabr) / 30%); cursor: pointer; user-select: none; }
+.quick_tile > .tile_icon { font-size: 1.5rem; line-height: 1; }
+.quick_tile > .tile_label { font-size: 0.75rem; }
+#darkModeToggle[data-dark-mode-state="light"] { background-color: rgba(var(--cabr) / 50%); }
+#darkModeToggle[data-dark-mode-state="dark"] { background-color: rgba(var(--cadm) / 50%); }
+
+/* Timeline (overwatchPanel #timeline) — roadmap #010. Reuses .post_block visuals from estreUiCore2.css. */
+nav#overwatchPanel #timeline { --bg-color: rgb(var(--cabr) / 70%); box-sizing: border-box; padding: 8px var(--basic-ui-inset-h) calc(8px + var(--bottom-safe-pad)); }
+nav#overwatchPanel #timeline > .timeline_host { display: flex; flex-flow: column nowrap; gap: 10px; }
+nav#overwatchPanel #timeline .timeline_group { display: flex; flex-flow: column nowrap; gap: 6px; }
+nav#overwatchPanel #timeline .timeline_group_header { display: flex; align-items: center; justify-content: space-between; padding: 4px 4px 2px; font-size: 0.75rem; font-weight: 600; color: rgb(var(--ca) / 70%); letter-spacing: 0.02em; text-transform: uppercase; }
+nav#overwatchPanel #timeline .timeline_group_header > .timeline_group_label { flex: 1 1 auto; min-width: 0; }
+nav#overwatchPanel #timeline .timeline_clear_all { flex: 0 0 auto; margin-left: 8px; padding: 3px 10px; border: none; border-radius: 10px; background-color: rgb(var(--ca) / 10%); color: rgb(var(--ca) / 80%); font: inherit; letter-spacing: inherit; text-transform: inherit; cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent; }
+nav#overwatchPanel #timeline .timeline_clear_all:active { background-color: rgb(var(--ca) / 25%); }
+nav#overwatchPanel #timeline .timeline_item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; box-sizing: border-box; border-radius: 14px; background-color: var(--bg-color); backdrop-filter: var(--basic-backdrop-blur); -webkit-backdrop-filter: var(--basic-backdrop-blur); box-shadow: 1px 2px 4px 1px rgb(var(--ca) / 18%); cursor: pointer; user-select: none; }
+nav#overwatchPanel #timeline .timeline_item > .icon_place { flex: 0 0 auto; width: 38px; height: 38px; border-radius: 8px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+nav#overwatchPanel #timeline .timeline_item > .icon_place > img { width: 100%; height: 100%; object-fit: cover; }
+nav#overwatchPanel #timeline .timeline_item > .content_place { flex: 1 1 auto; min-width: 0; --color: var(--color-text); --size: 0.9375rem; --weight: 400; }
+nav#overwatchPanel #timeline .timeline_item > .content_place > .title_line { font-size: 0.9375rem; font-weight: 600; color: var(--color-text); line-height: 1.25em; }
+nav#overwatchPanel #timeline .timeline_item > .content_place > .subtitle_line { font-size: 0.8125rem; font-weight: 400; color: rgb(var(--ca) / 70%); line-height: 1.25em; margin-top: 1px; }
+nav#overwatchPanel #timeline .timeline_item > .content_place > .content_area { display: flex; gap: 8px; align-items: flex-start; margin-top: 3px; }
+nav#overwatchPanel #timeline .timeline_item > .content_place > .content_area > .content_place { flex: 1 1 auto; min-width: 0; color: var(--color); font-size: var(--size); font-weight: var(--weight); line-height: 1.3em; word-break: break-word; }
+nav#overwatchPanel #timeline .timeline_item > .content_place > .content_area > .icon_place { flex: 0 0 auto; width: 20px; height: 20px; border-radius: 4px; overflow: hidden; }
+nav#overwatchPanel #timeline .timeline_item > .content_place > .content_area > .icon_place > img { width: 100%; height: 100%; object-fit: cover; }
+nav#overwatchPanel #timeline .timeline_empty { padding: 32px 16px; text-align: center; font-size: 0.875rem; color: rgb(var(--ca) / 60%); }
+nav#overwatchPanel #timeline .timeline_item.timeline_item_enter { animation: timeline-item-enter 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) both; transform-origin: top center; }
+@keyframes timeline-item-enter {
+    0%   { opacity: 0; transform: translateY(-14px) scale(0.96); }
+    60%  { opacity: 1; }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+nav#overwatchPanel #timeline .timeline_item.timeline_item_exit { animation: timeline-item-exit 0.3s ease-in both; animation-delay: var(--exit-delay, 0ms); pointer-events: none; }
+@keyframes timeline-item-exit {
+    0%   { opacity: 1; transform: translateX(0); }
+    100% { opacity: 0; transform: translateX(60px); }
+}
+
+/* root tabs (bottom) */
+footer#fixedBottom { position: fixed; display: flex; flex-direction: row; flex-wrap: nowrap; z-index: 110; bottom: 0; left: 0; right: 0; height: var(--rootbar-height); margin: 0; padding-bottom: var(--bottom-safe-pad); justify-content: center; background-color: var(--color-boundary-foggy-o66); backdrop-filter: var(--basic-backdrop-blur); -webkit-backdrop-filter: var(--basic-backdrop-blur); justify-content: center; user-select: none; }
+footer#fixedBottom nav { position: relative; display: flex; flex-direction: row; flex-wrap: nowrap; height: var(--rootbar-height); flex-grow: 1; flex-shrink: 1; user-select: none; }
+footer#fixedBottom nav:not(#rootbar) { max-width: 0; }
+footer#fixedBottom nav:first-child { justify-content: flex-end; }
+footer#fixedBottom nav:last-child { justify-content: flex-start; }
+footer#fixedBottom nav#rootbar { width: var(--available-max-width); min-width: var(--rootbar-min-width); max-width: var(--rootbar-max-width); padding-inline: var(--left-pad) var(--right-pad); }
+footer#fixedBottom nav > * { max-height: 100%; margin-top: auto; margin-bottom: auto; }
+footer#fixedBottom nav > *[data-is-hidden="1"] { display: none; }
+footer#fixedBottom nav > * > * { max-height: 100%; }
+footer#fixedBottom nav > * > img { --icon-height: 0.6; height: calc(100%* var(--icon-height)); }
+footer#fixedBottom nav > * > img:only-child { margin: calc(var(--rootbar-height) * (1 - var(--icon-height)) / 2); }
+footer#fixedBottom nav > button { display: flex; flex-flow: column nowrap; height: 100%; flex-grow: 1; justify-content: center; align-items: center; border-radius: 0; font-size: 1.25rem; transition-duration: 0.2s; }
+footer#fixedBottom nav > button:has(> .maskable_icon) > .maskable_icon { position: relative; width: fit-content; height: fit-content; }
+footer#fixedBottom nav > button:has(> .maskable_icon) > .maskable_icon::after { content: ''; position: absolute; top: 0; bottom: 0; left: 0; right: 0; background-color: #333; mask-image: var(--src); mask-repeat: no-repeat; }
+footer#fixedBottom nav > button:has(> .maskable_icon) > .maskable_icon > img { opacity: 0; }
+footer#fixedBottom nav > button:has(> .maskable_icon) > label { color: #999; font-size: 0.625rem; line-height: 0.75rem; }
+footer#fixedBottom nav > button:has(> .maskable_icon)[data-active="1"] > .maskable_icon { }
+footer#fixedBottom nav > button:has(> .maskable_icon)[data-active="1"] > .maskable_icon::after { background-color: var(--color-point-dark); }
+footer#fixedBottom nav > button:has(> .maskable_icon)[data-active="1"] > .maskable_icon > img {  }
+footer#fixedBottom nav > button:has(> .maskable_icon)[data-active="1"] > label { color: var(--color-point-dark); }
+footer#fixedBottom nav > button:not(:has(> .maskable_icon))[data-active="1"] { background-color: #0004; }
+footer#fixedBottom nav > button.fit_for_icon { flex-grow: 0; }
+footer#fixedBottom nav > .dummy_spacer { flex-grow: 0; opacity: 0; }
+footer#fixedBottom nav > .dummy_spacer > img { margin-inline: 0; }
+@media all and (min-height: 700px) and (min-width: 740px) {
+footer#fixedBottom nav#rootbar { width: max-content; padding-inline: 0; flex-grow: 0; flex-shrink: 0; }
+footer#fixedBottom nav:not(#rootbar) { width: -moz-available; width: -webkit-fill-available; width: stretch; flex-grow: 1; }
+footer#fixedBottom nav:not(#rootbar):first-child { padding-left: var(--left-pad); }
+footer#fixedBottom nav:not(#rootbar):last-child { padding-right: var(--right-pad); }
+}
+footer#fixedBottom nav#customFixedSections { position: relative; display: flex; flex-flow: row nowrap; align-items: stretch; gap: 4px; overflow: hidden; }
+footer#fixedBottom nav#instantSections { position: relative; display: flex; flex-flow: row nowrap; align-items: stretch; justify-content: flex-start; gap: 4px; overflow: hidden; }
+
+/* Hairline separators between the rootbar tabs and the cover-bar areas — only on
+ * wide viewports where the three areas actually sit side-by-side. 1px wide,
+ * 66% tall and centered vertically; a soft vertical gradient fades to
+ * transparent at the top and bottom 20% so the bar doesn't get a hard edge.
+ * Rendered as a relative-positioned flex item so margin-left/right (the inset
+ * away from the rootbar edge) actually pushes the line — absolute positioning
+ * would ignore those margins for layout. */
+@media all and (min-height: 700px) and (min-width: 740px) {
+    footer#fixedBottom nav#customFixedSections::after,
+    footer#fixedBottom nav#instantSections::before {
+        content: "";
+        position: relative;
+        flex: 0 0 1px;
+        align-self: center;
+        height: 66%;
+        pointer-events: none;
+        background: linear-gradient(180deg,
+            transparent 0%,
+            var(--color-boundary-o5) 20%,
+            var(--color-boundary-o5) 80%,
+            transparent 100%);
+    }
+    /* Push the separator away from the cover-bar entries on its area side so
+     * the line doesn't touch a filled-out tile. The rootbar-facing edge stays
+     * flush against the rootbar so the boundary still reads as boundary. */
+    footer#fixedBottom nav#customFixedSections::after { margin-left: var(--basic-ui-inset-h-half); }
+    footer#fixedBottom nav#instantSections::before { margin-right: var(--basic-ui-inset-h-half); }
+}
+
+/* Top layer — host surface that paints above every embed (including those that
+ * sit at extreme z-index). The container itself is pointer-event-transparent;
+ * only its mounted children take input, so it never blocks the page underneath.
+ * Mount points include cover-bar overflow dropdowns and any other generic-host
+ * UI that must outrank embeds. Z-index is set to the max safe signed-int value
+ * so an embed cannot accidentally outpaint it. */
+div#topLayer { position: fixed; z-index: 2147483647; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; }
+div#topLayer > * { pointer-events: auto; }
+
+/* Cover bar entries — see EstreCoverBarHandle. One button per opt-in page or
+ * external embed window. Two layouts share the same markup:
+ *   - footer-mounted (instantSections / customFixedSections): column-stacked
+ *     icon-on-top + label-below, sized as a near-square tile (6/7 ~ 8/7 of
+ *     rootbar-height) to line up with rootbar tab buttons.
+ *   - dropdown-mounted (#topLayer .cover_overflow_dropdown): row-laid out
+ *     icon-then-label, free-width — a horizontal list of overflowed entries.
+ * Visual states are driven by data-active / data-minimized so the controller
+ * can flip them with attr() without touching class lists.
+ * flex-shrink: 0 keeps entries readable — when they don't fit, the leading
+ * (instantSections) or trailing (customFixedSections) ones get
+ * data-overflowed="1" and disappear from layout via display:none. The
+ * sentinel + dropdown expose them. */
+footer#fixedBottom nav#customFixedSections .cover_entry,
+footer#fixedBottom nav#instantSections .cover_entry {
+    position: relative;
+    display: inline-flex; flex-flow: column nowrap; align-items: center; justify-content: center; gap: 0;
+    margin: 0; padding: 0;
+    height: 100%;
+    min-width: calc(var(--rootbar-height) * 6 / 7);
+    max-width: calc(var(--rootbar-height) * 8 / 7);
+    flex-shrink: 0;
+    border: 0; outline: 0;
+    border-radius: 0;
+    color: var(--color-text-pale, rgb(var(--ca) / 70%));
+    background-color: transparent;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    /* Zero out the user-agent button line-height baseline so the icon + label
+     * column stacks at the rootbar tab's exact pixel position. Children opt
+     * back in with their own line-height (label) or display:block (img). */
+    font-size: 0; line-height: 0;
+    transition-duration: 0.15s;
+    transition-property: color, opacity;
+}
+div#topLayer .cover_overflow_dropdown .cover_entry {
+    position: relative;
+    display: flex; flex-flow: row nowrap; align-items: center; gap: 6px;
+    width: 100%;
+    margin: 0; padding: 6px 12px;
+    border: 0; outline: 0;
+    border-radius: 0;
+    color: var(--color-text-darker, rgb(var(--ca) / 95%));
+    background-color: transparent;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    text-align: left;
+    font-size: 0.875rem; line-height: 1.25rem;
+    transition-duration: 0.15s;
+    transition-property: background-color, color, opacity;
+}
+/* Footer entries — keep the visual minimal: indicator bar + label color tell the
+ * state, no background fill. Dropdown rows are a contextual list so they keep
+ * the hover/active background highlight. */
+footer#fixedBottom nav .cover_entry[data-active="1"] { color: var(--color-text-darker, rgb(var(--ca) / 95%)); }
+footer#fixedBottom nav .cover_entry[data-minimized="1"] { opacity: 0.55; }
+footer#fixedBottom nav .cover_entry[data-minimized="1"][data-active="1"] { opacity: 0.8; }
+div#topLayer .cover_overflow_dropdown .cover_entry:hover { background-color: rgb(var(--ca) / 8%); }
+div#topLayer .cover_overflow_dropdown .cover_entry[data-active="1"] { color: var(--color-text-darker, rgb(var(--ca) / 95%)); background-color: rgb(var(--ca) / 12%); }
+div#topLayer .cover_overflow_dropdown .cover_entry[data-minimized="1"] { opacity: 0.55; }
+div#topLayer .cover_overflow_dropdown .cover_entry[data-minimized="1"][data-active="1"] { opacity: 0.8; }
+/* Footer icon matches rootbar tab maskable_icon size (32x32) for visual line-up. */
+footer#fixedBottom nav .cover_entry > .cover_icon { display: inline-flex; flex-shrink: 0; width: 32px; height: 32px; margin-bottom: 5px; align-items: center; justify-content: center; line-height: 0; }
+div#topLayer .cover_overflow_dropdown .cover_entry > .cover_icon { display: inline-flex; flex-shrink: 0; width: 18px; height: 18px; align-items: center; justify-content: center; line-height: 0; }
+footer#fixedBottom nav .cover_entry > .cover_icon > img,
+div#topLayer .cover_overflow_dropdown .cover_entry > .cover_icon > img { display: block; width: 100%; height: 100%; }
+/* footer label — small caption under the icon, follows rootbar tab label style. */
+footer#fixedBottom nav .cover_entry > label {
+    flex-shrink: 1; min-width: 0; max-width: 100%;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    font-size: 0.625rem; line-height: 0.75rem;
+    color: inherit;
+    cursor: inherit;
+}
+/* dropdown label — full readable text inline next to the icon. flex-grow so
+ * the row stretches to fill the dropdown's max-content width consistently
+ * even when the title is shorter than the widest sibling. */
+div#topLayer .cover_overflow_dropdown .cover_entry > label {
+    flex: 1 1 auto; min-width: 0;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    color: inherit;
+    font-size: 0.875rem; line-height: 1.25rem;
+    cursor: inherit;
+}
+/* Match the default cover_entry's specificity by repeating the nav id, so
+ * the display:none here actually wins. Without the id duplication the
+ * default rule `nav#instantSections .cover_entry { display: inline-flex }`
+ * outranks this one and overflowed entries stay visible. */
+footer#fixedBottom nav#customFixedSections .cover_entry[data-overflowed="1"],
+footer#fixedBottom nav#instantSections .cover_entry[data-overflowed="1"] { display: none; }
+
+/* Top-edge indicator bar — Windows-11 taskbar-style. A pseudo-element sits at
+ * the top of each footer-mounted entry; its width and color reflect the state.
+ * The fixedBottom sits at the bottom of the viewport, so the bar lives on the
+ * *upper* edge of the button (opposite the taskbar). Default state is "open
+ * but inactive" (a cover-bar entry exists iff its embed is open) — the
+ * not-open state is represented by the absence of the entry itself.
+ *   - inactive          : short bar, pale color
+ *   - active            : long bar, accent color
+ *   - minimized         : short bar, dimmed (opacity)
+ *   - minimized+active  : long bar, dimmed (opacity)
+ * Dropdown rows do not carry the indicator — selection there is communicated
+ * with the background highlight only. */
+footer#fixedBottom nav .cover_entry::before {
+    content: "";
+    position: absolute; top: 0; left: 50%;
+    width: 30%; height: 2px;
+    transform: translateX(-50%);
+    background-color: rgb(var(--ca) / 35%);
+    border-radius: 0 0 2px 2px;
+    transition-duration: 0.2s;
+    transition-property: width, background-color, opacity;
+}
+footer#fixedBottom nav .cover_entry[data-active="1"]::before {
+    width: 70%;
+    background-color: var(--color-point-dark, rgb(var(--ca) / 80%));
+}
+footer#fixedBottom nav .cover_entry[data-active="1"] > label { color: var(--color-point-dark, rgb(var(--ca) / 95%)); }
+
+/* Per-entry unread / notification badge — surfaces via [data-badge] on the
+ * entry's .cover_icon so it sits in the icon's top-right corner. Mirrors the
+ * project-wide `article [data-badge]::after` convention (see estreUi.css)
+ * so host themes can override `--badge-color` once and have it apply
+ * everywhere. Cover bar uses a slightly tighter --height than article badges
+ * to suit the 32px icon. Display rules (see #refreshEntryBadge):
+ *   data-badge=""    → dot
+ *   data-badge="<n>" → numeric pill (2 ≤ n ≤ 99)
+ *   data-badge="99+" → cap label
+ *   attribute absent → no badge */
+footer#fixedBottom nav .cover_entry > .cover_icon,
+div#topLayer .cover_overflow_dropdown .cover_entry > .cover_icon { position: relative; }
+
+footer#fixedBottom nav .cover_entry > .cover_icon[data-badge]::after,
+div#topLayer .cover_overflow_dropdown .cover_entry > .cover_icon[data-badge]::after {
+    --height: 14px;
+    --badge-color: var(--color-point);
+    content: attr(data-badge);
+    position: absolute; z-index: 1;
+    top: -2px; right: -6px;
+    display: flex; align-items: center; justify-content: center;
+    width: max-content;
+    min-width: var(--height); min-height: var(--height); max-height: var(--height);
+    padding: 0 4px;
+    box-sizing: border-box;
+    border-radius: var(--height);
+    background-color: var(--badge-color);
+    color: var(--color-text-inverse, #FFFFFF);
+    font-size: 0.625rem; line-height: var(--height); font-weight: 700;
+    text-align: center;
+    pointer-events: none;
+    transition-timing-function: ease;
+    transition-duration: 0.3s;
+}
+footer#fixedBottom nav .cover_entry > .cover_icon[data-badge=""]::after,
+div#topLayer .cover_overflow_dropdown .cover_entry > .cover_icon[data-badge=""]::after {
+    top: 0; right: -2px;
+    width: 8px; height: 8px;
+    min-width: 8px; min-height: 8px;
+    aspect-ratio: 1;
+    padding: 0;
+    border-radius: 100%;
+}
+
+/* Per-entry close ✕ — rendered when the entry was pushed with closable:true
+ * (Phase 3 external embed hook). Lives inside the entry button as a span so
+ * the click handler can stopPropagation and route to onAction("close") without
+ * the surrounding row registering as a focus/minimize click. The embed is
+ * responsible for actually removing the entry; the ✕ only signals intent.
+ * Footer tiles deliberately hide the ✕ to stay visually tidy — close is
+ * still reachable via the overflow dropdown row, where the ✕ sits inline at
+ * the trailing edge. */
+footer#fixedBottom nav .cover_entry > .cover_entry_close { display: none; }
+div#topLayer .cover_overflow_dropdown .cover_entry > .cover_entry_close {
+    display: inline-flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    width: 18px; height: 18px;
+    margin-left: 2px;
+    border-radius: 50%;
+    color: var(--color-text-pale, rgb(var(--ca) / 50%));
+    font-size: 0.75rem; line-height: 1;
+    cursor: pointer;
+    transition-duration: 0.15s;
+    transition-property: background-color, color;
+}
+div#topLayer .cover_overflow_dropdown .cover_entry > .cover_entry_close:hover {
+    background-color: rgb(var(--ca) / 15%);
+    color: var(--color-text-darker, rgb(var(--ca) / 95%));
+}
+
+/* Overflow sentinel — narrow chevron button at the leading edge of each area
+ * (right-aligned bars' clipped side). Visibility flips via the `hidden`
+ * attribute from #recomputeOverflow. data-opened mirrors the dropdown's
+ * open state so the sentinel feels pressed while its dropdown is up.
+ * Rendered as a thin column-flex button with a small ^-chevron SVG glued
+ * to the top edge — the chevron points to the overflow dropdown that opens
+ * upward from above. */
+footer#fixedBottom nav .cover_overflow_sentinel {
+    display: inline-flex; flex-flow: column nowrap; align-items: center; justify-content: flex-start;
+    flex-shrink: 0;
+    width: 16px; height: 100%;
+    padding: 6px 0 0 0;
+    border: 0; outline: 0;
+    border-radius: 0;
+    color: var(--color-text-pale, rgb(var(--ca) / 60%));
+    background-color: transparent;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    /* Push the sentinel to the trailing edge of its area regardless of DOM
+     * position — entries (default order 0) pack flush to the area's leading
+     * edge, sentinel sits at the trailing end indicating "more this way". */
+    order: 1;
+    transition-duration: 0.15s;
+    transition-property: background-color, color;
+}
+footer#fixedBottom nav .cover_overflow_sentinel > svg { width: 10px; height: 6px; }
+footer#fixedBottom nav .cover_overflow_sentinel:hover { background-color: rgb(var(--ca) / 8%); color: var(--color-text-darker, rgb(var(--ca) / 90%)); }
+footer#fixedBottom nav .cover_overflow_sentinel[data-opened="1"] { color: var(--color-point-dark, rgb(var(--ca) / 95%)); background-color: rgb(var(--ca) / 12%); }
+footer#fixedBottom nav .cover_overflow_sentinel[hidden] { display: none; }
+
+/* Overflow dropdown — mounted in #topLayer, anchored above its sentinel.
+ * Vertical list of cover_entry rows (one per overflowed entry). Chrome
+ * matches the right-click context menu (`.cover_entry_menu`): same
+ * color-mix background wash, backdrop-filter, 1px outset border, and
+ * border-radius. Width sizes to the widest row (max-content) and clamps
+ * to 320px so a long title doesn't push the dropdown past the host.
+ * Positioning is set inline by #positionDropdown. */
+div#topLayer .cover_overflow_dropdown {
+    position: fixed;
+    display: flex; flex-flow: column nowrap;
+    width: max-content; max-width: min(320px, calc(100vw - 16px));
+    padding: 4px 0;
+    border: 1px outset var(--color-boundary-o15);
+    border-radius: 8px;
+    background-color: color-mix(in srgb, var(--common-bg-color) 5%, transparent);
+    backdrop-filter: var(--basic-backdrop-blur);
+    -webkit-backdrop-filter: var(--basic-backdrop-blur);
+    box-shadow: 0 6px 16px rgb(0 0 0 / 14%), 0 1px 4px rgb(0 0 0 / 8%);
+}
+
+/* Context menu — right-click affordance on cover-bar entries. Mounted in
+ * #topLayer so it paints above embed surfaces. Positioned at the cursor
+ * (clamped to the viewport) by #positionContextMenu, which picks a quadrant
+ * (origin corner) so the menu always opens toward viewport center. The
+ * --menu-origin inline custom property drives transform-origin for the
+ * scale-grow open animation. */
+div#topLayer .cover_entry_menu {
+    --menu-origin: top left;
+    position: fixed;
+    display: flex; flex-flow: column nowrap;
+    min-width: 180px; max-width: 280px;
+    padding: 4px 0;
+    border: 1px outset var(--color-boundary-o15);
+    border-radius: 8px;
+    background-color: color-mix(in srgb, var(--common-bg-color) 5%, transparent);
+    backdrop-filter: var(--basic-backdrop-blur);
+    -webkit-backdrop-filter: var(--basic-backdrop-blur);
+    box-shadow: 0 6px 16px rgb(0 0 0 / 14%), 0 1px 4px rgb(0 0 0 / 8%);
+    transform-origin: var(--menu-origin);
+    /* Two-stage open: first 0.2s grows the width (a thin horizontal sliver
+     * around 4~8px tall expands left/right toward full menu width); next 0.2s
+     * grows the height. Total ~0.4s. Origin matches the cursor corner so the
+     * grow unfolds from the click point. */
+    animation: cover_menu_enter 0.4s ease-out;
+}
+div#topLayer .cover_entry_menu[data-closing="1"] {
+    opacity: 0;
+    transform: scale(1);
+    transition: opacity 0.2s ease;
+    animation: none;
+}
+@keyframes cover_menu_enter {
+    0%   { transform: scale(0.15, 0.1); opacity: 0; }
+    50%  { transform: scale(1,    0.1); opacity: 1; }
+    100% { transform: scale(1,    1);   opacity: 1; }
+}
+div#topLayer .cover_entry_menu > header.cover_menu_title {
+    margin: 0 0 4px 0;
+    padding: 6px 12px 6px;
+    border-bottom: 1px solid rgb(var(--ca) / 10%);
+    font-size: 0.75rem; line-height: 1rem;
+    color: var(--color-text-pale, rgb(var(--ca) / 60%));
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+div#topLayer .cover_entry_menu > button.cover_menu_item {
+    display: flex; flex-flow: row nowrap; align-items: center; gap: 8px;
+    width: 100%; margin: 0;
+    padding: 6px 12px;
+    border: 0; outline: 0;
+    background-color: transparent;
+    text-align: left;
+    font-size: 0.875rem; line-height: 1.25rem;
+    color: var(--color-text-darker, rgb(var(--ca) / 95%));
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    transition-duration: 0.15s;
+    transition-property: background-color;
+}
+div#topLayer .cover_entry_menu > button.cover_menu_item > .cover_menu_item_icon { display: inline-flex; flex-shrink: 0; width: 14px; height: 14px; align-items: center; justify-content: center; line-height: 0; color: var(--color-text-pale, rgb(var(--ca) / 60%)); }
+div#topLayer .cover_entry_menu > button.cover_menu_item > .cover_menu_item_icon > svg { width: 14px; height: 14px; display: block; }
+div#topLayer .cover_entry_menu > button.cover_menu_item > .cover_menu_item_label { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+div#topLayer .cover_entry_menu > button.cover_menu_item:hover { background-color: rgb(var(--ca) / 8%); }
+div#topLayer .cover_entry_menu > button.cover_menu_item:disabled,
+div#topLayer .cover_entry_menu > button.cover_menu_item[disabled] {
+    color: var(--color-text-pale, rgb(var(--ca) / 50%));
+    cursor: not-allowed;
+}
+div#topLayer .cover_entry_menu > button.cover_menu_item:disabled:hover,
+div#topLayer .cover_entry_menu > button.cover_menu_item[disabled]:hover { background-color: transparent; }
+
+
+/* session manager */
+main#staticDoc > section#more { }
+main#staticDoc > section#more > .container { }
+main#staticDoc > section#more > .container > article.session_manager { }
+main#staticDoc > section#more > .container > article.session_manager.session_group_holder { flex-direction: column-reverse; }
+main#staticDoc > section#more > .container > article.session_manager.session_group_holder > .sessions_holder .session_list { flex-direction: column-reverse; }
+main#staticDoc > section#more > .container > article.session_manager .session_group_holder { flex-direction: column-reverse; }
+main#staticDoc > section#more > .container > article.session_manager .session_group_holder > .sessions_holder .session_list { flex-direction: column-reverse; }
+
+.session_group_holder { display: flex; flex-direction: column; flex-wrap: nowrap; }
+.session_group_holder > .sessions_holder { }
+.session_group_holder > .sessions_holder .session_list { flex-direction: column; }
+.session_group_holder > .sessions_holder .session_list > .page_short_cut { border-bottom: none; }
+.session_group_holder > .sessions_holder .session_list > .page_short_cut button { width: 100%; padding: 8px; text-align: left; transition-duration: 0.3s; }
+.session_group_holder > .sessions_holder .session_list > .page_short_cut button:hover { background-color: rgb(var(--cpl) / 60%); }
+.session_group_holder > .sessions_holder .session_list > .page_short_cut button:active { background-color: rgb(var(--cpl) / 80%); }
+.session_group_holder > .sessions_holder.fixed_pages { }
+.session_group_holder > .sessions_holder.opened_pages { }
+
+
+/* whole screen content page area */
+main#instantDoc { position: fixed; z-index: 200; height: 0; padding-top: 0; padding-bottom: 0; overflow: visible; }
+main#instantDoc > section { box-sizing: border-box; }
+main#instantDoc > section:is([data-on-top="1"], [data-on-top="0"]) { height: var(--fvh); padding-top: var(--top-safe-pad); padding-bottom: var(--bottom-safe-pad); }
+main#instantDoc > section > div.container { }
+main#instantDoc > section > div.container[data-on-top="1*"] { z-index: 200; }
+main#instantDoc > section > div.container:is([data-on-top="1"], [data-on-top="0"]) { z-index: 201; }
+main#instantDoc > section > div.container:not(:is([data-on-top^="1"], [data-on-top^="0"])) { display: none; }
+main#instantDoc > section > div.container:not([data-on-top="1"]) { opacity: 0; }
+main#instantDoc > section > div.container > article { }
+main#instantDoc > section > div.container > article[data-on-top="1"] { z-index: 201; }
+main#instantDoc > section > div.container > article:has(.appbar_pad.fixed_pad) { padding-top: 0; }
+main#instantDoc > section > div.container > .container_master_float { z-index: 212; }
+
