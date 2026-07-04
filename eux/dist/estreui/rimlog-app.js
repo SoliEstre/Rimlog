@@ -1,5 +1,5 @@
 // ┌─ estreux:expanded ──────────────────────────────────────────────
-// │ source : rimlog-app.eux  (sha256:ef85171e16f5)
+// │ source : rimlog-app.eux  (sha256:925b6e506ae0)
 // │ profile: ui-component
 // │ target : estreui   provider : agent
 // │ trio   : temp=0.2 model=agent/claude template=estreux/v0.0.1
@@ -140,37 +140,51 @@
     renderAll();
   }
 
-  // ── 스타일 (1회 주입 — 목업 rimlog.html 정합 토큰) ────────────────
+  // ── 스타일 (1회 주입 — 라이트/다크 듀얼 컬러셋, EstreUI body[data-dark-mode] 연동) ──
   const CSS = `
-  .rim-page { padding: 16px 16px 24px; color: #e7e9ea; max-width: 560px; margin: 0 auto; }
-  .rim-page h2 { font-size: .95rem; color: #9aa0ae; font-weight: 600; margin: 4px 0 12px; }
+  body { /* 라이트 (기본) — 종이·크림 톤 */
+    --rim-panel: #ffffff; --rim-line: #e4ddd2; --rim-ink: #2b2620; --rim-dim: #8a8375;
+    --rim-faint: #b3ab9d; --rim-accent: #b07d1e; --rim-accent-btn: #d9a23b; --rim-btn-fg: #1a1405;
+    --rim-accent-soft: rgba(176,125,30,.10); --rim-ai: #6a3fe0; --rim-ai-soft: rgba(106,63,224,.07);
+  }
+  body[data-dark-mode="1"] { /* 다크 — 승인 목업 톤 */
+    --rim-panel: #171a21; --rim-line: #2a2f3d; --rim-ink: #e7e9ea; --rim-dim: #9aa0ae;
+    --rim-faint: #6b7180; --rim-accent: #d9a23b; --rim-accent-btn: #d9a23b; --rim-btn-fg: #1a1405;
+    --rim-accent-soft: rgba(217,162,59,.14); --rim-ai: #7a4dff; --rim-ai-soft: rgba(122,77,255,.12);
+  }
+  #appTitleBtn span { color: var(--rim-accent) !important; }
+  .rim-page { padding: 16px 16px 24px; color: var(--rim-ink); max-width: 560px; margin: 0 auto; }
+  .rim-page h2 { font-size: .95rem; color: var(--rim-dim); font-weight: 600; margin: 4px 0 12px; }
   .rim-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
-  .rim-chip { padding: 7px 13px; border-radius: 18px; background: #171a21; border: 1px solid #2a2f3d; color: #9aa0ae; font-size: .85rem; cursor: pointer; }
-  .rim-chip.on { background: rgba(217,162,59,.14); border-color: #d9a23b; color: #d9a23b; }
+  .rim-chip { padding: 7px 13px; border-radius: 18px; background: var(--rim-panel); border: 1px solid var(--rim-line); color: var(--rim-dim); font-size: .85rem; cursor: pointer; }
+  .rim-chip.on { background: var(--rim-accent-soft); border-color: var(--rim-accent); color: var(--rim-accent); }
   .rim-field { margin-bottom: 12px; }
-  .rim-field label { display: block; font-size: .78rem; color: #9aa0ae; margin-bottom: 5px; }
-  .rim-field input, .rim-field textarea { width: 100%; box-sizing: border-box; background: #171a21; border: 1px solid #2a2f3d; border-radius: 10px; color: #e7e9ea; padding: 10px 12px; font: inherit; resize: none; }
+  .rim-field label { display: block; font-size: .78rem; color: var(--rim-dim); margin-bottom: 5px; }
+  .rim-field input, .rim-field textarea { width: 100%; box-sizing: border-box; background: var(--rim-panel); border: 1px solid var(--rim-line); border-radius: 10px; color: var(--rim-ink); padding: 10px 12px; font: inherit; resize: none; }
   .rim-field textarea { min-height: 74px; }
-  .rim-quote textarea { border-left: 3px solid #d9a23b; }
-  .rim-save { width: 100%; padding: 13px; border: 0; border-radius: 12px; background: #d9a23b; color: #1a1405; font: 700 1rem/1 inherit; cursor: pointer; margin-top: 4px; }
-  .rim-card { background: #171a21; border: 1px solid #2a2f3d; border-radius: 14px; padding: 13px 14px; margin-bottom: 12px; }
-  .rim-card .src { display: inline-block; font-size: .72rem; color: #d9a23b; background: rgba(217,162,59,.14); border-radius: 8px; padding: 2px 8px; margin-bottom: 8px; }
-  .rim-card blockquote { border-left: 3px solid #d9a23b; padding: 2px 0 2px 10px; margin: 0 0 8px; font-size: .92rem; }
-  .rim-card .memo { color: #9aa0ae; font-size: .88rem; margin-bottom: 8px; }
-  .rim-card .meta { color: #6b7180; font-size: .74rem; display: flex; gap: 8px; }
-  .rim-card .meta .tag { color: #d9a23b; }
-  ai-insight-card { display: block; margin-bottom: 12px; }
+  .rim-quote textarea { border-left: 3px solid var(--rim-accent); }
+  .rim-save { width: 100%; padding: 13px; border: 0; border-radius: 12px; background: var(--rim-accent-btn); color: var(--rim-btn-fg); font: 700 1rem/1 inherit; cursor: pointer; margin-top: 4px; }
+  .rim-card { background: var(--rim-panel); border: 1px solid var(--rim-line); border-radius: 14px; padding: 13px 14px; margin-bottom: 12px; }
+  .rim-card .src { display: inline-block; font-size: .72rem; color: var(--rim-accent); background: var(--rim-accent-soft); border-radius: 8px; padding: 2px 8px; margin-bottom: 8px; }
+  .rim-card blockquote { border-left: 3px solid var(--rim-accent); padding: 2px 0 2px 10px; margin: 0 0 8px; font-size: .92rem; color: var(--rim-ink); }
+  .rim-card .memo { color: var(--rim-dim); font-size: .88rem; margin-bottom: 8px; }
+  .rim-card .meta { color: var(--rim-faint); font-size: .74rem; display: flex; gap: 8px; }
+  .rim-card .meta .tag { color: var(--rim-accent); }
+  ai-insight-card { display: block; margin-bottom: 12px;
+    --aic-accent: var(--rim-ai); --aic-bg: var(--rim-ai-soft); --aic-ink: var(--rim-ink);
+    --aic-dim: var(--rim-dim); --aic-btn-bg: var(--rim-panel); --aic-btn-line: var(--rim-line);
+  }
   .rim-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px; }
-  .rim-stat { background: #171a21; border: 1px solid #2a2f3d; border-radius: 12px; padding: 12px 8px; text-align: center; }
-  .rim-stat .n { font-size: 1.45rem; font-weight: 800; color: #d9a23b; }
-  .rim-stat .l { font-size: .72rem; color: #9aa0ae; margin-top: 2px; }
+  .rim-stat { background: var(--rim-panel); border: 1px solid var(--rim-line); border-radius: 12px; padding: 12px 8px; text-align: center; }
+  .rim-stat .n { font-size: 1.45rem; font-weight: 800; color: var(--rim-accent); }
+  .rim-stat .l { font-size: .72rem; color: var(--rim-dim); margin-top: 2px; }
   .rim-dist .row { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; font-size: .82rem; }
-  .rim-dist .lbl { width: 84px; color: #9aa0ae; }
-  .rim-dist .bar { flex: 1; height: 9px; background: #171a21; border-radius: 5px; overflow: hidden; }
-  .rim-dist .bar i { display: block; height: 100%; background: #d9a23b; border-radius: 5px; }
-  .rim-dist .v { width: 22px; text-align: right; color: #9aa0ae; font-size: .76rem; }
-  .rim-empty { color: #6b7180; font-size: .86rem; text-align: center; padding: 28px 0; }
-  .rim-busy { color: #7a4dff; font-size: .82rem; margin-bottom: 10px; }
+  .rim-dist .lbl { width: 84px; color: var(--rim-dim); }
+  .rim-dist .bar { flex: 1; height: 9px; background: var(--rim-panel); border: 1px solid var(--rim-line); border-radius: 5px; overflow: hidden; }
+  .rim-dist .bar i { display: block; height: 100%; background: var(--rim-accent-btn); border-radius: 5px; }
+  .rim-dist .v { width: 22px; text-align: right; color: var(--rim-dim); font-size: .76rem; }
+  .rim-empty { color: var(--rim-faint); font-size: .86rem; text-align: center; padding: 28px 0; }
+  .rim-busy { color: var(--rim-ai); font-size: .82rem; margin-bottom: 10px; }
   `;
   function injectStyle() {
     if (document.getElementById("rimlog-style")) return;

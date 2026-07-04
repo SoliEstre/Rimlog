@@ -19,4 +19,4 @@ hide : "가리기" 버튼 — feedback{action:"hide"} event-up (숨김 처리는
 lifecycle : EstreUI 8훅 placeholder 함유(EstreUVElement 계약). 타이머·외부 리스너 없음.
 
 @render
-보라 테마 카드(배경 rgba(122,77,255,.12)·보더 #7a4dff·라운드 14px): 헤드 "✨ AI 연결 제안"(kind=link) 또는 "✨ AI 주간 요약"(kind=weekly, 보라 굵은 글씨) → 본문(body) → 질문/제안(q — 있을 때만, 회색 이탤릭) → 액션 행(👍 토글·가리기, weekly 는 가리기 없음). CSS 커스텀 프로퍼티(--aic-accent·--aic-bg)로 테마 오버라이드 가능. shadow DOM 격리.
+보라 테마 카드(라운드 14px): 헤드 "✨ AI 연결 제안"(kind=link) 또는 "✨ AI 주간 요약"(kind=weekly, 보라 굵은 글씨) → 본문(body) → 질문/제안(q — 있을 때만, 흐린 이탤릭) → 액션 행(👍 토글·가리기, weekly 는 가리기 없음). **컬러는 전부 CSS 커스텀 프로퍼티로 주입받아 호스트의 라이트/다크 테마를 따른다**: --aic-accent(보라)·--aic-bg(연보라 배경)·--aic-ink(본문)·--aic-dim(질문·버튼 글자)·--aic-btn-bg·--aic-btn-line — 각각 다크 톤 폴백 내장. shadow DOM 격리(변수만 경계 통과).
