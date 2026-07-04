@@ -27,6 +27,6 @@ staticDoc root 탭 3장 (승인 목업 mockups/rimlog.html 정합):
 - capture: 상단 "지금 보고 있는 것에서 캡처" 라벨 → 소스 타입 칩 행(5종, 선택=앰버 강조) → 소스명 input → 인용 textarea(좌측 앰버 보더) → 내 생각 textarea → 태그 input → 풀폭 앰버 저장 버튼.
 - log: 헤더(내 기록 · 우측에 개수) → 카드 스트림 — 캡처 카드(소스 뱃지·인용 blockquote·메모·날짜/태그)와 AI 인사이트 카드(<ai-insight-card> UV 위젯 병치 — 보라 테마)가 시간순 섞여 내려온다.
 - week: 주간 헤더(기간) → 통계 타일 3개(캡처/소스/AI 연결, 앰버 숫자) → 소스 분포 바 → AI 주간 요약(<ai-insight-card> kind=weekly) → "다음 읽을거리" 제안 카드(점선 앰버 보더).
-공통: 다크 톤(--bg #0f1115·--panel #171a21·--ink #e7e9ea·--accent #d9a23b·--ai #7a4dff), 모바일 우선(max-width 제약은 EstreUI 프레임에 위임), fixedBottom rootbar 에 탭 버튼 3개(✍️/📚/📅).
+공통: 다크 톤(--bg #0f1115·--panel #171a21·--ink #e7e9ea·--accent #d9a23b·--ai #7a4dff), 모바일 우선 + 콘텐츠 최대폭 560px 중앙 정렬(데스크톱에서 풀폭 방지), fixedBottom rootbar 에 탭 버튼 3개(✍️/📚/📅).
 
 @persist localStorage key=rimlog-store fields=captures,insights,provider — apiKey 는 sessionStorage(보안: 영속 금지)

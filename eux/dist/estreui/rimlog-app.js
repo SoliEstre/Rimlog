@@ -1,5 +1,5 @@
 // ┌─ estreux:expanded ──────────────────────────────────────────────
-// │ source : rimlog-app.eux  (sha256:5fa48eee286d)
+// │ source : rimlog-app.eux  (sha256:ef85171e16f5)
 // │ profile: ui-component
 // │ target : estreui   provider : agent
 // │ trio   : temp=0.2 model=agent/claude template=estreux/v0.0.1
@@ -142,7 +142,7 @@
 
   // ── 스타일 (1회 주입 — 목업 rimlog.html 정합 토큰) ────────────────
   const CSS = `
-  .rim-page { padding: 16px 16px 24px; color: #e7e9ea; }
+  .rim-page { padding: 16px 16px 24px; color: #e7e9ea; max-width: 560px; margin: 0 auto; }
   .rim-page h2 { font-size: .95rem; color: #9aa0ae; font-weight: 600; margin: 4px 0 12px; }
   .rim-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
   .rim-chip { padding: 7px 13px; border-radius: 18px; background: #171a21; border: 1px solid #2a2f3d; color: #9aa0ae; font-size: .85rem; cursor: pointer; }

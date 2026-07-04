@@ -1,8 +1,8 @@
 {
     "id": "./",
-    "name": "App title",
-    "short_name": "App name",
-    "description": "App description",
+    "name": "Rimlog — AI 독서·학습 일지",
+    "short_name": "Rimlog",
+    "description": "캡처한 메모를 AI가 연결하고 질문을 만들어 주는 두 번째 뇌",
     "icons": [
         {
             "src": "./images/app_icon_192x192.png",
