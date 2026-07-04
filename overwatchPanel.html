@@ -1,0 +1,27 @@
+        <header id="panelHeader" data-static="1">
+            <!-- Common top header. Clock / date populated by setOverwatchPanelClock in a later commit. -->
+            <span id="panelClock"></span>
+            <span id="panelDate"></span>
+        </header>
+        <div class="dynamic_section_host" data-static="1">
+            <div class="host_item" data-id="timeline"><span>Timeline</span></div>
+            <div class="host_item" data-id="quickPanel"><span>Quick</span></div>
+        </div>
+        <div class="dynamic_section_block full_screen" data-static="1">
+            <section class="block_item" id="timeline" data-id="timeline" data-static="1">
+                <!-- Timeline slot: markup reserved in roadmap #008. Implementation scheduled separately. -->
+            </section>
+            <section class="block_item" id="quickPanel" data-id="quickPanel" data-static="1">
+                <div class="container" data-container-id="root" data-static="1">
+                    <article data-article-id="main" data-static="1">
+                        <div class="quick_tiles">
+                            <button id="darkModeToggle" class="quick_tile" type="button" data-dark-mode-state="auto" onclick="estreUi.cycleDarkMode();">
+                                <span class="tile_icon" aria-hidden="true">&#x1F313;</span>
+                                <span class="tile_label">Auto</span>
+                            </button>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </div>
+        <section id="panelGrabArea" data-static="1"><div class="handle"></div><div class="pad"></div></section>
