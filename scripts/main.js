@@ -16,7 +16,9 @@ class AppPagesProvider {
 
         //"own shorter id": "PID",
 
-        "home": "&m=home",
+        "capture": "&m=capture",
+        "log": "&m=log",
+        "week": "&m=week",
 
     }; }
 
@@ -34,7 +36,10 @@ class AppPagesProvider {
     //declare handler of pages
 
     //"own shorter id" = page handler implementation class from extends EstrePageHandler or empty class(function type constructor)
-    "home" = class extends EstrePageHandler {};
+    // Rimlog 페이지 핸들러 — eux/dist/estreui/rimlog-app.js (brew 산출물) 의 window.Rimlog 표면
+    "capture" = window.Rimlog.pages.capture;
+    "log" = window.Rimlog.pages.log;
+    "week" = window.Rimlog.pages.week;
 
 }
 
@@ -410,7 +415,7 @@ $(document).ready((e) => setTimeout(_ => {
 
     appActionManager.onReadyEstreUi().then(handled => {
         if (!handled) {
-            appPageManager.bringPage("home");
+            appPageManager.bringPage("capture");
 
             postQueue(_ => estreUi.checkOnReady());
         }

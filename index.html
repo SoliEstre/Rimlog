@@ -70,6 +70,13 @@
     <script defer type="text/javascript" src="./scripts/estreUi-handles.js"></script>
     <script defer type="text/javascript" src="./scripts/estreUi-interaction.js"></script>
     <script defer type="text/javascript" src="./scripts/estreUi-main.js"></script>
+    <!-- Rimlog — .eux brew 산출물 (estreui 변종: 페이지 3장 + 스토어 + AI) -->
+    <script defer type="text/javascript" src="./eux/dist/estreui/rimlog-app.js"></script>
+    <!-- Rimlog — estreuv(Lit) 위젯: AI 인사이트 카드 (import map + module) -->
+    <script type="importmap">
+        { "imports": { "estreuv": "https://esm.sh/estreuv@1.0.0", "lit": "https://esm.sh/lit@3", "lit/": "https://esm.sh/lit@3/", "@lit/context": "https://esm.sh/@lit/context@1" } }
+    </script>
+    <script type="module" src="./eux/dist/estreuv/ai-insight-card.js"></script>
     <script defer type="text/javascript" src="./scripts/main.js"></script>
     <script>
         // in html scripts

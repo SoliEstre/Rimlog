@@ -1,4 +1,4 @@
-const INSTALLATION_VERSION_NAME = "1.5.1-r202607040122";
+const INSTALLATION_VERSION_NAME = "1.5.1-rimlog-v2-20260705";
 // ^^ Use for check new update "Native application(webview) version(or Android/iOS version combo) - PWA release version"
 // ex) "1.0.1/1.0.0-r20251101k"
 
@@ -18,6 +18,8 @@ const INSTALLATION_FILE_LIST = [
 
 
     "./scripts/main.js",
+    "./eux/dist/estreui/rimlog-app.js",
+    "./eux/dist/estreuv/ai-insight-card.js",
 ];
 
 
