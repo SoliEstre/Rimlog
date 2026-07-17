@@ -17,6 +17,8 @@ This is the flagship concept-verification app for the **Estre** stack. The entir
 
 The spec → code pipeline is [EstreUX](https://github.com/SoliEstre/EstreUX.js): specs are the single source of truth, outputs are drift-checked against them. Measured maintained-LoC reduction across the ecosystem: **60–82%**.
 
+Full write-up: [the Rimlog build story](https://soliestre.github.io/Rimlog/docs/build-story) (English) · [한국어 원문](https://estreui.tistory.com/5)
+
 - Works offline: AI falls back to tag/keyword linking when no API key is set (BYOK for OpenAI-compatible providers).
 - Data stays in your browser (localStorage) — no account, no server.
 
