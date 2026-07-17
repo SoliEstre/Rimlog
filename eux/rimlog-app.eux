@@ -3,21 +3,24 @@
 @expansion temperature=0.2 model=agent/claude template=estreux/v0.0.1
 @targets estreui
 @deps ai-insight-card.eux   # AI 인사이트 카드 — estreuv(Lit) 위젯, 기록·주간 페이지에 병치
+@deps insight-server.eux    # (선택) 셀프호스트 인사이트 서버 — provider=server 일 때의 백엔드
 
 @state
 captures   : object[] = []      # 캡처 목록 [{id, srcType, srcName, quote, memo, tags[], at}] — 로컬 스토리지 영속
 draftSrc   : string = "book"    # 캡처 폼의 소스 타입 선택 (book|article|lecture|podcast|video)
 insights   : object[] = []      # AI 인사이트 [{id, kind(link|question|weekly), body, q, refIds[], liked, hidden, at}]
 aiBusy     : boolean = false    # AI 호출 진행 중 표시
-provider   : string = "agent"   # LLM provider (wordchain 과 동일 계층: agent 폴백 + openai-compatible BYOK)
-apiKey     : string = ""        # BYOK 키 (agent 는 불요)
+provider   : string = "agent"   # LLM provider — agent(폴백)|server(셀프호스트 @deps insight-server)|openai|google(BYOK)
+apiKey     : string = ""        # BYOK 키 (agent·server 는 불요 — server 는 키를 서버 env 에 둔다)
+serverUrl  : string = ""        # provider=server 의 엔드포인트 베이스(빈 값 = same-origin). 예: http://localhost:8787
 
 @behavior
 pages : root 탭 3장 — capture(✍️ 캡처)·log(📚 기록)·week(📅 주간). 각각 EstrePageHandler 상속 핸들러로 등록, fixedBottom rootbar 버튼(data-tab-id)과 매칭. 시작 탭 = capture.
 srcTypes : 소스 타입 5종 칩 — 📖 book·📰 article·🎓 lecture·🎙 podcast·🎬 video(유튜브/릴스 — 영상 링크와 내가 단 댓글을 인용으로 캡처, 책을 안 읽는 사용자의 주 진입점). 단일 선택.
 saveCapture : 캡처 폼(소스명·인용·내 생각·태그) 저장 — captures 맨 앞 삽입 + 로컬 스토리지 반영 + "저장됐어요" 토스트 + 기록 탭으로 전환. 저장 직후 requestInsight 를 비동기 트리거(화면 블로킹 금지).
-requestInsight : 최신 캡처 + 기존 캡처 요약을 입력으로 LLM 1콜 — "이 메모와 이어지는 과거 메모 연결(refIds)과 이유, 그리고 사고를 확장하는 질문 1개"를 생성해 insights 에 추가(kind=link). provider=agent 또는 키 미설정·호출 실패 시 내장 폴백(간단한 태그/단어 겹침 기반 연결 + 정형 질문)으로 대체 — 오프라인에서도 데모 성립(V4 계약: Claude API 1콜 상당).
-weeklySummary : 주간 페이지 진입(onShow) 시 이번 주 캡처가 3개 이상이고 이번 주 요약이 아직 없으면 LLM 1콜로 "이번 주 기록을 관통하는 주제 + 실천 제안 1줄" 생성(kind=weekly). 폴백 = 태그 빈도 기반 정형 요약.
+requestInsight : 최신 캡처 + 기존 캡처 요약을 입력으로 LLM 1콜 — "이 메모와 이어지는 과거 메모 연결(refIds)과 이유, 그리고 사고를 확장하는 질문 1개"를 생성해 insights 에 추가(kind=link). provider=server 면 셀프호스트 서버(@deps insight-server)의 POST {serverUrl}/api/insight 로 위임(키 불요 — 백엔드·키는 서버 소관). provider=agent 또는 키 미설정·호출 실패 시 내장 폴백(간단한 태그/단어 겹침 기반 연결 + 정형 질문)으로 대체 — 오프라인에서도 데모 성립(V4 계약: Claude API 1콜 상당).
+weeklySummary : 주간 페이지 진입(onShow) 시 이번 주 캡처가 3개 이상이고 이번 주 요약이 아직 없으면 LLM 1콜로 "이번 주 기록을 관통하는 주제 + 실천 제안 1줄" 생성(kind=weekly). provider=server 면 POST {serverUrl}/api/weekly. 폴백 = 태그 빈도 기반 정형 요약.
+aiSettings : 주간 페이지 하단 "AI 연결" 설정 카드 — provider 선택(내장 폴백 agent / 셀프호스트 서버 server / OpenAI / Google) + 조건부 입력(server: 서버 주소(빈 값 = 같은 주소에서 서빙) / openai·google: API 키). 변경 즉시 반영·저장. 키는 세션에만, 주소·provider 는 영속.
 insightFeedback : 인사이트 카드의 👍(liked 토글)·가리기(hidden=true) — 피드백 루프. hidden 은 목록에서 제외.
 weekStats : 주간 페이지 — 이번 주 캡처 수·소스 수·AI 연결 수 타일 + 소스 타입별 분포 바(비율).
 lifecycle : 각 페이지 핸들러는 onBring 에서 DOM 골격 준비, onShow 에서 데이터 렌더 갱신. 인사이트 요청 등 비동기 결과는 페이지가 hide 상태여도 상태에만 반영하고 다음 onShow 에서 그린다.
@@ -26,7 +29,7 @@ lifecycle : 각 페이지 핸들러는 onBring 에서 DOM 골격 준비, onShow 
 staticDoc root 탭 3장 (승인 목업 mockups/rimlog.html 정합):
 - capture: 상단 "지금 보고 있는 것에서 캡처" 라벨 → 소스 타입 칩 행(5종, 선택=앰버 강조) → 소스명 input → 인용 textarea(좌측 앰버 보더) → 내 생각 textarea → 태그 input → 풀폭 앰버 저장 버튼.
 - log: 헤더(내 기록 · 우측에 개수) → 카드 스트림 — 캡처 카드(소스 뱃지·인용 blockquote·메모·날짜/태그)와 AI 인사이트 카드(<ai-insight-card> UV 위젯 병치 — 보라 테마)가 시간순 섞여 내려온다.
-- week: 주간 헤더(기간) → 통계 타일 3개(캡처/소스/AI 연결, 앰버 숫자) → 소스 분포 바 → AI 주간 요약(<ai-insight-card> kind=weekly) → "다음 읽을거리" 제안 카드(점선 앰버 보더).
+- week: 주간 헤더(기간) → 통계 타일 3개(캡처/소스/AI 연결, 앰버 숫자) → 소스 분포 바 → AI 주간 요약(<ai-insight-card> kind=weekly) → "다음 읽을거리" 제안 카드(점선 앰버 보더) → AI 연결 설정 카드(aiSettings — provider 셀렉트 + 조건부 입력, 은은한 라인 카드).
 공통: **라이트/다크 듀얼 컬러셋** — EstreUI 테마 체계(`body[data-dark-mode="1"]`)를 따라 CSS 변수(--rim-*)로 토큰화. 라이트(기본) = 독서 앱다운 종이·크림 톤(패널 흰색·라인 #e4ddd2·잉크 #2b2620·앰버 #b07d1e 진한 대비·AI 보라 #6a3fe0), 다크 = 목업 톤(패널 #171a21·라인 #2a2f3d·잉크 #e7e9ea·앰버 #d9a23b·AI 보라 #7a4dff). UV 위젯에는 --aic-* 변수로 관통 주입(shadow DOM 경계 통과). 저장 버튼은 양 모드 공통 앰버 배경+짙은 글자. 모바일 우선 + 콘텐츠 최대폭 560px 중앙 정렬(데스크톱에서 풀폭 방지), fixedBottom rootbar 에 탭 버튼 3개(✍️/📚/📅), 앱바 타이틀 색도 --rim-accent 연동.
 
-@persist localStorage key=rimlog-store fields=captures,insights,provider — apiKey 는 sessionStorage(보안: 영속 금지)
+@persist localStorage key=rimlog-store fields=captures,insights,provider,serverUrl — apiKey 는 sessionStorage(보안: 영속 금지)

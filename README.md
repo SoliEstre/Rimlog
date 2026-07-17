@@ -29,6 +29,27 @@ npm install
 npm run dev   # HTTPS dev server (PWA)
 ```
 
+## Self-host (real AI backend, no key in the browser)
+
+The GitHub Pages deployment is a serverless preview: the AI falls back to tag overlap unless you paste an API key. For real use, run the bundled insight server — a single-file, zero-dependency node server (brewed from [`eux/insight-server.eux`](eux/insight-server.eux)) that serves the app and generates insights with the backend of your choice:
+
+```bash
+# quickest free path — NVIDIA's hosted models (no credit card):
+# 1. sign up at https://build.nvidia.com and create an API key (nvapi-...)
+# 2.
+NVIDIA_API_KEY=nvapi-... node eux/dist/server/insight-server.js
+# 3. open http://localhost:8787 → 주간 tab → AI 연결 → "셀프호스트 서버"
+```
+
+| `INSIGHT_BACKEND` | Uses | Key/auth |
+| --- | --- | --- |
+| `nvidia` (default) | [build.nvidia.com](https://build.nvidia.com) free hosted models (OpenAI-compatible, ~40 RPM free tier) | `NVIDIA_API_KEY` |
+| `claude-cli` | your installed Claude Code — runs `claude -p` per request | Claude subscription (no API key) |
+| `codex-cli` | OpenAI Codex CLI — runs `codex exec` per request | ChatGPT subscription (no API key) |
+| `openai` / `google` | direct API proxy | `OPENAI_API_KEY` / `GOOGLE_API_KEY` |
+
+Other env: `INSIGHT_MODEL` (default `meta/llama-3.1-70b-instruct` on nvidia) · `PORT` (8787) · `INSIGHT_CORS_ORIGIN` (`*`) · `INSIGHT_STATIC=0` to disable static serving. Keys stay on the server; the browser sends only the memo payload.
+
 ## Status
 
 Concept-verification build (2-week validation). See the sibling demo: [wordchain story](https://github.com/SoliEstre/EstreUX.js/tree/main/examples) — one spec, three framework variants.

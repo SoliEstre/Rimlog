@@ -1,5 +1,5 @@
 // ┌─ estreux:expanded ──────────────────────────────────────────────
-// │ source : rimlog-app.eux  (sha256:925b6e506ae0)
+// │ source : rimlog-app.eux  (sha256:c81ea10e0361)
 // │ profile: ui-component
 // │ target : estreui   provider : agent
 // │ trio   : temp=0.2 model=agent/claude template=estreux/v0.0.1
@@ -12,21 +12,22 @@
 (function () {
   "use strict";
 
-  // ── 스토어 (localStorage: captures/insights/provider · sessionStorage: apiKey) ──
+  // ── 스토어 (localStorage: captures/insights/provider/serverUrl · sessionStorage: apiKey) ──
   const STORE_KEY = "rimlog-store";
   const Store = {
-    captures: [], insights: [], provider: "agent",
+    captures: [], insights: [], provider: "agent", serverUrl: "",
     load() {
       try {
         const raw = JSON.parse(localStorage.getItem(STORE_KEY) || "{}");
         this.captures = raw.captures || [];
         this.insights = raw.insights || [];
         this.provider = raw.provider || "agent";
+        this.serverUrl = raw.serverUrl || "";
       } catch (e) { /* 초기 상태 유지 */ }
     },
     save() {
       localStorage.setItem(STORE_KEY, JSON.stringify({
-        captures: this.captures, insights: this.insights, provider: this.provider,
+        captures: this.captures, insights: this.insights, provider: this.provider, serverUrl: this.serverUrl,
       }));
     },
     get apiKey() { return sessionStorage.getItem("rimlog-api-key") || ""; },
@@ -67,8 +68,19 @@
     };
   }
 
+  // provider=server — 셀프호스트 인사이트 서버(insight-server) 위임. 빈 serverUrl = same-origin.
+  const serverBase = () => (Store.serverUrl || "").replace(/\/+$/, "");
+  async function serverCall(pathname, payload) {
+    const res = await fetch(serverBase() + pathname, {
+      method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload),
+    });
+    if (!res.ok) throw new Error("server " + res.status);
+    return res.json();
+  }
+
   async function llmInsight(latest, others) {
     const p = Store.provider, key = Store.apiKey;
+    if (p === "server") return serverCall("/api/insight", { latest, others: others.slice(0, 8) });
     if (p === "agent" || !key || !BASE[p]) return null;   // agent/키 없음 → 폴백 경로
     const context = others.slice(0, 8).map((c) => `- [${c.id}] ${c.srcName}: ${c.quote.slice(0, 80)} / 메모: ${c.memo.slice(0, 80)}`).join("\n");
     const res = await fetch(BASE[p] + "/chat/completions", {
@@ -118,7 +130,10 @@
     let body = null, q = "";
     try {
       const p = Store.provider, key = Store.apiKey;
-      if (p !== "agent" && key && BASE[p]) {
+      if (p === "server") {
+        const j = await serverCall("/api/weekly", { captures: caps.map((c) => ({ srcName: c.srcName, memo: c.memo })) });
+        body = j.body; q = j.q || "";
+      } else if (p !== "agent" && key && BASE[p]) {
         const list = caps.map((c) => `- ${c.srcName}: ${c.memo.slice(0, 80)}`).join("\n");
         const res = await fetch(BASE[p] + "/chat/completions", {
           method: "POST", headers: { "Content-Type": "application/json", Authorization: "Bearer " + key },
@@ -183,6 +198,10 @@
   .rim-dist .bar { flex: 1; height: 9px; background: var(--rim-panel); border: 1px solid var(--rim-line); border-radius: 5px; overflow: hidden; }
   .rim-dist .bar i { display: block; height: 100%; background: var(--rim-accent-btn); border-radius: 5px; }
   .rim-dist .v { width: 22px; text-align: right; color: var(--rim-dim); font-size: .76rem; }
+  .rim-settings { margin-top: 18px; padding: 12px 14px; border: 1px solid var(--rim-line); border-radius: 12px; background: var(--rim-panel); }
+  .rim-set-title { font-size: .82rem; font-weight: 700; color: var(--rim-dim); margin-bottom: 8px; }
+  .rim-settings select, .rim-settings input { width: 100%; box-sizing: border-box; margin-bottom: 8px; padding: 9px 10px; font-size: .86rem; color: var(--rim-ink); background: transparent; border: 1px solid var(--rim-line); border-radius: 8px; }
+  .rim-set-hint { font-size: .74rem; color: var(--rim-dim); }
   .rim-empty { color: var(--rim-faint); font-size: .86rem; text-align: center; padding: 28px 0; }
   .rim-busy { color: var(--rim-ai); font-size: .82rem; margin-bottom: 10px; }
   `;
@@ -277,7 +296,29 @@
       <div class="rim-dist">${Object.entries(srcs).map(([k, n]) => { const s = srcOf(k); return `<div class="row"><span class="lbl">${s.ico} ${s.label}</span><span class="bar"><i style="width:${Math.round((n / Math.max(caps.length, 1)) * 100)}%"></i></span><span class="v">${n}</span></div>`; }).join("")}</div>`);
     if (weekly) $page.append(insightEl(weekly));
     else if (caps.length < 3) $page.append(`<div class="rim-empty">이번 주 캡처가 3개 이상 되면 AI 주간 요약이 생겨요 (지금 ${caps.length}개)</div>`);
+    $page.append(settingsEl());
     $h.empty().append($page);
+  }
+
+  // AI 연결 설정 카드 (aiSettings) — provider 선택 + 조건부 입력, 변경 즉시 저장
+  function settingsEl() {
+    const p = Store.provider;
+    const $el = $(`<div class="rim-settings">
+      <div class="rim-set-title">AI 연결</div>
+      <select class="rim-set-provider">
+        <option value="agent"${p === "agent" ? " selected" : ""}>내장 폴백 (키 없음 — 태그 겹침)</option>
+        <option value="server"${p === "server" ? " selected" : ""}>셀프호스트 서버 (NVIDIA 무료 API·Claude/ChatGPT 구독 CLI)</option>
+        <option value="openai"${p === "openai" ? " selected" : ""}>OpenAI (API 키)</option>
+        <option value="google"${p === "google" ? " selected" : ""}>Google (API 키)</option>
+      </select>
+      <input class="rim-set-server" type="url" placeholder="서버 주소 (비우면 지금 이 주소에서 서빙)" value="${esc(Store.serverUrl)}" style="display:${p === "server" ? "block" : "none"}">
+      <input class="rim-set-key" type="password" placeholder="API 키 (브라우저 세션에만 보관)" value="${esc(Store.apiKey)}" style="display:${p === "openai" || p === "google" ? "block" : "none"}">
+      <div class="rim-set-hint">${p === "server" ? "서버 쪽 백엔드·키 설정은 리포 README 의 Self-host 절 참고." : "키는 탭을 닫으면 사라져요."}</div>
+    </div>`);
+    $el.find(".rim-set-provider").on("change", function () { Store.provider = this.value; Store.save(); renderWeek(); });
+    $el.find(".rim-set-server").on("change", function () { Store.serverUrl = this.value.trim(); Store.save(); });
+    $el.find(".rim-set-key").on("change", function () { Store.apiKey = this.value.trim(); });
+    return $el;
   }
 
   function renderAll() { renderCapture(); renderLog(); renderWeek(); }

@@ -26,7 +26,11 @@ I also measured the savings. I took components that already existed in the frame
 
 ## Try it
 
-The live app is at https://soliestre.github.io/Rimlog/. Open it in a mobile browser and add it to your home screen, and it behaves like an app. For the AI connection, paste in an API key to use a real model, or skip it and a simple tag-overlap fallback fills in. The key stays in your browser session and disappears when you close it.
+The live app is at https://soliestre.github.io/Rimlog/. Open it in a mobile browser and add it to your home screen, and it behaves like an app. For the AI connection, open the weekly tab's settings card: paste an API key to use a real model, or skip it and a simple tag-overlap fallback fills in. The key stays in your browser session and disappears when you close it.
+
+## Run it with a real model, for free
+
+The Pages deployment is a serverless preview, so what you see there is the fallback unless you bring a key. The repo now ships a self-host option: a single-file, zero-dependency node server (also brewed from [a spec](https://github.com/SoliEstre/Rimlog/blob/main/eux/insight-server.eux)) that serves the app and generates insights server-side. The default backend is NVIDIA's free hosted models: [build.nvidia.com](https://build.nvidia.com) hands out an API key with no credit card, speaks the OpenAI-compatible protocol, and allows about 40 requests a minute on the free tier, which is plenty for a personal journal. Or reuse a subscription you already pay for: the `claude-cli` backend shells out to `claude -p` per request, and `codex-cli` to `codex exec`. Either way the key or auth stays on the server and never touches the browser. Setup is three lines in the [README](https://github.com/SoliEstre/Rimlog#self-host-real-ai-backend-no-key-in-the-browser).
 
 If you read the [repository](https://github.com/SoliEstre/Rimlog)'s commit history from the beginning, the whole sequence is there in order: scaffold, spec, generation, polish. If you are curious about the spec format, the [EstreUX repo](https://github.com/SoliEstre/EstreUX.js) has the docs.
 
